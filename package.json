@@ -18,7 +18,7 @@
     "babel-loader": "^8.2.2",
     "click-outside-vue3": "^4.0.1",
     "core-js": "^3.6.5",
-    "data-source-builder": "git+http://gitlab.tirscript.com:8888/project-manager/plugins/data-source-builder.git",
+    "data-source-builder": "    git+http://gitlab.tirscript.com:8888/project-manager/plugins/data-source-builder.git",
     "faker": "^5.5.2",
     "js-cookie": "^2.2.1",
     "md5": "^2.3.0",
