@@ -1,0 +1,48 @@
+{
+  "_from": "list-view@latest",
+  "_id": "list-view@1.0.26",
+  "_inBundle": false,
+  "_integrity": "sha512-rERXLgbZLWPb/dZShXltpB2yQnipwPkmQXlffp9HAnBEe7NR5zC2+sXNPPNZV89E9tUZV9M2a7n8C1T6te/MsQ==",
+  "_location": "/list-view",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "list-view@latest",
+    "name": "list-view",
+    "escapedName": "list-view",
+    "rawSpec": "latest",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "/ui-components",
+    "/ui-dropdown"
+  ],
+  "_resolved": "http://194.28.112.20:4873/list-view/-/list-view-1.0.26.tgz",
+  "_shasum": "ca7ff617f00455701bdc6bb08e1ee43a1e6f35b9",
+  "_spec": "list-view@latest",
+  "_where": "D:\\Projects\\2020\\PMR medications\\node_modules\\ui-components",
+  "author": {
+    "name": "Tirscript"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "component-models": "latest",
+    "ui-checkbox": "latest",
+    "vue-property-decorator": "latest"
+  },
+  "deprecated": false,
+  "description": "Для списков",
+  "license": "ISC",
+  "main": "index.js",
+  "name": "list-view",
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.tirscript.com:8888/project-manager/plugin.client/list-view.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.26"
+}

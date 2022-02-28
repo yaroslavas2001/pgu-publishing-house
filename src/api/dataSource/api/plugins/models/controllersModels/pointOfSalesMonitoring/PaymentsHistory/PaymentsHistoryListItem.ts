@@ -1,0 +1,59 @@
+export default class PaymentsHistoryListItem {
+    AcceptDate?: Date
+    Accept_Date?: Date
+    BanknotesSum?: number
+    BeepayId?: number
+    CanceledInGatewayType?: number
+    CheckRequestId?: any
+    CoinsSum?: number
+    CommissionTotal?: number
+    ConfirmationRequestId?: any
+    Currency?: any
+    Currency_Type?: number
+    DefaultCurrency?: any
+    DeleteMarkDate?: Date
+    Description?: any
+    //Enterprise
+    EnterpriseState?: number
+    FiscalId?: number
+    FullSumma?: number
+    GatewayAttempts?: number
+    GatewayName?: any
+    Id?: number
+    IsMarkedAsDeleted?: boolean
+    IsOffline?: boolean
+    IsTranCopy?: boolean
+    Note?: any
+    Offline?: number
+    //Operator
+    OperatorCurrency?: any
+    OperatorId?: number
+    OperatorName?: any
+    PayNotes?: any
+    PaymentType?: number
+    PaymentTypeName?: any
+    PercentPos?: number
+    Phone?: string
+    PosAddress?: any
+    PosCode?: any
+    Rate?: number
+    ReportState?: number
+    Request1Date?: Date
+    Request1Error?: number
+    Request1Id?: any
+    Request2Date?: Date
+    Request2Error?: number
+    Request2Id?: any
+    RequestError?: number
+    RequestErrorDescription?: string
+    //Shop
+    Status?: number
+    StatusDate?: Date
+    StatusName?: string
+    StatusType?: number
+    Summ?: number
+    Summa?: number
+    TransactionDate?: Date
+    TransactionNumber?: any
+    WMnotes?: any
+}

@@ -1,0 +1,9 @@
+/node_modules
+# bundle/
+# dist/
+# package-lock.json
+# load.ts
+# .vs/
+# bin/
+# obj/
+package-lock.json

@@ -1,0 +1,42 @@
+{
+  "_from": "ui-group-validator@latest",
+  "_id": "ui-group-validator@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-dRJcOXFwUj49kKpxR0eLZDjTVuoZJ/d/hl6nemPWgr/lA+GLTsKJXFGYlUxeGNSvYCTD9Din3A7vxkjqEXkC4Q==",
+  "_location": "/ui-group-validator",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "ui-group-validator@latest",
+    "name": "ui-group-validator",
+    "escapedName": "ui-group-validator",
+    "rawSpec": "latest",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "/ui-components"
+  ],
+  "_resolved": "http://194.28.112.20:4873/ui-group-validator/-/ui-group-validator-1.0.0.tgz",
+  "_shasum": "980f77de245da9cb8e36913c07084d18c375d0c6",
+  "_spec": "ui-group-validator@latest",
+  "_where": "D:\\Projects\\spirit\\frontend-admin\\Meditation\\node_modules\\ui-components",
+  "author": {
+    "name": "Tirscript"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Валидация компонентов, внутри себя",
+  "license": "ISC",
+  "main": "index.js",
+  "name": "ui-group-validator",
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.tirscript.com:8888/project-manager/plugin.client/ui-group-validator.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}

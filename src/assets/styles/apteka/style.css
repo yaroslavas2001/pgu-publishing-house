@@ -1,0 +1,139 @@
+@font-face {
+  font-family: 'apteka';
+  src: url('fonts/apteka.eot?813tnm');
+  src: url('fonts/apteka.eot?813tnm#iefix') format('embedded-opentype'),
+    url('fonts/apteka.ttf?813tnm') format('truetype'),
+    url('fonts/apteka.woff?813tnm') format('woff'),
+    url('fonts/apteka.svg?813tnm#apteka') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-apteka-"],
+[class*=" icon-apteka-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'apteka' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-apteka-disabled:before {
+  content: "\e919";
+}
+
+.icon-apteka-hairstyle:before {
+  content: "\e91a";
+}
+
+.icon-apteka-optika:before {
+  content: "\e91b";
+}
+
+.icon-apteka-slide:before {
+  content: "\e916";
+}
+
+.icon-apteka-paper:before {
+  content: "\e917";
+}
+
+.icon-apteka-to-do-list:before {
+  content: "\e918";
+}
+
+.icon-apteka-price-tag:before {
+  content: "\e914";
+}
+
+.icon-apteka-pencil:before {
+  content: "\e915";
+}
+
+.icon-apteka-archive:before {
+  content: "\e900";
+}
+
+.icon-apteka-back-arrow:before {
+  content: "\e901";
+}
+
+.icon-apteka-back:before {
+  content: "\e902";
+}
+
+.icon-apteka-right:before {
+  content: "\e903";
+}
+
+.icon-apteka-bottom:before {
+  content: "\e904";
+}
+
+.icon-apteka-top:before {
+  content: "\e905";
+}
+
+.icon-apteka-cancel:before {
+  content: "\e906";
+}
+
+.icon-apteka-clipboard:before {
+  content: "\e907";
+}
+
+.icon-apteka-card:before {
+  content: "\e908";
+}
+
+.icon-apteka-database:before {
+  content: "\e909";
+}
+
+.icon-apteka-delete:before {
+  content: "\e90a";
+}
+
+.icon-apteka-group:before {
+  content: "\e90b";
+}
+
+.icon-apteka-less:before {
+  content: "\e90c";
+}
+
+.icon-apteka-more:before {
+  content: "\e90d";
+}
+
+.icon-apteka-pharmacist:before {
+  content: "\e90e";
+}
+
+.icon-apteka-photo:before {
+  content: "\e90f";
+}
+
+.icon-apteka-pin:before {
+  content: "\e910";
+}
+
+.icon-apteka-search:before {
+  content: "\e911";
+}
+
+.icon-apteka-tick:before {
+  content: "\e912";
+}
+
+.icon-apteka-visibility:before {
+  content: "\e913";
+}
