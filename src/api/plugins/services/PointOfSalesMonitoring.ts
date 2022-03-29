@@ -1,6 +1,6 @@
 import RequestService from "./requestsService";
 import { WebApiService } from "../webApiService";
-import HttpResponseResult from "@/api/dataSource/api/plugins/models/httpResponseResult"
+import HttpResponseResult from "@/api/plugins/models/httpResponseResult"
 import GetListRequest from "../models/getListRequest";
 import GetListResponse from "../models/getListResponse";
 // import PointOfSalesMonitoringListRequest from "../models/controllersModels/pointOfSalesMonitoring/PointOfSalesMonitoringListRequest";

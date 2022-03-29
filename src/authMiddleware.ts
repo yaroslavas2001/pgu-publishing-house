@@ -3,9 +3,9 @@ import { Router } from "vue-router";
 import Vuex, { Store } from 'vuex'
 
 import Cookies from "js-cookie";
-import AuthService from "./api/dataSource/api/plugins/services/authService";
+import AuthService from "./api/plugins/services/authService";
 import { LOGIN, ADMIN, USER } from "./router/routerNames";
-import ApiDataSource from "./api/dataSource/api/ApiDataSource";
+import ApiDataSource from "./api/ApiDataSource";
 import { StateModel } from "./store";
 import UserRole from "./Enum/UserRole"
 

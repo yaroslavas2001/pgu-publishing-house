@@ -4,7 +4,7 @@ import RequestService from "./requestsService";
 // import PointDetailItem from "@/api/dataSource/api/plugins/models/controllersModels/points/PointDetailItem";
 // import PointUpsertItem from "@/api/dataSource/api/plugins/models/controllersModels/points/PointUpsertItem";
 import { WebApiService } from "../webApiService";
-import HttpResponseResult from "@/api/dataSource/api/plugins/models/httpResponseResult"
+import HttpResponseResult from "@/api/plugins/models/httpResponseResult"
 import GetListRequest from "../models/getListRequest";
 import GetListResponse from "../models/getListResponse";
 // import ModelIN from "@/api/dataSource/api/plugins/models/controllersModels/common/ModelIN"

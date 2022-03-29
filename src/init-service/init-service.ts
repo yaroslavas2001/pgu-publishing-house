@@ -1,4 +1,4 @@
-import ApiDataSource from "@/api/dataSource/api/ApiDataSource";
+import ApiDataSource from "@/api/ApiDataSource";
 
 
 export default class InitService {

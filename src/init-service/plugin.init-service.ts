@@ -1,4 +1,4 @@
-import ApiDataSource from "@/api/dataSource/api/ApiDataSource";
+import ApiDataSource from "@/api/ApiDataSource";
 import { App } from "vue";
 import { Store } from "vuex";
 

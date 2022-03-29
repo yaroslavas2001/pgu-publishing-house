@@ -4,7 +4,7 @@ import Api from "./ApiDataSource";
 
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
-    $api: Api;// ApiDataSource;
+    $api: Api;
   }
 }
 

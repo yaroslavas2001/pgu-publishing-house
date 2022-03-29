@@ -1,4 +1,4 @@
-import HttpResponseResult from "@/api/dataSource/api/plugins/models/httpResponseResult";
+import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
 
 export default interface getListInt<T>{
     IsSuccess?: boolean

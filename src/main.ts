@@ -80,7 +80,7 @@ app.use(ErrorHandler, {
   },
 });
 
-import AdminApi from './api/dataSource/api/apiDataSource.plugin';
+import AdminApi from './api/apiDataSource.plugin';
 
 app.use(AdminApi,{url: "http://31.31.24.200:5051/"});
 

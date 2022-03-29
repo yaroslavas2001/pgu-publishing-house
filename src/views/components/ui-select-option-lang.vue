@@ -40,7 +40,7 @@
   </div>
 </template>
 <script lang="ts">
-import Lang from "@/models/interfaces/Lang";
+// import Lang from "@/models/interfaces/Lang";
 import { Prop, Vue, Options } from "vue-property-decorator";
 @Options({
   components: {},
@@ -63,8 +63,8 @@ export default class UiSelectLang extends Vue {
     this.selectionLang = false;
   }
   selectionLang: boolean = false;
-  selectLang: Lang = null;
-  lang: Array<Lang> = [
+  selectLang: any = null;
+  lang: Array<any> = [
     { id: 0, name: "ru" },
     { id: 1, name: "md" },
     { id: 2, name: "lv" },
