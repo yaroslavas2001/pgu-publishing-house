@@ -4,86 +4,27 @@ import { createRouter, createWebHistory, RouteRecordRaw, RouterView } from "vue-
 import LoginPageComponent from "@/views/pages/login/login.vue"
 import ForgotPasswordPageComponent from "@/views/pages/login/forgot-password.vue"
 import ErrorPageComponent from "@/views/pages/login/404-page.vue"
-import NewsPageComponent from "@/views/pages/news/news.vue"
-const Layout = () => import("@/views/layouts/layout.vue");
 const BaseTemplate = () => import("@/views/layouts/base-layout.vue");
-const HomePage = () => import("@/views/pages/home.vue");
+const AdminLayout = () => import("@views/layouts/admin/admin-layout.vue");
+
 //#region search-for-payments
-// import TerminalMonitoringPageComponent from "@/views/pages/search-for-payments/terminal-monitoring/terminal-monitoring.vue"
-// import TerminalQueriesPageComponent from "@/views/pages/search-for-payments/terminal-queries.vue"
-// import TerminalServicePageComponent from "@/views/pages/search-for-payments/terminal-service.vue"
-// import TerminalManagementPageComponent from "@/views/pages/search-for-payments/terminal-management.vue"
-// import CertificateRequestsPageComponent from "@/views/pages/search-for-payments/certificate-requests.vue"
-// import BuyersCabinetPageComponent from "@/views/pages/search-for-payments/buyer's-cabinet.vue"
-// import IncidentsPageComponent from "@/views/pages/search-for-payments/incidents.vue"
-// import FiscalDataPageComponent from "@/views/pages/search-for-payments/fiscal-data.vue"
-// import FiscalTransactionRecoveryPageComponent from "@/views/pages/search-for-payments/fiscal-transaction-recovery.vue"
-// import AgentRegistrationWinAppPageComponent from "@/views/pages/search-for-payments/agent-registration-win-app.vue"
-//#endregion
 
-// //#region отчеты
-// import BalanceForThePeriodPageComponent from "@/views/pages/reports/balance-for-the-period.vue"
-// import PaymentsAcceptedGroupingPageComponent from "@/views/pages/reports/payments-accepted-grouping.vue"
-// import PaymentsAcceptedPageComponent from "@/views/pages/reports/payments-accepted.vue"
-// //#endregion 
-
-// //#region финансы
-// import RefundPaymentsPageComponent from "@/views/pages/finance/refund-payments.vue"
-// import EnterpriseLimitsPageComponent from "@/views/pages/finance/enterprise-limits.vue"
-// import BalanceOfEnterprisesPageComponent from "@/views/pages/finance/balance-of-enterprises.vue"
-// //#endregion 
-
-// //#region терминалы
-// import TerminalMonitoringPageComponentTerminal from "@/views/pages/terminals/terminal-monitoring/terminal-monitoring.vue"
-// import TerminalQueriesPageComponentTerminal from "@/views/pages/terminals/terminal-queries.vue"
-// import TerminalServicePageComponentTerminal from "@/views/pages/terminals/terminal-service.vue"
-// import TerminalManagementPageComponentTerminal from "@/views/pages/terminals/terminal-management.vue"
-// import CertificateRequestsPageComponentTerminal from "@/views/pages/terminals/certificate-requests.vue"
-// import BuyersCabinetPageComponentTerminal from "@/views/pages/terminals/buyer's-cabinet.vue"
-// import IncidentsPageComponentTerminal from "@/views/pages/terminals/incidents.vue"
-// import FiscalDataPageComponentTerminal from "@/views/pages/terminals/fiscal-data.vue"
-// import FiscalTransactionRecoveryPageComponentTerminal from "@/views/pages/terminals/fiscal-transaction-recovery.vue"
-// import AgentRegistrationWinAppPageComponentTerminal from "@/views/pages/terminals/agent-registration-win-app.vue"
-// import TerminalDetailsPageComponent from "@/views/pages/terminals/terminal-monitoring/terminal-monitoring-detail.vue"
-// //#endregion 
-
-//#region настройки
-// import CustomizationPageComponent from "@/views/pages/customization/customization.vue"
-//#endregion 
-
-//#region справочники
-// import BindingCertificatesPageComponent from "@/views/pages/reference-books/binding-certificates.vue"
-// import BlacklistOfPhonesPageComponent from "@/views/pages/reference-books/blacklist-of-phones.vue"
-// import CashRegistersPageComponent from "@/views/pages/reference-books/cash-registers.vue"
-// import CertificatesPageComponent from "@/views/pages/reference-books/certificates.vue"
-// import ContractsPageComponent from "@/views/pages/reference-books/contracts.vue"
-// import EnterprisesPageComponent from "@/views/pages/reference-books/enterprises/enterprises.vue"
-// import FinancialCategoriesPageComponent from "@/views/pages/reference-books/financial-categories.vue"
-// import GatewaysPageComponent from "@/views/pages/reference-books/gateways.vue"
-// import MappingErrorsPageComponent from "@/views/pages/reference-books/mapping-errors.vue"
-// import OperatorsPageComponent from "@/views/pages/reference-books/operators.vue"
-// import PointsPageComponent from "@/views/pages/reference-books/points/points.vue"
-// import ShopsPageComponent from "@/views/pages/reference-books/shops/shops.vue"
-// import EnterprisesDetailsPageComponent from "@/views/pages/reference-books/enterprises/enterprises-detail.vue"
-// import ShopDetailsPageComponent from "@/views/pages/reference-books/shops/shops-detail.vue"
-// import PointDetailsPageComponent from "@/views/pages/reference-books/points/points-detail.vue"
 // import HomePageComponent from "@/views/pages/home.vue"
 import RegistrationPage from "@views/pages/login/registration.vue"
 //#endregion 
 
+
+import Reviewer from "@views/pages/reviewer/reviewer.vue"
+import Admin from "@views/pages/admin/admin.vue"
+import AuthorsPage from "@views/pages/admin/authors/authors.vue"
+import ArticlesPage from "@views/pages/admin/articles/articles.vue"
+// import AdminLayout from "@views/layouts/admin/admin-layout.vue"
+
+
+import UserPage from "@views/pages/user/user.vue"
 import {
-  DEFAULT, TERMINALMONITORING, TERMINALQUERIES, TERMINALSERVICE,
-  TERMINALMANAGEMENT, CERTIFICATEREQUESTS, BUYERSCABINET, INCIDENTS, FISCALDATA,
-  AGENTREGISTRATIONWINAPP, FISCALTRANSACTIONRECOVERY, BALANCEOFENTERPRISES, ENTERPRISELIMITS, REFUNDPAYMENTS,
-  CUSTOMIZATION, BINDINGCERTIFICATES, BLACKLISTOFPHONES, CASHREGISTERS, CERTIFICATES, CONTRACTS, ENTERPRISES, FINANCIALCATEGORIES,
-  GATEWAYS, MAPPINGERRORS, OPERATORS, POINTS, SHOPS,
-  PAYMENTS, FINANCE, TERMINALS, REFERENCEBOOKS, SHOPSDETAIL,
-  TERMINALMONITORINGTERMINAL, TERMINALQUERIESTERMINAL, ENTERPRISESDETAIL,
-  TERMINALSERVICETERMINAL, TERMINALMANAGEMENTTERMINAL, CERTIFICATEREQUESTSTERMINAL,
-  BUYERSCABINETTERMINAL, INCIDENTSTERMINAL, FISCALDATATERMINAL, FISCALTRANSACTIONRECOVERYTERMINAL, AGENTREGISTRATIONWINAPPTERMINAL,
-  POINTSDETAIL,POINTSCREATE,REPORTS,
-  LOGIN, FORGOTPESSWORD, NEWS,ENTERPRISESCREATE,SHOPSCREATE,TERMINALMONITORINGTERMINALDETAIL,BALANCEFORTHEPERIOD,PAYMENTSACCEPTEDGROUPING,PAYMENTSACCEPTED
- , REGISTRATION
+  DEFAULT, LOGIN, FORGOTPESSWORD, REGISTRATION,
+  REVIEWER, ADMIN, USER, AUTHORS, ARTICLES
 } from "./routerNames";
 
 //#endregion
@@ -116,31 +57,60 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    name: REVIEWER,
+    path: '/reviewer',
+    component: Reviewer,
+    meta: {
+      allowAnonymous: true,
+    }
+  },
+  {
     name: REGISTRATION,
     path: '/registration',
     component: RegistrationPage,
     meta: {
       allowAnonymous: true,
-      title: "registration" 
+      title: "registration"
     }
   },
-  // {
-  //   name: "new-password", path: '/new-password', props: true,
-  //   component: NewPassword, meta: {
-  //     allowAnonymous: true,
-  //   }
-  // },
+
   {
     path: '/',
-    component: Layout,
+    component: BaseTemplate,
     children: [
       {
-        name: NEWS,
-        path: '/news',
-        component: NewsPageComponent,
+        name: ADMIN,
+        path: ADMIN,
+        component: AdminLayout,
+        redirect: { name: AUTHORS },
+        children: [
+          {
+            name: AUTHORS,
+            path: AUTHORS,
+            component: AuthorsPage,
+            meta: { title: "авторы" }
+          },
+          {
+            name: ARTICLES,
+            path: ARTICLES,
+            component: ArticlesPage,
+            meta: { title: "Статьи" }
+          },
+        ]
       }
     ]
   },
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       name: USER,
+  //       path: '/user',
+  //       component: UserPage,
+  //     }
+  //   ]
+  // },
   // {
   //   path: "/",
   //   component: Layout,
@@ -319,7 +289,7 @@ const routes: Array<RouteRecordRaw> = [
   //               props: true,
   //               meta: { title: "Детали терминала" }
   //             },
-              
+
   //           ]
   //         },
   //         // {
@@ -435,7 +405,7 @@ const routes: Array<RouteRecordRaw> = [
   //               props: true,
   //               meta: { title: "Детали предприятия" }
   //             },
-              
+
   //           ]
   //         },
   //         {

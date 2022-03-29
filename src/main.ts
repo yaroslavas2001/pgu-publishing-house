@@ -59,7 +59,7 @@ import UiOneHourSelector from "@/views/components/ui-one-date-picker/time/ui-one
 import UiOneMinuteSelector from "@/views/components/ui-one-date-picker/time/ui-one-minute-selector.vue"
 import UiOneTimeSelector from "@/views/components/ui-one-date-picker/time/ui-one-time-selector.vue"
 import UiOneYears from "@/views/components/ui-one-date-picker/data/ui-one-year-selector.vue"
-import RunPayUiHeaderComponent from "@/views/components/run-pay/run-pay-ui-header.vue"
+// import RunPayUiHeaderComponent from "@/views/components/run-pay/run-pay-ui-header.vue"
 import UiReadonlyComponent from "@/views/components/ui-readonly.vue"
 import UiTitleInfo from "@/views/components/ui-title-info.vue"
 import FilterService from "@/filters/plugin.filter-service"
@@ -151,7 +151,7 @@ app.component("ui-one-hour-selector",UiOneHourSelector);
 app.component("ui-one-minute-selector",UiOneMinuteSelector);
 app.component("ui-one-time-selector",UiOneTimeSelector);
 app.component("ui-one-year-selector",UiOneYears)
-app.component("run-pay-ui-header",RunPayUiHeaderComponent)
+// app.component("run-pay-ui-header",RunPayUiHeaderComponent)
 app.component("ui-readonly",UiReadonlyComponent)
 app.component("ui-title-info",UiTitleInfo)
 app.mount("#app");

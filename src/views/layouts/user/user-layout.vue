@@ -16,35 +16,16 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import { reactive } from "vue";
-import LayoutHeader from "@layouts/layout-header.vue";
-import LayoutSidebar from "@layouts/layout-sidebar.vue";
+import LayoutHeader from "./layout-header.vue";
+import LayoutSidebar from "./layout-sidebar.vue";
 @Options({
   components: {
     LayoutHeader,
     LayoutSidebar,
   },
-  setup() {},
-  provide() {
-    return {
-      MyDependency: this.MyDependency,
-      user: this.user,
-      settings: this.settings,
-    };
-  },
-  name:"Layout"
+  name: "Layout",
 })
-export default class Layout extends Vue {
-  
-  MyDependency = {
-    foo: "bar",
-  };
-  settings = reactive({ theme: "light" });
-  user = "John Doe";
-
-  logined = false;
-  async created() {
-  }
-}
+export default class Layout extends Vue {}
 </script>
 <style lang="less">
 body {
@@ -62,7 +43,6 @@ body {
     display: flex;
     overflow-x: auto;
     .content {
-      // margin: 150px 20px 20px 345px;
       flex-grow: 1;
     }
   }

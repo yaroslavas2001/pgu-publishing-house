@@ -54,7 +54,7 @@
 import { Vue, Options, Prop, Watch, Ref } from "vue-property-decorator";
 import HttpResponseResult from "@/api/dataSource/api/plugins/models/httpResponseResult";
 import GetListRequest from "@/api/dataSource/api/plugins/models/getListRequest";
-import EnterpriseListRequest from "@/api/dataSource/api/plugins/models/controllersModels/enterprises/EnterpriseListRequest";
+// import EnterpriseListRequest from "@/api/dataSource/api/plugins/models/controllersModels/enterprises/EnterpriseListRequest";
 import GetListResponse from "@/api/dataSource/api/plugins/models/getListResponse";
 @Options({
   name: "UiAutocompleteMultiselectComponent",
@@ -129,7 +129,7 @@ export default class UiAutocompleteMultiselectComponent extends Vue {
   // onSearchResult(res: HttpResponseResult<ISearchResponse>) {
   //   this.items = res.Response.Items;
   // }
-  filter: GetListRequest<EnterpriseListRequest> = {
+  filter: GetListRequest<any> = {
     _page: 1,
     _perPage: 10,
   };

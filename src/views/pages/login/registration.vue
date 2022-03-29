@@ -98,6 +98,8 @@
           <template #footer>
             <div class="login-footer">
               <button class="btn-enter" @click="enterPage">Регистрация</button>
+              <button class="btn-enter" @click="goToHome">Назад</button>
+
               <label class="wrong-lable" for="username" v-if="wrong">
                 {{ errorMessage }}
               </label>
@@ -110,7 +112,7 @@
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { FORGOTPESSWORD, ENTERPRISES } from "@/router/routerNames";
+import { FORGOTPESSWORD,LOGIN } from "@/router/routerNames";
 @Options({
   emits: ["goToAdmin"],
 })
@@ -125,7 +127,9 @@ export default class RegistrationPage extends Vue {
   errorMessage: string = "";
   wrong: boolean = false;
   isshowEye = false;
-
+  goToHome() {
+    this.$router.push({ name: LOGIN });
+  }
   async enterPage() {
     console.log(
       "username",
@@ -135,9 +139,9 @@ export default class RegistrationPage extends Vue {
       "email",
       this.email
     );
-    console.log("api",this.$api)
+    console.log("api", this.$api);
     // return
-    let res =  this.$api.AuthService.createUser({
+    let res = this.$api.AuthService.createUser({
       email: this.email,
       password: this.password,
       confirmPassword: this.confirmPassword,
@@ -145,7 +149,8 @@ export default class RegistrationPage extends Vue {
       lastName: this.lastName,
       fatherName: this.fatherName,
     });
-    console.log("res",res)
+    console.log("res", res);
+
     //найти регулярное выражение для телефона, почитать про директивы
     // if (this.username.length == 0 || this.password.length == 0) {
     //   this.errorMessage = "Пароль или телефон не введен";

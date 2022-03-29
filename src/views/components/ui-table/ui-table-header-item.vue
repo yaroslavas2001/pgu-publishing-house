@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import ShopListRequest from "@/api/dataSource/api/plugins/models/controllersModels/shops/ShopListRequest";
+// import ShopListRequest from "@/api/dataSource/api/plugins/models/controllersModels/shops/ShopListRequest";
 import GetListRequest from "@/api/dataSource/api/plugins/models/getListRequest";
 import { Options, Vue } from "vue-class-component";
 import { Prop, Watch } from "vue-property-decorator";
@@ -40,7 +40,7 @@ import { Prop, Watch } from "vue-property-decorator";
   name:'UiTableHeaderItemComponent'
 })
 export default class UiTableHeaderItemComponent extends Vue {
-  @Prop({ type: Object }) filter: GetListRequest<ShopListRequest>;
+  @Prop({ type: Object }) filter: GetListRequest<any>;
   readonly styleCustom: Object = {};
   readonly sortName: string = "";
   readonly defaultSort: String = "";

@@ -59,17 +59,15 @@
             </div>
           </template>
         </page-template>
+        <button class="btn-enter" @click="goToAdmin">Админ</button>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import {
-  FORGOTPESSWORD,
-  ENTERPRISES,
-  REGISTRATION,
-} from "@/router/routerNames";
+import { FORGOTPESSWORD, REGISTRATION,ADMIN } from "@/router/routerNames";
+import UserRole from "../../../Enum/UserRole"
 @Options({
   emits: ["goToAdmin"],
 })
@@ -79,7 +77,7 @@ export default class LoginPageComponent extends Vue {
   errorMessage: string = "";
   wrong: boolean = false;
   isshowEye = false;
-
+  // если админ, то на страницу админа, если пользователь то на пользователя
   async enterPage() {
     console.log("username", this.username, "password", this.password);
     //найти регулярное выражение для телефона, почитать про директивы
@@ -93,7 +91,9 @@ export default class LoginPageComponent extends Vue {
         password: this.password,
       });
       if (res.isSuccess) {
-        this.$router.push({ name: ENTERPRISES });
+        // console.log("res")
+        this.$store.state.UserRole=UserRole.Admin
+        this.$router.push({ name: ADMIN });
         this.$store.state.CurrentUser = this.username;
         // console.log("res",res);
       } else {
@@ -102,6 +102,7 @@ export default class LoginPageComponent extends Vue {
       }
     }
   }
+
   registration() {
     this.$router.push({ name: REGISTRATION });
   }
@@ -109,7 +110,8 @@ export default class LoginPageComponent extends Vue {
     this.$router.push({ name: FORGOTPESSWORD });
   }
   goToAdmin() {
-    // this.$router.push({ name: this.Users });
+    this.$store.state.UserRole=UserRole.Admin
+    this.$router.push({ name: ADMIN});
   }
   ShowPassword() {
     var x = document.getElementById("password") as HTMLInputElement;

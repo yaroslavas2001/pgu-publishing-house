@@ -5,13 +5,12 @@
 import { Options, Vue } from "vue-property-decorator";
 import {
   FORGOTPESSWORD,
-  ENTERPRISES,
   REGISTRATION,
 } from "@/router/routerNames";
 @Options({
   // emits: ["goToAdmin"],
 })
-export default class Admin extends Vue {}
+export default class Reviewer extends Vue {}
 </script>
 <style scoped >
 </style>

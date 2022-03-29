@@ -1,10 +1,9 @@
  <template>
-  <div class="header"></div>
+  <div class="header">admim</div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { NEWS } from "@/router/routerNames";
 import Cookies from "js-cookie";
 import UiSelectLang from "@components/ui-select-option-lang.vue";
 @Options({

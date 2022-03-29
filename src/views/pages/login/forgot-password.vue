@@ -58,12 +58,10 @@
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { TERMINALMONITORING } from "@/router/routerNames";
 @Options({
   emits: ["goToAdmin"],
 })
 export default class ForgotPasswordPageComponent extends Vue {
-  Users = TERMINALMONITORING;
   phone = "";
   password = "";
   errorMessage: string = "";
@@ -81,11 +79,11 @@ export default class ForgotPasswordPageComponent extends Vue {
         email: this.phone,
         password: this.password,
       });
-      if (res.isSuccess) this.$router.push({ name: this.Users });
-      else {
-        this.wrong = true;
-        this.errorMessage = res.errorMessage;
-      }
+      // if (res.isSuccess) this.$router.push({ name: this.Users });
+      // else {
+      //   this.wrong = true;
+      //   this.errorMessage = res.errorMessage;
+      // }
     }
   }
 
