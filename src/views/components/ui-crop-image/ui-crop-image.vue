@@ -304,7 +304,7 @@ export interface PrevParams {
           width: 100%;
           .rectangle__border1 {
             position: absolute;
-            background: url("~@assets/img/border-anim-v.gif") repeat-y left top;
+            // background: url("~@assets/img/border-anim-v.gif") repeat-y left top;
             width: 100%;
             height: 100%;
           }
@@ -312,21 +312,21 @@ export interface PrevParams {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: url("~@assets/img/border-anim-h.gif") repeat-x left top;
+            // background: url("~@assets/img/border-anim-h.gif") repeat-x left top;
           }
 
           .rectangle__border3 {
             width: 100%;
             height: 100%;
             position: absolute;
-            background: url("~@assets/img/border-anim-v.gif") repeat-y right top;
+            // background: url("~@assets/img/border-anim-v.gif") repeat-y right top;
           }
           .rectangle__border4 {
             width: 100%;
             height: 100%;
             position: absolute;
-            background: url("~@assets/img/border-anim-h.gif") repeat-x left
-              bottom;
+            // background: url("~@assets/img/border-anim-h.gif") repeat-x left
+              // bottom;
           }
 
           .btn {

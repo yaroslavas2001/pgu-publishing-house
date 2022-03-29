@@ -54,10 +54,10 @@
   </div>
 </template>
 <script lang="ts">
-// import { Events } from "@/api/dataSource/api/plugins/events";
+// import { Events } from "@/api/plugins/events";
 import { Vue, Options, Prop, Watch, Ref } from "vue-property-decorator";
-import HttpResponseResult from "@/api/dataSource/api/plugins/models/httpResponseResult";
-import GetListResponse from "@/api/dataSource/api/plugins/models/getListResponse";
+import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
+import GetListResponse from "@/api/plugins/models/getListResponse";
 @Options({
   name: "ui-autocomplite",
   emits: ["update:modelValue"],
@@ -327,7 +327,7 @@ export default class UiAutocompleteComponent extends Vue {
     }
   }
   .current {
-    background: url("~@assets/img/icon/s_down.svg") no-repeat 97% center, #fff;
+    // background: url("~@assets/img/icon/s_down.svg") no-repeat 97% center, #fff;
     height: 30px;
     background-color: #f3f4fa;
     border: 1px solid #d0d9de;

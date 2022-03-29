@@ -50,7 +50,7 @@ export default class UiCheckBoxComponent extends Vue {
 @uiCheckboxIconColor: #23a4a2;
 @uiCheckboxColorLabel: #7a7878;
 @uiCheckboxBorderSquareColor: black;
-@iconCheckSrc: "~@assets/img/icon/checkbox.svg";
+// @iconCheckSrc: "~@assets/img/icon/checkbox.svg";
 
 .ui-checkbox {
   display: flex;
@@ -91,7 +91,7 @@ export default class UiCheckBoxComponent extends Vue {
       border: 0px;
       .check {
         border-radius: 4px;
-        background: url(@iconCheckSrc) no-repeat center center #71b92f;
+        // background: url(@iconCheckSrc) no-repeat center center #71b92f;
       }
     }
   }

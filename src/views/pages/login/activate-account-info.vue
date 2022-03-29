@@ -8,7 +8,7 @@
 import { Options, Vue } from "vue-property-decorator";
 import { FORGOTPESSWORD, LOGIN, ADMIN } from "@/router/routerNames";
 import Cookies from "js-cookie";
-import AuthService from "@/api/dataSource/api/plugins/services/authService";
+import AuthService from "@/api/plugins/services/authService";
 import UserRole from "@/Enum/UserRole";
 
 @Options({

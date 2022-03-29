@@ -3,7 +3,7 @@
     <div class="filter-item">
     <input class="filter-input" v-model="filter.search" placeholder="Поиск.."  />
     <button class="filter-btn" @click="onFilterChanged()">
-      <img src="@assets/img/search.png" alt="search" />
+      <!-- <img src="@assets/img/search.png" alt="search" /> -->
     </button>
     </div>
     <slot></slot>

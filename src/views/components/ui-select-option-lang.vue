@@ -1,6 +1,6 @@
 <template>
   <div class="ui-select-lang" @click="showLang">
-    <img
+    <!-- <img
       src="@assets/img/ru.svg"
       alt=""
       class="img"
@@ -17,9 +17,9 @@
       alt=""
       class="img"
       v-if="selectLang.id == 2"
-    />
+    /> -->
     <div class="ui-select-lang-name">{{ selectLang.name }}</div>
-    <img src="@assets/img/icon/s_down.svg" alt="" />
+    <!-- <img src="@assets/img/icon/s_down.svg" alt="" /> -->
   </div>
   <div
     v-if="selectionLang"
@@ -32,9 +32,9 @@
       class="ui-select-lang-item-block"
       @click="seletLang(item.id)"
     >
-      <img src="@assets/img/ru.svg" alt="" class="img" v-if="item.id == 0" />
+      <!-- <img src="@assets/img/ru.svg" alt="" class="img" v-if="item.id == 0" />
       <img src="@assets/img/md.svg" alt="" class="img" v-if="item.id == 1" />
-      <img src="@assets/img/lv.svg" alt="" class="img" v-if="item.id == 2" />
+      <img src="@assets/img/lv.svg" alt="" class="img" v-if="item.id == 2" /> -->
       <div class="ui-select-lang-item-text">{{ item.name }}</div>
     </div>
   </div>

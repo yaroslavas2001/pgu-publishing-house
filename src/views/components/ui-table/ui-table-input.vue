@@ -1,6 +1,8 @@
 <template>
    <input class="input" v-model="search" placeholder="Поиск.."/>
-  <button class="btn"  @click="onFilterChanged()"><img src="@assets/img/search.png" alt="search"></button>
+  <button class="btn"  @click="onFilterChanged()">
+    <!-- <img src="@assets/img/search.png" alt="search"> -->
+    </button>
 </template>
 <script lang="ts">
 import { Options, Prop, Vue, Ref } from "vue-property-decorator";

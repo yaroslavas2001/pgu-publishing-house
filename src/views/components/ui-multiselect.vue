@@ -253,7 +253,7 @@ export default class uiMultiselect extends Vue {
     }
   }
   .current {
-    background: url("~@assets/img/arrow-botton.png") no-repeat 95% center, #fff;
+    // background: url("~@assets/img/arrow-botton.png") no-repeat 95% center, #fff;
     border: 1px solid #ced4de;
     height: 100%;
     padding: 6px 10px;
@@ -261,7 +261,7 @@ export default class uiMultiselect extends Vue {
     font-size: 14px;
   }
   .current-input {
-    background: url("~@assets/img/arrow-botton.png") no-repeat 95% center, #fff;
+    // background: url("~@assets/img/arrow-botton.png") no-repeat 95% center, #fff;
     border: 1px solid #ced4de;
     height: 100%;
     padding: 6px 10px;

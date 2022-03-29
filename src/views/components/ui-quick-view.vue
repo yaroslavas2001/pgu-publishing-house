@@ -2,11 +2,11 @@
   <div class="quick-view">
     <div class="quick-view-header">
       <div class="quick-view-title pointer" @click="goToHome">
-        <img src="@assets/img/arrow-left.svg" alt="arrow-left" />
+        <!-- <img src="@assets/img/arrow-left.svg" alt="arrow-left" /> -->
         <div class="qv-title">{{ titleText }}</div>
       </div>
       <button class="quick-view-btn" @click="goToHome">
-        <img src="@assets/img/x.svg" alt="x" />
+        <!-- <img src="@assets/img/x.svg" alt="x" /> -->
         <div class="ml-2">Закрыть</div>
       </button>
     </div>

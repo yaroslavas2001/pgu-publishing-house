@@ -18,7 +18,7 @@ import ImagePreviewModel from "./ImagePreviewModel";
     cropParams: { Object },
     aspectRatio: { default: 1, type: Number },
     defaultImage: {
-      default: require("@assets/img/no_image.svg"),
+      // default: require("@assets/img/no_image.svg"),
       type: String,
     },
     elHeight: { default: 80, type: Number },

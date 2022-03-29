@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts">
-// import ShopListRequest from "@/api/dataSource/api/plugins/models/controllersModels/shops/ShopListRequest";
-import GetListRequest from "@/api/dataSource/api/plugins/models/getListRequest";
+// import ShopListRequest from "@/api/plugins/models/controllersModels/shops/ShopListRequest";
+import GetListRequest from "@/api/plugins/models/getListRequest";
 import { Options, Vue } from "vue-class-component";
 import { Prop, Watch } from "vue-property-decorator";
 

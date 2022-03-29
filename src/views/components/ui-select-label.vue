@@ -321,8 +321,8 @@ export default class UiSelectLabelComponent extends Vue {
     }
   }
   .current {
-    background: url("~@assets/img/icon/s_down.svg") no-repeat 97% center,
-      #f3f4fa;
+    // background: url("~@assets/img/icon/s_down.svg") no-repeat 97% center,
+    //   #f3f4fa;
     border: 1px solid #d0d9de;
     border-radius: 4px;
     color: #4F5E74;
@@ -334,8 +334,8 @@ export default class UiSelectLabelComponent extends Vue {
     align-items: center;
   }
   .currentimg {
-    background: url("~@assets/img/icon/arrow-top.svg") no-repeat 97% center,
-      #f3f4fa;
+    // background: url("~@assets/img/icon/arrow-top.svg") no-repeat 97% center,
+    //   #f3f4fa;
   }
   .container {
     color: #8797af;

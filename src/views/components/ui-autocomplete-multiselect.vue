@@ -52,10 +52,10 @@
 </template>
 <script lang="ts">
 import { Vue, Options, Prop, Watch, Ref } from "vue-property-decorator";
-import HttpResponseResult from "@/api/dataSource/api/plugins/models/httpResponseResult";
-import GetListRequest from "@/api/dataSource/api/plugins/models/getListRequest";
-// import EnterpriseListRequest from "@/api/dataSource/api/plugins/models/controllersModels/enterprises/EnterpriseListRequest";
-import GetListResponse from "@/api/dataSource/api/plugins/models/getListResponse";
+import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
+import GetListRequest from "@/api/plugins/models/getListRequest";
+// import EnterpriseListRequest from "@/api/plugins/models/controllersModels/enterprises/EnterpriseListRequest";
+import GetListResponse from "@/api/plugins/models/getListResponse";
 @Options({
   name: "UiAutocompleteMultiselectComponent",
   emits: ["update:modelValue"],
@@ -305,7 +305,7 @@ export default class UiAutocompleteMultiselectComponent extends Vue {
     }
   }
   .current {
-    background: url("~@assets/img/arrow-botton.png") no-repeat 95% center, #fff;
+    // background: url("~@assets/img/arrow-botton.png") no-repeat 95% center, #fff;
     border: 1px solid #ced4de;
     height: 100%;
     padding: 6px 10px;
@@ -313,7 +313,7 @@ export default class UiAutocompleteMultiselectComponent extends Vue {
     font-size: 14px;
   }
   .current-input {
-    background: url("~@assets/img/arrow-botton.png") no-repeat 95% center, #fff;
+    // background: url("~@assets/img/arrow-botton.png") no-repeat 95% center, #fff;
     border: 1px solid #ced4de;
     height: 100%;
     padding: 6px 10px;

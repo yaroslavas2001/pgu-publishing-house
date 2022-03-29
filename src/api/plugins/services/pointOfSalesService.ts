@@ -1,14 +1,14 @@
 import RequestService from "./requestsService";
 // import PointListRequest from "../models/controllersModels/points/PointListRequest";
-// import PointListItem from "@/api/dataSource/api/plugins/models/controllersModels/points/PointListItem";
-// import PointDetailItem from "@/api/dataSource/api/plugins/models/controllersModels/points/PointDetailItem";
-// import PointUpsertItem from "@/api/dataSource/api/plugins/models/controllersModels/points/PointUpsertItem";
+// import PointListItem from "@/api/plugins/models/controllersModels/points/PointListItem";
+// import PointDetailItem from "@/api/plugins/models/controllersModels/points/PointDetailItem";
+// import PointUpsertItem from "@/api/plugins/models/controllersModels/points/PointUpsertItem";
 import { WebApiService } from "../webApiService";
 import HttpResponseResult from "@/api/plugins/models/httpResponseResult"
 import GetListRequest from "../models/getListRequest";
 import GetListResponse from "../models/getListResponse";
-// import ModelIN from "@/api/dataSource/api/plugins/models/controllersModels/common/ModelIN"
-// import Name from "@/api/dataSource/api/plugins/models/controllersModels/common/Name"
+// import ModelIN from "@/api/plugins/models/controllersModels/common/ModelIN"
+// import Name from "@/api/plugins/models/controllersModels/common/Name"
 // export default class PointOfSalesService extends RequestService<PointListRequest, PointListItem, PointDetailItem, PointUpsertItem>{
 //     /**
 //      *

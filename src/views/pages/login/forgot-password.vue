@@ -35,8 +35,8 @@
                 id="password"
               />
               <div class="search eye-password" @click="ShowPassword">
-                <img v-if="isshowEye" src="~@assets/img/eye.png" alt="eye" />
-                <img v-else src="~@assets/img/eye-off.png" alt="eye-off" />
+                <!-- <img v-if="isshowEye" src="~@assets/img/eye.png" alt="eye" /> -->
+                <!-- <img v-else src="~@assets/img/eye-off.png" alt="eye-off" /> -->
               </div>
             </div>
 

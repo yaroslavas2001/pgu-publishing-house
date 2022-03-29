@@ -24,7 +24,7 @@
           </slot>
         </template>
         <div :class="[{ transformer: transformer }]" @click="targetDatetime">
-          <img src="@assets/img/calendar.svg" class="mr-2 ml-2 pointer" alt="calendar" />
+          <!-- <img src="@assets/img/calendar.svg" class="mr-2 ml-2 pointer" alt="calendar" /> -->
         </div>
       </div>
     </slot>
