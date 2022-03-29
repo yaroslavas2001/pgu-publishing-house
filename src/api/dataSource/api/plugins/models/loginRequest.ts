@@ -1,4 +1,4 @@
 export default class LoginRequest{
-    username:string
+    email:string
     password:string
 }

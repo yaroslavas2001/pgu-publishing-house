@@ -8,7 +8,7 @@
           </template>
           <template #body>
             <div class="">
-              <label for="username">Логин</label>
+              <label for="username">Почта</label>
               <input
                 type="text"
                 placeholder="Введите логин"
@@ -89,16 +89,16 @@ export default class LoginPageComponent extends Vue {
     }
     if (this.username.length > 0 && this.password.length > 0) {
       let res = await this.$api.AuthService.login({
-        username: this.username,
+        email: this.username,
         password: this.password,
       });
-      if (res.IsSuccess) {
+      if (res.isSuccess) {
         this.$router.push({ name: ENTERPRISES });
         this.$store.state.CurrentUser = this.username;
         // console.log("res",res);
       } else {
         this.wrong = true;
-        this.errorMessage = res.StatusText;
+        this.errorMessage = res.errorMessage;
       }
     }
   }

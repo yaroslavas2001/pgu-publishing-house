@@ -13,7 +13,7 @@ export default class AppComponent extends Vue {
 }
 </script>
 <style>
-@import "./assets/styles/bootstrap/bootstrap.min.css";
-@import "./assets/styles/styles.css";
-@import "./assets/styles/table.less";
+/* @import "./assets/styles/bootstrap/bootstrap.min.css"; */
+@import "./assets/styles/reset.css";
+/* @import "./assets/styles/table.less"; */
 </style>

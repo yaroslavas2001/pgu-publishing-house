@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import { Options, Vue, Prop, Watch } from "vue-property-decorator";
-import { setTimeout } from "timers";
+// import { setTimeout } from "timers";
 @Options({
   name: "control-time",
 })

@@ -105,7 +105,7 @@ export default class UiAutocompleteMultiselectComponent extends Vue {
   preventCurrentClick = false;
   async sendSearchRequest() {
     let data = await this.SearchAsyncFunc(this.search);
-    this.items = data.Response.Items;
+    // this.items = data.data;
   }
   get active(): any {
     if (this.innerValue)

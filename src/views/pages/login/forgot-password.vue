@@ -78,13 +78,13 @@ export default class ForgotPasswordPageComponent extends Vue {
     }
     if (this.phone.length > 0 && this.password.length > 0) {
       let res = await this.$api.AuthService.login({
-        username: this.phone,
+        email: this.phone,
         password: this.password,
       });
-      if (res.IsSuccess) this.$router.push({ name: this.Users });
+      if (res.isSuccess) this.$router.push({ name: this.Users });
       else {
         this.wrong = true;
-        this.errorMessage = res.StatusText;
+        this.errorMessage = res.errorMessage;
       }
     }
   }

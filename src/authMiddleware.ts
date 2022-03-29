@@ -11,8 +11,8 @@ import { StateModel } from "./store";
 
 const install = (app: App, opts: { router: Router }) => {
   opts.router.beforeEach(async (to, from, next) => {
-    // const api = app.config.globalProperties.$api as ApiDataSource
-    // const store = app.config.globalProperties.$store as Store<StateModel>
+    const api = app.config.globalProperties.$api as ApiDataSource
+    const store = app.config.globalProperties.$store as Store<StateModel>
 
     const cookie = Cookies.get(AuthService.AdminAuthTokenName);
       

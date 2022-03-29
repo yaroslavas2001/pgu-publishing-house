@@ -15,34 +15,34 @@ export default class RequestService<TListRequest, TListItem, TDetailItem, TUpser
         super(api,controllerName);
     }
 
-    public async getList(request?: GetListRequest<TListRequest>): Promise<HttpResponseResult<GetListResponse<TListItem>>> //Array<TListItem>
-    // Promise<HttpResponseResult<Array<TListItem>>>
-    // Promise<HttpResponseResult<GetListResponse<Array<TListItem>>>> 
-    {        
-        var url = '/'
-        if(request)
-        url += '?'+this.getListQueryParams(request);
-        console.log('url', url);
+    // public async getList(request?: GetListRequest<TListRequest>): Promise<HttpResponseResult<GetListResponse<TListItem>>> //Array<TListItem>
+    // // Promise<HttpResponseResult<Array<TListItem>>>
+    // // Promise<HttpResponseResult<GetListResponse<Array<TListItem>>>> 
+    // {        
+    //     var url = '/'
+    //     if(request)
+    //     url += '?'+this.getListQueryParams(request);
+    //     console.log('url', url);
         
-        let resp = await this.createRequestPromise<Array<TListItem>>(url,'GET'); 
-        let contentRangeSplit = resp.ResponseHeaders['content-range']?.split('/')   
-        // console.log('contentRangeSplit',contentRangeSplit,resp.ResponseHeaders['content-range']);
+    //     let resp = await this.createRequestPromise<Array<TListItem>>(url,'GET'); 
+    //     let contentRangeSplit = resp.ResponseHeaders['content-range']?.split('/')   
+    //     // console.log('contentRangeSplit',contentRangeSplit,resp.ResponseHeaders['content-range']);
         
-        // let count = undefined
-        // if(!(contentRangeSplit && contentRangeSplit.length>1)){
-        //     count = Math.ceil(resp.Response.length/10)
-        // }
-        return {
-            IsSuccess: resp.IsSuccess,
-            ResponseHeaders: resp.ResponseHeaders,
-            StatusCode:resp.StatusCode,
-            StatusText:resp.StatusText,
-            Response: {
-                Items : resp.Response,
-                Count : contentRangeSplit && contentRangeSplit.length>1 ?Number(contentRangeSplit[1]):undefined
-            }
-        }
-    }
+    //     // let count = undefined
+    //     // if(!(contentRangeSplit && contentRangeSplit.length>1)){
+    //     //     count = Math.ceil(resp.Response.length/10)
+    //     // }
+    //     return {
+    //         IsSuccess: resp.IsSuccess,
+    //         ResponseHeaders: resp.ResponseHeaders,
+    //         StatusCode:resp.StatusCode,
+    //         StatusText:resp.StatusText,
+    //         Response: {
+    //             Items : resp.Response,
+    //             Count : contentRangeSplit && contentRangeSplit.length>1 ?Number(contentRangeSplit[1]):undefined
+    //         }
+    //     }
+    // }
     
     public getOne(id: number): Promise<HttpResponseResult<TDetailItem>> 
     {

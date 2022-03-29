@@ -83,42 +83,42 @@ export default class ContentTableComponent extends Vue {
     let filter = this.filter || {};
     this.isLoading = true;
     this.pageSize = this.filter._perPage;
-    try {
-      this.filter._page = this.currentPage;
-      await this.getDataFunc(filter)
-        .then((res) => {
-          const items =
-            this.mapFunction == null
-              ? res.Response.Items
-              : (res.Response?.Items || []).map(this.mapFunction);
-          this.items = items;
-          this.count = res.Response.Count;
-          if (this.items != null) {
-            if (this.items.length == 0) {
-              this.showPagination = false;
-            } else this.showPagination = true;
-          } else this.showPagination = true;
-          if (this.items == null) {
-            console.log("nen", this.items);
-            this.showPagination = false;
-            this.wrong = true;
-            this.wrongText = res.StatusText;
-            return;
-          } else this.wrong = false;
-        })
-        .catch((res) => {
-          if (!res.IsSuccess) {
-            console.error(res);
-            return;
-          }
-        })
-        .finally(() => {});
-    } catch (e) {
-      throw e;
-    } finally {
-      this.isLoading = false;
-      // this.pagination.reset();
-    }
+    // try {
+    //   this.filter._page = this.currentPage;
+    //   await this.getDataFunc(filter)
+    //     .then((res) => {
+    //       const items =
+    //         this.mapFunction == null
+    //           ? res.Response.Items
+    //           : (res.Response?.Items || []).map(this.mapFunction);
+    //       this.items = items;
+    //       this.count = res.Response.Count;
+    //       if (this.items != null) {
+    //         if (this.items.length == 0) {
+    //           this.showPagination = false;
+    //         } else this.showPagination = true;
+    //       } else this.showPagination = true;
+    //       if (this.items == null) {
+    //         console.log("nen", this.items);
+    //         this.showPagination = false;
+    //         this.wrong = true;
+    //         this.wrongText = res.StatusText;
+    //         return;
+    //       } else this.wrong = false;
+    //     })
+    //     .catch((res) => {
+    //       if (!res.IsSuccess) {
+    //         console.error(res);
+    //         return;
+    //       }
+    //     })
+    //     .finally(() => {});
+    // } catch (e) {
+    //   throw e;
+    // } finally {
+    //   this.isLoading = false;
+    //   // this.pagination.reset();
+    // }
   }
   async onPaginationChanged(data: number) {
     this.currentPage = data;

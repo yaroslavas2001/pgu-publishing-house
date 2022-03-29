@@ -32,26 +32,26 @@ export default class UserService extends RequestService<any, any, any, any>{
 
 //         return this.createRequestPromise<Array<any>>('/AppartmentType/DropDownList', 'GET');
 //     }
-    public async GetUsersList(request?: GetListRequest<any>): Promise<HttpResponseResult<GetListResponse<any>>> {
+    // public async GetUsersList(request?: GetListRequest<any>): Promise<HttpResponseResult<GetListResponse<any>>> {
 
-        var url = '/DropDownList'
-        if(request)
-        url += '?'+this.getListQueryParams(request);
-        console.log('url', url);
-        let resp = await this.createRequestPromise<Array<any>>(url,'GET'); 
-        let contentRangeSplit = resp.ResponseHeaders['content-range']?.split('/')   
+    //     var url = '/DropDownList'
+    //     if(request)
+    //     url += '?'+this.getListQueryParams(request);
+    //     console.log('url', url);
+    //     let resp = await this.createRequestPromise<Array<any>>(url,'GET'); 
+    //     let contentRangeSplit = resp.ResponseHeaders['content-range']?.split('/')   
 
-        return {
-            IsSuccess: resp.IsSuccess,
-            ResponseHeaders: resp.ResponseHeaders,
-            StatusCode:resp.StatusCode,
-            StatusText:resp.StatusText,
-            Response: {
-                Items : resp.Response,
-                Count : contentRangeSplit && contentRangeSplit.length>1 ?Number(contentRangeSplit[1]):undefined
-            }
-        }
-    }
+    //     return {
+    //         IsSuccess: resp.IsSuccess,
+    //         ResponseHeaders: resp.ResponseHeaders,
+    //         StatusCode:resp.StatusCode,
+    //         StatusText:resp.StatusText,
+    //         Response: {
+    //             Items : resp.Response,
+    //             Count : contentRangeSplit && contentRangeSplit.length>1 ?Number(contentRangeSplit[1]):undefined
+    //         }
+    //     }
+    // }
 
 //     // public GetPosDeviceType(): Promise<HttpResponseResult<Array<any>>> {
 

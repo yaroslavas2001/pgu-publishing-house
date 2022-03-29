@@ -32,7 +32,7 @@ export class WebApiService {
     xhr.onload = function () {
 
 
-      let resp;
+      let resp:HttpResponseResult<T>;
       try {
         resp = JSON.parse(xhr.response)
         // console.log("resp", resp);
@@ -41,16 +41,18 @@ export class WebApiService {
       catch {
         resp = xhr.response
       }
-      // console.log("resp", resp);
-
+      console.log("resp", resp);
+      console.log("xhr", xhr)
       let res: HttpResponseResult<T> = {
-        IsSuccess: xhr.status === 200 || xhr.status === 201,
-        StatusText: xhr.statusText,
-        StatusCode: xhr.status,
-        Response: resp || '',
-        ResponseHeaders: {}
+        isSuccess:resp.isSuccess,
+        TypeName: resp.TypeName,
+        // errorMessage: xhr.status,
+        data: resp.data || null,
+        errorMessage: resp.errorMessage,
+        stackTrace: resp.stackTrace
+        // ResponseHeaders: {}
       }
-      
+      console.log("res",res)
       if (xhr.status != 200 && xhr.status != 201) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
         console.error(self.TAG, 'Request:', url, xhr.status, xhr.statusText);
         if (xhr.status === 401) {
@@ -59,8 +61,8 @@ export class WebApiService {
             location.reload();
           }, 1000);
         }
-        res.ErrorInfo = resp;
-      
+        // res.errorMessage = resp;
+
         if (callback)
           callback(res);
       } else { // если всё прошло гладко, выводим результат        
@@ -72,24 +74,24 @@ export class WebApiService {
           let header = x.split(':').map(x => x.trim());
           headers[header[0]] = header[1];
         })
-        res.ResponseHeaders = headers;
-  
-        
+        // res.ResponseHeaders = headers;
+
+
         //self.setResponseCookies(headers);
         //Content-Range: 0-10/2536
         // console.log(self.TAG,'Request:',url,result);
-          // //тест
-          // let resp = {}
-          // // console.log('xhr.getAllResponseHeaders()',xhr.getAllResponseHeaders());
-  
-          // res.Response.split('\r\n').forEach(x => {
-          //   let resp = x.split(':').map(x => x.trim());
-          //   headers[resp[0]] = resp[1];
-          // })
-          // // res.ResponseHeaders = resp;
-          // console.log("RESPONSE");
-          
-          //тест
+        // //тест
+        // let resp = {}
+        // // console.log('xhr.getAllResponseHeaders()',xhr.getAllResponseHeaders());
+
+        // res.Response.split('\r\n').forEach(x => {
+        //   let resp = x.split(':').map(x => x.trim());
+        //   headers[resp[0]] = resp[1];
+        // })
+        // // res.ResponseHeaders = resp;
+        // console.log("RESPONSE");
+
+        //тест
         if (callback)
           callback(res);
       }
@@ -98,16 +100,17 @@ export class WebApiService {
 
     xhr.onerror = function (e) { // происходит, только когда запрос совсем не получилось выполнить
       // alert(`Ошибка соединения`);    
-      let res : HttpResponseResult<T> = {
-        IsSuccess:false,
-        StatusText:"Ошибка при отправке запроса",
-        StatusCode: 1,
-        Response:null,
-        ResponseHeaders: {}
-      }  
+      let res: HttpResponseResult<T> = {
+        isSuccess: false,
+        errorMessage: "Ошибка при отправке запроса",
+        // StatusCode: 1,
+        data: null,
+        stackTrace: ""
+        // ResponseHeaders: {}
+      }
       // console.log("RES",res);
       if (callback)
-      callback(res);
+        callback(res);
       // console.error(self.TAG, 'Request:', url, e);
     };
 

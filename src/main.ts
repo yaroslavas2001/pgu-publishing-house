@@ -81,13 +81,8 @@ app.use(ErrorHandler, {
 });
 
 import AdminApi from './api/dataSource/api/apiDataSource.plugin';
-let adminApiUrl ='https://mddev.runpay.com/PaymentsAdminNetCore'//'https://mdtest.runpay.com/PaymentsAdminNetCore'
-// if(location.host=='localhost')
-//   adminApiUrl = 'ws://innorme.tirscript.com' + adminApiUrl;
-// else 
-//   adminApiUrl = location.protocol.replace('http','ws')+ '//'+location.host+ adminApiUrl
-console.log('ws:', adminApiUrl)
-app.use(AdminApi, {url: adminApiUrl});
+
+app.use(AdminApi,{url: "http://192.168.0.102:5051/"});
 
 import Store from "@/store"
 

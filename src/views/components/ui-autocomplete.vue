@@ -121,7 +121,7 @@ export default class UiAutocompleteComponent extends Vue {
   }
   async sendSearchRequest() {
     let data = await this.SearchAsyncFunc(this.search);
-    this.items = data.Response.Items;
+    // this.items = data.Response.Items;
     if (this.noUndefined) this.onSearchResult();
     if (this.firstObject != null) {
       for (var i = this.items.length - 1; i >= 0; --i) {
