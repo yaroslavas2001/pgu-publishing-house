@@ -23,12 +23,12 @@ const install = (app: App, opts: { router: Router }) => {
         next({ name: ADMIN });
       else if (store.state.UserRole == UserRole.User)
         next({ name: USER });
-
+      else  next({ name: ADMIN });
       return;
     }
     if (!to.meta.allowAnonymous && !isAuthorized) {
-      next()
-      // next({ name: LOGIN })
+      // next()
+      next({ name: LOGIN })
       return
     }
     next()

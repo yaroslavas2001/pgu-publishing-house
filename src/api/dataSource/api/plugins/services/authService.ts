@@ -26,11 +26,19 @@ export default class AuthService extends BaseRequestService {
         return res;
     }
     public logout() {
+        console.log("ds[jl")
         Cookies.set(AuthService.AdminAuthTokenName, '');
     }
     public createUser(requestBody: AuthRegister): Promise<HttpResponseResult<any>> {
         console.log("requestBody", requestBody)
         return this.createRequestPromise('/Register', 'POST', requestBody);
+    }
+    public activateUser(key: string): Promise<HttpResponseResult<LoginResponse>> {
+        console.log("requestBody", key)
+        let a = {
+            key: key
+        }
+        return this.createRequestPromise('/ActivateAccount', 'POST', a);
     }
 }
 

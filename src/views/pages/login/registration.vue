@@ -55,45 +55,6 @@
               class="username-login"
               id="fatherName"
             />
-            <!-- <div class="">
-              ФИО пароль и подтверждение и почта
-              <label for="username">ФИО</label>
-              <input
-                type="text"
-                placeholder="Введите логин"
-                v-model="username"
-                @keypress.enter="enterPage"
-                class="username-login"
-                id="username"
-                :class="{
-                  wrong: wrong,
-                }"
-              />
-            </div>
-            <label for="password" class="mt-3">Пароль</label>
-            <div
-              class="password-input"
-              :class="{
-                wrong: wrong,
-              }"
-            >
-              <input
-                type="password"
-                placeholder="Введите пароль"
-                v-model="password"
-                @keypress.enter="enterPage"
-                class="password"
-                id="password"
-              />
-              <div class="search eye-password" @click="ShowPassword">
-                <img v-if="isshowEye" src="~@assets/img/eye.png" alt="eye" />
-                <img v-else src="~@assets/img/eye-off.png" alt="eye-off" />
-              </div>
-            </div> -->
-
-            <!-- <div class="forgot__password">
-              <button class="forgot" @click="forgot">Забыли пароль?</button>
-            </div> -->
           </template>
           <template #footer>
             <div class="login-footer">
@@ -112,7 +73,7 @@
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { FORGOTPESSWORD,LOGIN } from "@/router/routerNames";
+import { FORGOTPESSWORD, LOGIN } from "@/router/routerNames";
 @Options({
   emits: ["goToAdmin"],
 })
@@ -141,7 +102,7 @@ export default class RegistrationPage extends Vue {
     );
     console.log("api", this.$api);
     // return
-    let res = this.$api.AuthService.createUser({
+    let res = await this.$api.AuthService.createUser({
       email: this.email,
       password: this.password,
       confirmPassword: this.confirmPassword,
@@ -150,7 +111,9 @@ export default class RegistrationPage extends Vue {
       fatherName: this.fatherName,
     });
     console.log("res", res);
-
+    if(res.isSuccess){
+      this.$router.push({})
+    }
     //найти регулярное выражение для телефона, почитать про директивы
     // if (this.username.length == 0 || this.password.length == 0) {
     //   this.errorMessage = "Пароль или телефон не введен";

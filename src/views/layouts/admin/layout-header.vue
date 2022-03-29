@@ -1,19 +1,29 @@
  <template>
-  <div class="header">admim</div>
+  <div class="header">
+    admim
+    <button @click="goOut">Выход</button>
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import Cookies from "js-cookie";
 import UiSelectLang from "@components/ui-select-option-lang.vue";
+import { LOGIN } from "@/router/routerNames";
+
 @Options({
   components: { UiSelectLang },
   name: "LayoutHeader",
 })
-export default class LayoutHeaderUser extends Vue {}
+export default class LayoutHeaderUser extends Vue {
+  goOut() {
+    console.log("выход");
+    this.$api.AuthService.logout();
+    this.$router.push({ name: LOGIN });
+  }
+}
 </script>
 <style lang="less">
-.header{
+.header {
   height: 65px;
   background-color: #062634;
 }

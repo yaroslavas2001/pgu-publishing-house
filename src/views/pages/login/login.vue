@@ -36,7 +36,7 @@
                 class="password"
                 id="password"
               />
-              <div class="search eye-password" @click="ShowPassword">
+              <div class=" eye-password" @click="ShowPassword">
                 <img v-if="isshowEye" src="~@assets/img/eye.png" alt="eye" />
                 <img v-else src="~@assets/img/eye-off.png" alt="eye-off" />
               </div>
@@ -59,7 +59,7 @@
             </div>
           </template>
         </page-template>
-        <button class="btn-enter" @click="goToAdmin">Админ</button>
+        <!-- <button class="btn-enter" @click="goToAdmin">Админ</button> -->
       </div>
     </div>
   </div>
@@ -265,8 +265,10 @@ export default class LoginPageComponent extends Vue {
 .eye-password {
   cursor: pointer;
   background: #f3f4fa;
-  height: 48px;
+  max-height: 48px;
+  box-sizing: border-box;
   padding: 12px 15px;
+  margin-left: -3px;
   border-top: 1px solid #d0d9de;
   border-right: 1px solid #d0d9de;
   border-bottom: 1px solid #d0d9de;

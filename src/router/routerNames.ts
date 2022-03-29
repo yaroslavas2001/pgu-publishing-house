@@ -16,5 +16,7 @@ export const ADMIN = "admin";
 export const AUTHORS = "authors";
 export const ARTICLES = "articles";
 
+export const ACTIVATEACCOUNT = "activate-account";
 
 export const USER = "user";
+export const ACTIVATEACCOUNTINFO = "activate-account-info";
