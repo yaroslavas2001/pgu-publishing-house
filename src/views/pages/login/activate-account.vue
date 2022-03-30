@@ -3,10 +3,11 @@
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { FORGOTPESSWORD, LOGIN, ADMIN } from "@/router/routerNames";
+import { FORGOTPESSWORD, LOGIN, ADMIN,USER } from "@/router/routerNames";
 import Cookies from "js-cookie";
 import AuthService from "@/api/plugins/services/authService";
 import UserRole from "@/Enum/UserRole";
+import User from "../user/user.vue";
 
 @Options({
   emits: ["goToAdmin"],
@@ -28,8 +29,8 @@ export default class ActivateAccount extends Vue {
     let res = await this.$api.AuthService.activateUser(keyUser);
     if (res.isSuccess) {
       Cookies.set(AuthService.AdminAuthTokenName, res.data.token);
-      this.$store.state.UserRole = UserRole.Admin;
-      this.$router.push({ name: ADMIN });
+      this.$store.state.UserRole = UserRole.User;
+      this.$router.push({ name: USER });
     }
     console.log("res", res);
   }

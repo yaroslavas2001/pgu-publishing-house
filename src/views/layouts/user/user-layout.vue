@@ -15,7 +15,6 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import { reactive } from "vue";
 import LayoutHeader from "./layout-header.vue";
 import LayoutSidebar from "./layout-sidebar.vue";
 @Options({
@@ -44,6 +43,7 @@ body {
     overflow-x: auto;
     .content {
       flex-grow: 1;
+      margin: 15px;
     }
   }
 }

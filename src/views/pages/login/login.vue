@@ -59,14 +59,16 @@
             </div>
           </template>
         </page-template>
-        <!-- <button class="btn-enter" @click="goToAdmin">Админ</button> -->
+        <button class="btn-enter" @click="goToAdmin">Админ</button>
+                <button class="btn-enter" @click="goToUser">User</button>
+
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { FORGOTPESSWORD, REGISTRATION,ADMIN } from "@/router/routerNames";
+import { FORGOTPESSWORD, REGISTRATION,ADMIN ,USER} from "@/router/routerNames";
 import UserRole from "../../../Enum/UserRole"
 @Options({
   emits: ["goToAdmin"],
@@ -92,8 +94,8 @@ export default class LoginPageComponent extends Vue {
       });
       if (res.isSuccess) {
         // console.log("res")
-        this.$store.state.UserRole=UserRole.Admin
-        this.$router.push({ name: ADMIN });
+        this.$store.state.UserRole=UserRole.User
+        this.$router.push({ name: USER });
         this.$store.state.CurrentUser = this.username;
         // console.log("res",res);
       } else {
@@ -112,6 +114,10 @@ export default class LoginPageComponent extends Vue {
   goToAdmin() {
     this.$store.state.UserRole=UserRole.Admin
     this.$router.push({ name: ADMIN});
+  }
+  goToUser(){
+     this.$store.state.UserRole=UserRole.User
+    this.$router.push({ name: USER});
   }
   ShowPassword() {
     var x = document.getElementById("password") as HTMLInputElement;
