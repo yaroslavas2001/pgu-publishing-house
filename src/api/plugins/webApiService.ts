@@ -32,7 +32,7 @@ export class WebApiService {
     xhr.onload = function () {
 
 
-      let resp:HttpResponseResult<T>;
+      let resp: HttpResponseResult<T>;
       try {
         resp = JSON.parse(xhr.response)
         // console.log("resp", resp);
@@ -44,7 +44,7 @@ export class WebApiService {
       console.log("resp", resp);
       console.log("xhr", xhr)
       let res: HttpResponseResult<T> = {
-        isSuccess:resp.isSuccess,
+        isSuccess: resp.isSuccess,
         TypeName: resp.TypeName,
         // errorMessage: xhr.status,
         data: resp.data || null,
@@ -52,7 +52,7 @@ export class WebApiService {
         stackTrace: resp.stackTrace
         // ResponseHeaders: {}
       }
-      console.log("res",res)
+      console.log("res", res)
       if (xhr.status != 200 && xhr.status != 201) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
         console.error(self.TAG, 'Request:', url, xhr.status, xhr.statusText);
         if (xhr.status === 401) {
@@ -127,7 +127,10 @@ export class WebApiService {
       xhr.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
 
     //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    let body;
+    let body
+    //: string = JSON.stringify(data);
+    // xhr.setRequestHeader('Content-Type', 'application/json');
+    // console.log("body",body)
     if (typeof data === 'string') {
       body = data;
       xhr.setRequestHeader('Content-Type', 'application/json');
@@ -135,6 +138,7 @@ export class WebApiService {
     else if (data) {
       body = new FormData();
       this.buildFormData(body, data);
+      console.log("nen",data)
       //xhr.setRequestHeader('Content-Type', 'multipart/form-data');
     }
 
