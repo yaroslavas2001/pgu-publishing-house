@@ -138,8 +138,7 @@ export class WebApiService {
     else if (data) {
       body = new FormData();
       this.buildFormData(body, data);
-      console.log("nen",data)
-      //xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+   
     }
 
     xhr.send(body);

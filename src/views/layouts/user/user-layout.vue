@@ -25,7 +25,7 @@ import LayoutSidebar from "./layout-sidebar.vue";
   },
   name: "Layout",
 })
-export default class Layout extends Vue {}
+export default class UserLayout extends Vue {}
 </script>
 <style lang="less">
 body {

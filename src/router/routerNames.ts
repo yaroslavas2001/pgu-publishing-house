@@ -2,21 +2,31 @@ export const DEFAULT = "default";
 export const LOGIN = "login";
 export const FORGOTPESSWORD = "forgot-password"
 export const REGISTRATION = "registration"
-//search-for-payments
+export const ACTIVATEACCOUNT = "activate-account";
+export const ACTIVATEACCOUNTINFO = "activate-account-info";
 
+// общее
+export const ADDAUTHOR = "add-author";
 
-
-
-
-//news 
-
-export const REVIEWER = "reviewer";
 
 export const ADMIN = "admin";
 export const AUTHORS = "authors";
 export const ARTICLES = "articles";
 
-export const ACTIVATEACCOUNT = "activate-account";
+
+export const REVIEWER = "reviewer";
+
+
+
 
 export const USER = "user";
-export const ACTIVATEACCOUNTINFO = "activate-account-info";
+export const NEWARTICLE = "new-article";
+export const ARTICLEARCHIVE = "article-archive";
+export const REVIEWERSRESPONSE = "reviewers-response";
+export const USERARTICLES = "user-articles";
+
+
+
+
+
+

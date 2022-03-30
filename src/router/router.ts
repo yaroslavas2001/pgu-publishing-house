@@ -1,35 +1,23 @@
-//#region import
 import { createRouter, createWebHistory, RouteRecordRaw, RouterView } from "vue-router";
+const BaseTemplate = () => import("@/views/layouts/base-layout.vue");
 
 import LoginPageComponent from "@/views/pages/login/login.vue"
 import ForgotPasswordPageComponent from "@/views/pages/login/forgot-password.vue"
 import ErrorPageComponent from "@/views/pages/login/404-page.vue"
-const BaseTemplate = () => import("@/views/layouts/base-layout.vue");
-const AdminLayout = () => import("@views/layouts/admin/admin-layout.vue");
-
-//#region search-for-payments
-
-// import HomePageComponent from "@/views/pages/home.vue"
 import RegistrationPage from "@views/pages/login/registration.vue"
-//#endregion 
-
+import ActivateAccount from "@views/pages/login/activate-account.vue"
 
 import Reviewer from "@views/pages/reviewer/reviewer.vue"
-import ActivateAccount from "@views/pages/login/activate-account.vue"
-import AuthorsPage from "@views/pages/admin/authors/authors.vue"
-import ArticlesPage from "@views/pages/admin/articles/articles.vue"
-// import AdminLayout from "@views/layouts/admin/admin-layout.vue"
-import ActivateAccountInfo from "@views/pages/login/activate-account-info.vue"
 
-import UserPage from "@views/pages/user/user.vue"
 import {
   DEFAULT, LOGIN, FORGOTPESSWORD, REGISTRATION,
-  REVIEWER, ADMIN, USER, AUTHORS, ARTICLES, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO
+  REVIEWER, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO
 } from "./routerNames";
 
-//#endregion
+import AdminRouter from "./model/AdminRouter"
+import UserRouter from "./model/UserRouter"
+
 const routes: Array<RouteRecordRaw> = [
-  //LoginPageComponent
   {
     name: LOGIN,
     path: "/login",
@@ -37,9 +25,6 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "Авторизация",
       allowAnonymous: true,
-      // middleware: [
-      //   new DocumentTitleMiddleware()
-      // ]
     }
   },
   {
@@ -93,33 +78,8 @@ const routes: Array<RouteRecordRaw> = [
       title: "registration"
     }
   },
-
-  {
-    path: '/',
-    component: BaseTemplate,
-    children: [
-      {
-        name: ADMIN,
-        path: ADMIN,
-        component: AdminLayout,
-        redirect: { name: AUTHORS },
-        children: [
-          {
-            name: AUTHORS,
-            path: AUTHORS,
-            component: AuthorsPage,
-            meta: { title: "авторы" }
-          },
-          {
-            name: ARTICLES,
-            path: ARTICLES,
-            component: ArticlesPage,
-            meta: { title: "Статьи" }
-          },
-        ]
-      }
-    ]
-  },
+  ...AdminRouter,
+  ...UserRouter,
   { path: '/:pathMatch(.*)*', component: ErrorPageComponent },
 ];
 
