@@ -1,16 +1,24 @@
+import AllAuthorModel from "@/models/author/AllAuthorModel";
+import AuthorModel from "@/models/author/AuthorModel";
 import GetListRequest from "../models/getListRequest";
 import GetListResponse from "../models/getListResponse";
 import HttpResponseResult from "../models/httpResponseResult";
 import { WebApiService } from "../webApiService";
 import RequestService from "./requestsService";
 
-export default class UserService extends RequestService<any, any, any, any>{
+export default class AuthorService extends RequestService<any, any, any, any>{
     /**
      *
      */
     constructor(api: WebApiService) {
-        super(api, "User");
+        super(api, "Author");
 
+    }
+    
+    public async AddAuthor(request: AllAuthorModel): Promise<HttpResponseResult<AuthorModel>> {
+        let res = await this.createRequestPromise<any>('/Add', 'POST', request);
+        console.log("res Author/Add", res)
+        return res;
     }
     // public GetTechStateList(): Promise<HttpResponseResult<Array<any>>> {
 
@@ -32,7 +40,7 @@ export default class UserService extends RequestService<any, any, any, any>{
 
 //         return this.createRequestPromise<Array<any>>('/AppartmentType/DropDownList', 'GET');
 //     }
-    // public async GetUsersList(request?: GetListRequest<any>): Promise<HttpResponseResult<GetListResponse<any>>> {
+    // public async GetAuthorsList(request?: GetListRequest<any>): Promise<HttpResponseResult<GetListResponse<any>>> {
 
     //     var url = '/DropDownList'
     //     if(request)

@@ -43,6 +43,7 @@ body {
     overflow-x: auto;
     .content {
       flex-grow: 1;
+      margin: 15px;
     }
   }
 }

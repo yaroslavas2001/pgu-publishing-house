@@ -7,7 +7,7 @@
             <div class="login-title">Авторизация</div>
           </template>
           <template #body>
-            <div class="">
+            <form>
               <label for="username">Почта</label>
               <input
                 type="text"
@@ -20,14 +20,8 @@
                   wrong: wrong,
                 }"
               />
-            </div>
-            <label for="password" class="mt-3">Пароль</label>
-            <div
-              class="password-input"
-              :class="{
-                wrong: wrong,
-              }"
-            >
+              <!-- </div> -->
+              <label for="password" class="mt-3">Пароль</label>
               <input
                 type="password"
                 placeholder="Введите пароль"
@@ -35,12 +29,21 @@
                 @keypress.enter="enterPage"
                 class="password"
                 id="password"
+                autocomplete="on"
               />
-              <div class=" eye-password" @click="ShowPassword">
-                <!-- <img v-if="isshowEye" src="~@assets/img/eye.png" alt="eye" /> -->
-                <!-- <img v-else src="~@assets/img/eye-off.png" alt="eye-off" /> -->
-              </div>
-            </div>
+            </form>
+            <!-- <div
+              class="password-input"
+              :class="{
+                wrong: wrong,
+              }"
+            > -->
+
+            <!-- <div class="eye-password" @click="ShowPassword">
+                <img v-if="isshowEye" src="~@assets/img/eye.png" alt="eye" />
+                <img v-else src="~@assets/img/eye-off.png" alt="eye-off" />
+              </div> -->
+            <!-- </div> -->
 
             <!-- <div class="forgot__password">
               <button class="forgot" @click="forgot">Забыли пароль?</button>
@@ -60,16 +63,20 @@
           </template>
         </page-template>
         <button class="btn-enter" @click="goToAdmin">Админ</button>
-                <button class="btn-enter" @click="goToUser">User</button>
-
+        <button class="btn-enter" @click="goToUser">User</button>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { FORGOTPESSWORD, REGISTRATION,ADMIN ,USER} from "@/router/routerNames";
-import UserRole from "../../../Enum/UserRole"
+import {
+  FORGOTPESSWORD,
+  REGISTRATION,
+  ADMIN,
+  USER,
+} from "@/router/routerNames";
+import UserRole from "../../../Enum/UserRole";
 @Options({
   emits: ["goToAdmin"],
 })
@@ -93,11 +100,14 @@ export default class LoginPageComponent extends Vue {
         password: this.password,
       });
       if (res.isSuccess) {
-        // console.log("res")
-        this.$store.state.UserRole=UserRole.User
+   
+        this.$store.state.UserRole = UserRole.User;
         this.$router.push({ name: USER });
         this.$store.state.CurrentUser = this.username;
-        // console.log("res",res);
+        this.$store.state.FirstName = res.data.firstName;
+        this.$store.state.FatherName = res.data.fatherName;
+
+      
       } else {
         this.wrong = true;
         this.errorMessage = res.errorMessage;
@@ -112,12 +122,12 @@ export default class LoginPageComponent extends Vue {
     this.$router.push({ name: FORGOTPESSWORD });
   }
   goToAdmin() {
-    this.$store.state.UserRole=UserRole.Admin
-    this.$router.push({ name: ADMIN});
+    this.$store.state.UserRole = UserRole.Admin;
+    this.$router.push({ name: ADMIN });
   }
-  goToUser(){
-     this.$store.state.UserRole=UserRole.User
-    this.$router.push({ name: USER});
+  goToUser() {
+    this.$store.state.UserRole = UserRole.User;
+    this.$router.push({ name: USER });
   }
   ShowPassword() {
     var x = document.getElementById("password") as HTMLInputElement;

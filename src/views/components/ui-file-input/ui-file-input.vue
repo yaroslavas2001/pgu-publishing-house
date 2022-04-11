@@ -29,14 +29,14 @@
 <script lang="ts">
 import { Options, Vue, Prop } from "vue-property-decorator";
 @Options<UiFileInput>({
-  props: {
-    readonly: { default: false, type: Boolean },
-    required: { default: false, type: Boolean },
-    showError: { default: true, type: Boolean },
-    maxSizeMb: { default: 5, type: Number },
-    label: { type: String, default: "" },
-    showFileName: { default: true, type: Boolean },
-  },
+  // props: {
+  //   readonly: { default: false, type: Boolean },
+  //   required: { default: false, type: Boolean },
+  //   showError: { default: true, type: Boolean },
+  //   maxSizeMb: { default: 5, type: Number },
+  //   label: { type: String, default: "" },
+  //   showFileName: { default: true, type: Boolean },
+  // },
   emits: ["onChange"],
 })
 export default class UiFileInput extends Vue {

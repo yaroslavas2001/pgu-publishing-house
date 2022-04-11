@@ -20,6 +20,8 @@ export class StateModel {
   KioskСondition: Array<Model> = []
   SettlementType: Array<Model> = []
   CurrentUser:string
+  FirstName:string
+  FatherName:string
   UserRole:number
 }
 

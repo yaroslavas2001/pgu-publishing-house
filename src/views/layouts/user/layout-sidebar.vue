@@ -39,14 +39,17 @@ export default class LayoutSidebar extends Vue {
     height: auto;
     display: flex;
     flex-direction: column;
-
+    margin-top: 30px;
     .layout-sidebar-item {
       color: @ColorText;
       text-decoration: none;
-      font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-        "Lucida Sans", Arial, sans-serif;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       outline: none;
       padding: 10px;
+      height: 40px;
+      box-sizing: border-box;
+      display: flex;
+      text-align: center;
       &:hover {
         color: @ColorTextHover;
         transition: 0.3s;
@@ -56,5 +59,6 @@ export default class LayoutSidebar extends Vue {
 }
 .router-link-active {
   color: @RouterLinkActive !important;
+  background-color: #062634
 }
 </style>

@@ -4,7 +4,7 @@ import AuthService from './plugins/services/authService';
 //модельки
 
 // import PointOfSalesService from './plugins/services/pointOfSalesService';
-import UserService from './plugins/services/UserService';
+import AuthorService from './plugins/services/AuthorService';
 // import PointOfSalesMonitoring from './plugins/services/PointOfSalesMonitoring';
 
 
@@ -25,9 +25,12 @@ export default class ApiDataSource {
 	GetewayService: RequestService<any,any,any,any>
 	// ShopService: RequestService<any,any,any,any>
 	AuthService:AuthService
+	AuthorService:AuthorService
 	constructor(webApiUrl: string) {
 		this.webApiService = new WebApiService(webApiUrl);
 		this.AuthService = new AuthService(this.webApiService);
+		this.AuthorService = new AuthorService(this.webApiService);
+
 		// this.UserService = new UserService(this.webApiService) 
 
 		// this.ReportService = new RequestService(this.webApiService,"Report");

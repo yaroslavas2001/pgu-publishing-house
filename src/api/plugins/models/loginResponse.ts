@@ -1,3 +1,7 @@
 export default class LoginResponse{
-    token?:string
+    token:string
+    firstName:string
+    fatherName:string
+    role:number
+    id:number
 }

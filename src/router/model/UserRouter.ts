@@ -7,7 +7,7 @@ import NewArticlePage from "@/views/pages/user/new-article/new-article.vue"
 import UserArticles from "@/views/pages/user/user-articles/user-articles.vue"
 import ReviewersResponse from "@/views/pages/user/reviewers-response/reviewers-response.vue"
 import ArticleArchive from "@/views/pages/user/article-archive/article-archive.vue"
-import AddAuthor from "@/views/pages/user/add-author/add-author.vue"
+import AddAuthor from "@/views/pages/general/add-author.vue"
 
 import { USER, NEWARTICLE, ARTICLEARCHIVE, REVIEWERSRESPONSE, USERARTICLES, ADDAUTHOR } from "../routerNames";
 
@@ -20,7 +20,7 @@ const UserRouter: Array<RouteRecordRaw> = [
         name: USER,
         path: USER,
         component: UserLayout,
-        redirect: { name: USERARTICLES },
+        redirect: { name: NEWARTICLE },
         children: [
           {
             name: USERARTICLES,
