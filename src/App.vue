@@ -8,7 +8,8 @@
 import { Vue } from "vue-class-component";
 export default class AppComponent extends Vue {
   async created() {
-
+// Указать источники
+//<a href='https://ru.freepik.com/photos/book'>Book фото создан(а) freepik - ru.freepik.com</a>
   }
 }
 </script>

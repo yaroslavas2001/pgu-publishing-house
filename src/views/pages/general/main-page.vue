@@ -1,21 +1,69 @@
 <template>
-  <div>
-    <router-link :to="{ name: LOGIN }">Вход</router-link>
-    <button @click="goToCal">Калькуляция</button>
+  <div class="main-page">
+    <div class="main-page-block">
+      <div class="main-page-text">Издательство ПГУ им. Т.Г. Шевченко</div>
+      <div class="main-page-sub-text">
+        Немного информации о издательстве, можно сделать что-то типа ссылки на
+        историю...
+      </div>
+      <button @click="goToCal" class="btn">Калькуляция</button>
+
+      <button @click="goToLogin" class="btn">Вход</button>
+    </div>
   </div>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { LOGIN,CALCULATION } from "@/router/routerNames";
-@Options({
-  // emits: ["goToAdmin"],
-})
+import { LOGIN, CALCULATION } from "@/router/routerNames";
+@Options({})
 export default class MainPage extends Vue {
-  LOGIN = LOGIN;
+  goToLogin() {
+    this.$router.push({ name: LOGIN });
+  }
   goToCal() {
-    this.$router.push({name:CALCULATION})
+    this.$router.push({ name: CALCULATION });
   }
 }
 </script>
-<style scoped >
+<style scoped lang="less" >
+.main-page {
+  background: url("./../../../assets/img/close-up-hands-holding-open-book-small.jpg")
+    center no-repeat;
+  background-size: 100% 100vh;
+  height: 100vh;
+  position: relative;
+  .main-page-block {
+    position: absolute;
+    top: 25%;
+    left: 100px;
+    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    .main-page-text {
+      font-size: 60px;
+      margin-bottom: 10px;
+    }
+    .main-page-sub-text {
+      max-width: 400px;
+      margin-bottom: 25px;
+    }
+    .btn {
+      font-size: 25px;
+      outline: none;
+      background: transparent;
+      border: 1px #cd8458 solid;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      padding: 7px 25px;
+      width: fit-content;
+      cursor: pointer;
+      transition:all .2s ease-out;
+
+      &:hover {
+        background: #cd8458;
+        color: #dedfd7;
+      }
+    }
+  }
+}
 </style>
