@@ -8,16 +8,40 @@ import RegistrationPage from "@views/pages/login/registration.vue"
 import ActivateAccount from "@views/pages/login/activate-account.vue"
 
 import Reviewer from "@views/pages/reviewer/reviewer.vue"
-
+import MainPage from "@/views/pages/general/main-page.vue"
+import Calculation from "@/views/pages/general/calculation.vue"
 import {
-  DEFAULT, LOGIN, FORGOTPESSWORD, REGISTRATION,
-  REVIEWER, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO
+  DEFAULT, LOGIN, FORGOTPESSWORD, REGISTRATION,CALCULATION,
+  REVIEWER, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO, MAINPAGE
 } from "./routerNames";
 
 import AdminRouter from "./model/AdminRouter"
 import UserRouter from "./model/UserRouter"
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    name: DEFAULT,
+    path: "/",
+    redirect: MAINPAGE
+  },
+  {
+    name: MAINPAGE,
+    path: "/main-page",
+    component: MainPage,
+    meta: {
+      title: "Издательство ПГУ",
+      allowAnonymous: true,
+    }
+  },
+  {
+    name: CALCULATION,
+    path: "/сalculation",
+    component: Calculation,
+    meta: {
+      title: "Калькуляция",
+      allowAnonymous: true,
+    }
+  },
   {
     name: LOGIN,
     path: "/login",
@@ -27,12 +51,6 @@ const routes: Array<RouteRecordRaw> = [
       allowAnonymous: true,
     }
   },
-  {
-    name: DEFAULT,
-    path: "/",
-    redirect: "login"
-  },
-
   {
     path: '/sign',
     component: BaseTemplate,

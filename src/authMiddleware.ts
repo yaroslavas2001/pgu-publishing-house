@@ -17,7 +17,7 @@ const install = (app: App, opts: { router: Router }) => {
     const cookie = Cookies.get(AuthService.AdminAuthTokenName);
 
     let isAuthorized = !!cookie && cookie != ''
-
+    // todo main-page исключение
     // if (to.name == LOGIN && isAuthorized) {
     //   if (store.state.UserRole == UserRole.Admin)
     //     next({ name: ADMIN });

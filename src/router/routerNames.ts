@@ -7,8 +7,8 @@ export const ACTIVATEACCOUNTINFO = "activate-account-info";
 
 // общее
 export const ADDAUTHOR = "add-author";
-
-
+export const MAINPAGE ="main-page"
+export const CALCULATION ="calculation"
 export const ADMIN = "admin";
 export const AUTHORS = "authors";
 export const ARTICLES = "articles";

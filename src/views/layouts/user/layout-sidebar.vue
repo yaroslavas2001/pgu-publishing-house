@@ -5,6 +5,7 @@
         class="layout-sidebar-item"
         v-for="(item, index) in UserSidebarItems"
         :key="index"
+        exact-active-class="active"
         :to="{ name: item.routeName }"
       >
         <i :class="item.icon" />
@@ -59,6 +60,18 @@ export default class LayoutSidebar extends Vue {
 }
 .router-link-active {
   color: @RouterLinkActive !important;
+  background-color: #062634
+}
+.exact-active-class {
+  color: @RouterLinkActive !important;
+  background-color: #062634
+}
+.active{
+  color: @RouterLinkActive !important;
+  background-color: #062634
+}
+.router-link-exact-active{
+   color: @RouterLinkActive !important;
   background-color: #062634
 }
 </style>
