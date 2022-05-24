@@ -11,3 +11,12 @@ export default class BaseLayout extends Vue {
   
 }
 </script>
+<style lang="less">
+body {
+  margin: 0;
+  font-style: normal;
+  font-weight: normal;
+ font-family: 'Open Sans', sans-serif !important;
+}
+</style>
+

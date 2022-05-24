@@ -44,8 +44,7 @@ export default class LayoutSidebar extends Vue {
     .layout-sidebar-item {
       color: @ColorText;
       text-decoration: none;
-      font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-        "Lucida Sans", Arial, sans-serif;
+    
       outline: none;
       padding: 10px;
       &:hover {

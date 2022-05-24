@@ -4,13 +4,8 @@
     @click="onClick"
     :class="{ disabled: disabled, checked: innerChecked }"
   >
-    <div class="checkbox">
-      <slot name="checked" v-if="innerChecked">
-        <div class="check"/>
-      </slot>
-      <slot name="unchecked" v-else/>
-    </div>
-    <slot></slot>
+    <div class="checkbox"><div class="check" /></div>
+    <slot/>
     <!-- слот для чекед другого -->
   </div>
 </template>
@@ -55,17 +50,15 @@ export default class UiCheckBoxComponent extends Vue {
 .ui-checkbox {
   display: flex;
   align-items: center;
-  margin-right: 1em;
+  text-align: center;
   cursor: pointer;
   color: @uiCheckboxColorLabel;
   user-select: none;
-  color: #4f5e74;
-  height: 58px;
   &.disabled {
     opacity: 0.6;
     filter: alpha(opacity=60);
     cursor: not-allowed;
-    background-color: greenyellow;
+    // background-color: greenyellow;
   }
   .checkbox {
     // border: 1px solid @uiCheckboxBorderSquareColor;
@@ -77,7 +70,7 @@ export default class UiCheckBoxComponent extends Vue {
     height: 24px;
     width: 24px;
     margin-right: 11px;
-    margin-top: 9px;
+    // margin-top: 9px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,7 +84,7 @@ export default class UiCheckBoxComponent extends Vue {
       border: 0px;
       .check {
         border-radius: 4px;
-        // background: url(@iconCheckSrc) no-repeat center center #71b92f;
+        background-color: #cc855a;
       }
     }
   }

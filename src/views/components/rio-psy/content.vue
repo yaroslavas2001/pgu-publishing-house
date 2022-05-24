@@ -22,7 +22,6 @@ export default class ContentComponent extends Vue {
     padding-bottom: 12px ;
     font-weight: 600;
     border-bottom: 2px #F0F0F0 solid;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 }
 </style>

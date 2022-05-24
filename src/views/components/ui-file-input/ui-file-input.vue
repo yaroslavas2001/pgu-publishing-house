@@ -219,11 +219,11 @@ export default class UiFileInput extends Vue {
     position: absolute;
     left: 12px;
     top: 10px;
-    font-family: TirScript;
+    
   }
   .right {
     top: 10px;
-    font-family: TirScript;
+    
     position: absolute;
     right: 12px;
   }
@@ -231,7 +231,6 @@ export default class UiFileInput extends Vue {
   position: relative;
 
   input {
-    // font-family: "ProximaNova", sans-serif;
     font-size: inherit;
     border: 1px solid #394e72;
     padding: 0 @padding;

@@ -4,7 +4,7 @@
       <div class="icon-arrow-left" @click="backward"></div>
       <div class="title_date-picker minutes" @click="changeHours">
         <!-- {{ m }} -->
-        {{ this.getHourName() }}
+        {{ getHourName() }}
       </div>
       <div class="icon-arrow-right" @click="next"></div>
     </div>
@@ -200,7 +200,6 @@ export default class UiOneMinuteSelector extends Vue {
   }
   .back-to-days {
     display: flex;
-    font-family: TirScript;
     border-bottom: 1px solid rgba(0, 0, 0, 0.11);
     padding: 20px 0 12px;
     justify-content: center;

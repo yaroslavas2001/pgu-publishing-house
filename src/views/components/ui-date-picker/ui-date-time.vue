@@ -212,7 +212,7 @@ export default class UiDateTime extends Vue {
     .backward,
     .next {
       display: flex;
-      font-family: TirScript;
+      
       font-size: 0.7em;
       align-items: center;
       cursor: pointer;

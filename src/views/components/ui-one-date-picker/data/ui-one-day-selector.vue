@@ -6,8 +6,8 @@
         {{
           moment(
             new Date(
-              year ? year : this.innerYear,
-              month ? month : this.innerMonth,
+              year ? year : innerYear,
+              month ? month : innerMonth,
               1
             )
           )
@@ -371,7 +371,7 @@ changeDay(day: any) {
   }
   .select-hours {
     display: flex;
-    font-family: TirScript;
+    
     border-top: 1px solid rgba(0, 0, 0, 0.11);
     padding: 8px 0 10px;
     justify-content: center;

@@ -27,11 +27,6 @@ import LayoutSidebar from "./layout-sidebar.vue";
 export default class AdminLayout extends Vue {}
 </script>
 <style lang="less">
-body {
-  margin: 0;
-  font-style: normal;
-  font-weight: normal;
-}
 .layout {
   display: flex;
   flex-direction: column;

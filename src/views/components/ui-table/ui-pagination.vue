@@ -85,7 +85,7 @@ export default class UiPaginationComponent extends Vue {
   goNext() {
     this.goToPage(this.currentPage + 1);
   }
-  private goToPage(page: number) {
+  goToPage(page: number) {
     
     if (page < 1 || page > this.pagesCount) {
       return;
@@ -128,6 +128,7 @@ export default class UiPaginationComponent extends Vue {
     this.currentPage = 1;
     this.refreshPages();
   }
+ 
 }
 </script>
 
@@ -163,7 +164,6 @@ export default class UiPaginationComponent extends Vue {
     align-items: center;
     justify-content: center;
     background: @uiPaginationBgColor;
-    // font-family: ProximaNova;
     font-size: 0ю5rem;
     color: @uiPaginationColor;
     min-height: 25px;

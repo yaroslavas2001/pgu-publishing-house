@@ -58,43 +58,42 @@ export default class LableInput extends Vue {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .ui-label-input {
   display: flex;
   flex-direction: column;
-  // font-size: 12px;
-
+  font-family: "Open Sans", sans-serif;
+  margin-bottom: 9px;
   .wrong {
     border-color: red !important;
   }
   .label {
     font-size: 12px !important ;
-    color: #2d3d5c !important;
+    color: #000 !important;
+    margin-bottom: 2px;
   }
   .input {
-    border: 1px solid #d0d9de;
-    background: #f3f4fa;
+    border: 1px solid #c4b29e;
+    background: white;
     font-size: 12px;
     height: 30px;
-    color: #4F5E74;
+    color: rgb(29, 26, 26);
     box-sizing: border-box;
     width: 100%;
     border-radius: 4px;
     padding: 8px 12px;
     font-weight: 600;
-    // margin-bottom: 2px;
     outline: none;
+    font-family: "Open Sans", sans-serif;
   }
   .input::placeholder {
     font-weight: 500;
     opacity: 0.6;
-        color: #8797af;
-
+    color: #8797af;
   }
   .input:active,
   .input:focus {
-    // color: #8797af !important;
-    border-color: #67b9da;
+    border-color: #bc8860;
   }
 }
 </style>

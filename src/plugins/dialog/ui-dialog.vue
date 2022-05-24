@@ -88,7 +88,6 @@ export default class UiDialog extends Vue {
 </script>
 <style lang="less">
 .dialog {
-  font-family: Solomon Sans;
 }
 .dialog__title {
   font-weight: 600;

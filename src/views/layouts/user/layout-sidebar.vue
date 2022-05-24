@@ -44,7 +44,6 @@ export default class LayoutSidebar extends Vue {
     .layout-sidebar-item {
       color: @ColorText;
       text-decoration: none;
-      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       outline: none;
       padding: 10px;
       height: 40px;

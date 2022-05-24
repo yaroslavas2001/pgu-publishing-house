@@ -269,7 +269,6 @@ export default class Page extends Vue {
     max-width: 535px;
     input {
       // background: #fcfcfc;
-      // font-family: ProximaNova;
       border: 1px solid #ced4de;
       box-sizing: border-box;
       padding: 5px 10px 5px 10px;
@@ -299,7 +298,6 @@ export default class Page extends Vue {
     border: 1px solid #d2d2d2;
     font-size: 14px;
     padding: 10px;
-    // font-family: ProximaNova;
     resize: none;
 
     &:focus {

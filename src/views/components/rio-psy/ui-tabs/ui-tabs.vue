@@ -8,7 +8,7 @@
           'padding-left': titlePadding + 'px',
           'padding-right': titlePadding + 'px',
         }"
-        v-for="(tab, index) in this.tabs"
+        v-for="(tab, index) in tabs"
         :key="index"
         @click="selectTab(tab)"
         :class="{
@@ -27,7 +27,7 @@
 </template>
 <script lang="ts">
 import { Vue, Options, Prop, Provide } from "vue-property-decorator";
-import UITabItemComponent from "@views/components/ui-tabs/ui-tabs-item.vue";
+import UITabItemComponent from "@views/components/rio-psy/ui-tabs/ui-tabs-item.vue";
 import TabsProvider, { TabInfo } from "./tabsProvider";
 @Options({
   emits: ["select"],
@@ -49,16 +49,18 @@ export default class UITabsComponent extends Vue {
 }
 </script>
 <style lang="less" scoped>
-@uiTabsHeaderBorderBottom: 2px #394e72 solid;
+@uiTabsHeaderBorderBottom: 2px 	#d9d0c4 solid;
 @uiTabsBgColor: #ffffff;
-@uiTabsHeaderColor: #586174;
+@uiTabsHeaderColor: #000;
 @uiTabsActiveColor: red;
 @uiTabsActivegaphOnBorderBottom: 2px solid red;
 @uiTabsDisableColor: red;
 .ui-tabs {
   display: block;
   background-color: @uiTabsBgColor;
-  padding: 17px 19px 0px 19px;
+  // padding: 17px 19px 0px 19px;
+   font-family: 'Open Sans', sans-serif !important;
+
   .header-tabs {
     display: flex;
     align-items: center;
@@ -87,7 +89,7 @@ export default class UITabsComponent extends Vue {
   }
   .isActive {
     font-weight: bold;
-    border-bottom: 2px solid #bcff3c;
+    border-bottom: 2px solid #cc855a;
     &.gaphOn {
       // color:red;
       // border-bottom: @uiTabsActivegaphOnBorderBottom;

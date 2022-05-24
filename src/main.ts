@@ -10,6 +10,13 @@ import LableInput from "@/views/components/rio-psy/label-input.vue"
 import AutocompleteMultiselectComponent from "@/views/components/rio-psy/autocomplete-multiselect.vue"
 import ToggleSwitcherComponent from "@/views/components/rio-psy/toggle-switcher.vue"
 import SelectAutocompleteComponent from "@/views/components/rio-psy/select-autocomplete.vue"
+import ModalBlock from "@/views/components/rio-psy/modal-block.vue"
+import Btn from "@/views/components/rio-psy/btn.vue"
+import UITabsComponent from "@views/components/rio-psy/ui-tabs/ui-tabs.vue"
+import UITabItemComponent from "@views/components/rio-psy/ui-tabs/ui-tab-item.vue"
+import UiCheckbox from "@components/rio-psy/ui-checkbox.vue";
+
+
 
 
 import UiTable from "@views/components/ui-table/ui-table.vue";
@@ -21,7 +28,6 @@ import UiLoading from "@components/ui-loading.vue";
 import UiImagePreview from "@components/ui-crop-image/ui-image-preview.vue";
 import UiCropImage from "@components/ui-crop-image/ui-crop-image.vue";
 import UiFileInput from "@components/ui-file-input/ui-file-input.vue";
-import UiCheckbox from "@components/ui-checkbox.vue";
 import UiDatePicker from "@components/ui-date-picker/ui-date-picker.vue";
 import ControlValidatorGroup from "@views/components/control-validator-group.vue";
 import UiGroupValidator from "@views/components/ui-group-validator.vue";
@@ -40,8 +46,7 @@ import UiSelectSearchComponent from "@/views/components/ui-select-saerch.vue";
 
 import Dialog from "./plugins/dialog/plugin.dialog"
 import InitService from "@/init-service/plugin.init-service"
-import UITabsComponent from "@views/components/ui-tabs/ui-tabs.vue"
-import UITabItemComponent from "@views/components/ui-tabs/ui-tab-item.vue"
+
 import ControlTimeComponent from "@views/components/ui-date-picker/control-time.vue"
 import UiLableInput from "@views/components/ui-label-input.vue"
 import UiSchedule from "@views/components/ui-schedule.vue"
@@ -169,5 +174,7 @@ app.component("label-input", LableInput)
 app.component("autocomplete-multiselect", AutocompleteMultiselectComponent)
 app.component("toggle-switcher", ToggleSwitcherComponent)
 app.component("select-autocomplete", SelectAutocompleteComponent)
+app.component("modal-block", ModalBlock)
+app.component("btn", Btn)
 
 app.mount("#app");

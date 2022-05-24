@@ -502,7 +502,7 @@ export default class UiDaySelector extends Vue {
   }
   .select-hours {
     display: flex;
-    font-family: TirScript;
+    
     border-top: 1px solid rgba(0, 0, 0, 0.11);
     padding: 8px 0 10px;
     justify-content: center;

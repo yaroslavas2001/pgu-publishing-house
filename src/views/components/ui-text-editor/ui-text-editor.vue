@@ -305,13 +305,11 @@ export default class UiTextEditorComponent extends Vue {
     width: 100%;
     outline: none;
     font-size: 16px;
-    font-family: FreeSetLightC;
     resize: none;
     padding: 10px 20px;
     display: inline-block;
     border: 1px solid #ced4de;
     color: #364358;
-    // font-family: "ProximaNova", sans-serif;
   }
   button {
     border: 1px solid transparent;

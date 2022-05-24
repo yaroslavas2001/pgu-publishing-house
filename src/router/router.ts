@@ -9,7 +9,7 @@ import ActivateAccount from "@views/pages/login/activate-account.vue"
 
 import Reviewer from "@views/pages/reviewer/reviewer.vue"
 import MainPage from "@/views/pages/general/main-page.vue"
-import Calculation from "@/views/pages/general/calculation.vue"
+import Calculation from "@/views/pages/calculation/calculation.vue"
 import {
   DEFAULT, LOGIN, FORGOTPESSWORD, REGISTRATION,CALCULATION,
   REVIEWER, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO, MAINPAGE

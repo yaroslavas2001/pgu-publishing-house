@@ -6,9 +6,8 @@
         Немного информации о издательстве, можно сделать что-то типа ссылки на
         историю...
       </div>
-      <button @click="goToCal" class="btn">Калькуляция</button>
-
-      <button @click="goToLogin" class="btn">Вход</button>
+      <btn title="Калькуляция" @click="goToCal" class="btn-cal"/>
+      <btn title="Вход" @click="goToLogin" />
     </div>
   </div>
 </template>
@@ -47,23 +46,9 @@ export default class MainPage extends Vue {
       max-width: 400px;
       margin-bottom: 25px;
     }
-    .btn {
-      font-size: 25px;
-      outline: none;
-      background: transparent;
-      border: 1px #cd8458 solid;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      padding: 7px 25px;
-      width: fit-content;
-      cursor: pointer;
-      transition:all .2s ease-out;
-
-      &:hover {
-        background: #cd8458;
-        color: #dedfd7;
-      }
-    }
   }
+}
+.btn-cal{
+  margin-bottom: 10px;
 }
 </style>

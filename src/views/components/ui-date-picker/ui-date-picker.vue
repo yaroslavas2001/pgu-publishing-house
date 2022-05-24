@@ -475,7 +475,7 @@ border: 2px solid red !important;
       top: calc(50% - 1em / 2);
       border-left: none;
       cursor: pointer;
-      font-family: TirScript;
+      
       color: #99a4c0;
       align-items: center;
     }
