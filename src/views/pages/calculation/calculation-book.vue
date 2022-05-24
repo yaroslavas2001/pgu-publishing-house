@@ -19,6 +19,10 @@
     <ui-checkbox v-model="model.IsPrototyping">IsPrototyping</ui-checkbox>
     <ui-checkbox v-model="model.IsReplication">IsReplication</ui-checkbox>
     <ui-checkbox v-model="model.IsColor">IsColor</ui-checkbox>
+    <div class="sum">
+          Итого : {{model.salary}}
+
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -30,10 +34,14 @@ import CalculationСhangeModel from "@models/calculation/CalculationСhangeModel
 })
 export default class CalculationBook extends Vue {
   model: CalculationСhangeModel = new CalculationСhangeModel();
+  sum:number=0
   created() {
     this.model = new CalculationСhangeModel();
   }
 }
 </script>
 <style scoped >
+.sum{
+margin: 10px 0px;
+}
 </style>
