@@ -11,6 +11,7 @@
         wrong: wrong,
       }"
       :id="id"
+      :type="type"
     />
   </div>
 </template>
@@ -26,6 +27,7 @@ export default class LableInput extends Vue {
   @Prop({ type: String, default: "placeholder" }) placeholder: string;
   @Prop({ type: String, default: "text" }) type: string;
   @Prop({ type: String, default: "id" }) id: string;
+
   @Prop({ type: Boolean, default: false }) required: boolean;
 
   @Prop({ type: [String, Number, Date, Object, Array] })

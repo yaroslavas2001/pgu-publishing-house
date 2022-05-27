@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     name: CALCULATION,
-    path: "/сalculation",
+    path: "/calculation",
     component: Calculation,
     meta: {
       title: "Калькуляция",

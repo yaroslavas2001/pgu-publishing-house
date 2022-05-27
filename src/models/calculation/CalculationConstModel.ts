@@ -5,9 +5,9 @@ export default class CalculationConstModel {
     Typing: number = 22.61
     Prototyping: number = 16.61
     Replication: number = 39.18
-    Paper:number=0
-    MasterFilm:number=4/216
-    Dye:number=8*2/(15000/2)
+    Paper:number=26.5
+    MasterFilm:number=(4/216)
+    Dye:number=(4/1875)
     Glue:number=0.0033
     Staples:number=0.1
     OtherConsumables:number=0.25
