@@ -24,19 +24,37 @@
       Макетирование
     </ui-checkbox>
     <!-- <ui-checkbox v-model="model.IsReplication">IsReplication</ui-checkbox> -->
-    <div class="sum">Итого : {{ model.one }}</div>
+
+    <div class="sum">Цена экземпляра : {{ one.toFixed(2) }}</div>
+    <div class="sum">Итого затрат : {{ sum.toFixed(2) }}</div>
   </div>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { MAINPAGE } from "@/router/routerNames";
-import CalculationСhangeModel from "@models/calculation/CalculationСhangeModel";
-@Options({
-  emits: ["goToAdmin"],
-})
+import CalculationСhangeModel from "@models/calculation/book/CalculationСhangeModel";
+// @Options({
+//   emits: ["goToAdmin"],
+// })
 export default class CalculationBook extends Vue {
   model: CalculationСhangeModel = new CalculationСhangeModel();
-  sum: number = 0;
+  get one(): number {
+    // console.log(this.model.one === NaN || this.model.one===Infinity? 0:this.model.one );
+    return isNaN(this.model.one) ||
+      this.model.one == Infinity ||
+      this.model.Volume < 0 ||
+      this.model.Circulation < 0
+      ? 0
+      : this.model.one;
+  }
+    get sum(): number {
+    // console.log(this.model.one === NaN || this.model.one===Infinity? 0:this.model.one );
+    return isNaN(this.model.all) ||
+      this.model.all == Infinity ||
+      this.model.Volume < 0 ||
+      this.model.Circulation < 0
+      ? 0
+      : this.model.all;
+  }
   created() {
     this.model = new CalculationСhangeModel();
   }
