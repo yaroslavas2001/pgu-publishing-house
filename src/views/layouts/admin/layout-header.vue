@@ -1,7 +1,12 @@
  <template>
   <div class="header">
-    admim
-    <button @click="goOut">Выход</button>
+    <div class="header-publishing-house">
+      Издательство ПГУ <br>им. Т.Г. Шевченок
+    </div>
+    <div class="header-block">
+      <div class="header-name">{{ userName }} {{ UserFatherName }}</div>
+      <btn isSmall @click="goOut" title="Выход" />
+    </div>
   </div>
 </template>
 
@@ -15,8 +20,13 @@ import { LOGIN } from "@/router/routerNames";
   name: "LayoutHeader",
 })
 export default class LayoutHeaderUser extends Vue {
+  userName: string;
+  UserFatherName: string;
+  created() {
+    this.userName = this.$store.state.FirstName;
+    this.UserFatherName = this.$store.state.FatherName;
+  }
   goOut() {
-    console.log("выход");
     this.$api.AuthService.logout();
     this.$router.push({ name: LOGIN });
   }
@@ -25,8 +35,29 @@ export default class LayoutHeaderUser extends Vue {
 <style lang="less">
 .header {
   height: 65px;
-  background-color: #062634;
+  background-color: #dbd2c2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px;
+  .header-publishing-house {
+    font-family: "Open Sans", sans-serif !important;
+          font-size: 15px;
+
+  }
+  .header-block {
+    display: flex;
+    align-items: center;
+    .header-name {
+      color: #000;
+      font-size: 18px;
+      margin-right: 10px;
+      font-family: "Open Sans", sans-serif !important;
+      color: #241205;
+    }
+  }
 }
+
 // @media (max-width: 550px) {
 //   .mobile500 {
 //     display: none;

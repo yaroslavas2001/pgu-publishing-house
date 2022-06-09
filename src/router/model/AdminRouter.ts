@@ -4,9 +4,10 @@ const BaseTemplate = () => import("@/views/layouts/base-layout.vue");
 const AdminLayout = () => import("@views/layouts/admin/admin-layout.vue");
 
 import AuthorsPage from "@views/pages/admin/authors/authors.vue"
-import ArticlesPage from "@views/pages/admin/articles/articles.vue"
-
-import { ADMIN, AUTHORS, ARTICLES, } from "../routerNames";
+import MaterialsAdminPage from "@views/pages/admin/materials/materials.vue"
+import Reviewer from "@views/pages/admin/reviewer/reviewer.vue"
+import MaterialDetailed from "@views/pages/admin/materials/material-detailed.vue"
+import { ADMIN, AUTHORS, DETAILEDADMIN, ADMINMATERIALS, ALLADMINMATERIALS} from "../routerNames";
 
 //#endregion
 const AdminRouter: Array<RouteRecordRaw> = [
@@ -18,7 +19,7 @@ const AdminRouter: Array<RouteRecordRaw> = [
         name: ADMIN,
         path: ADMIN,
         component: AdminLayout,
-        redirect: { name: AUTHORS },
+        redirect: { name: ADMINMATERIALS },
         children: [
           {
             name: AUTHORS,
@@ -27,11 +28,26 @@ const AdminRouter: Array<RouteRecordRaw> = [
             meta: { title: "авторы" }
           },
           {
-            name: ARTICLES,
-            path: ARTICLES,
-            component: ArticlesPage,
-            meta: { title: "Статьи" }
+            name: ADMINMATERIALS,
+            path: ADMINMATERIALS,
+            component: BaseTemplate,
+            redirect: { name: ALLADMINMATERIALS },
+            children: [
+              {
+                name: ALLADMINMATERIALS,
+                path: ALLADMINMATERIALS,
+                component: MaterialsAdminPage,
+                meta: { title: "Материалы" }
+              },
+              {
+                name: DETAILEDADMIN,
+                path: DETAILEDADMIN,
+                component: MaterialDetailed,
+                meta: { title: "Детальная" }
+              },
+            ]
           },
+         
         ]
       }
     ]

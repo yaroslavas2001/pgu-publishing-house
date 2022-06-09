@@ -3,6 +3,7 @@
     <div class="layout-sidebar-menu">
       <router-link
         class="layout-sidebar-item"
+        :class="{ active: getActive(item.routeName) }"
         v-for="(item, index) in UserSidebarItems"
         :key="index"
         exact-active-class="active"
@@ -24,13 +25,16 @@ import SidebarItem from "@/models/sidebar/sidebarItem";
 })
 export default class LayoutSidebar extends Vue {
   UserSidebarItems: Array<SidebarItem> = UserSidebarItems;
+  getActive(routeName: string): boolean {
+    return this.$route.fullPath.includes(routeName);
+  }
 }
 </script>
 <style lang="less">
-@LayoutSidebar: #043043;
-@ColorText: #fff;
-@ColorTextHover: #c99d4b;
-@RouterLinkActive: #ba8931;
+@LayoutSidebar: #eaebe5;
+@ColorText: #ba8931;
+@ColorTextHover: #d8b87c;
+@RouterLinkActive: #e9eadd;
 
 .layout-sidebar {
   min-height: 100%;
@@ -57,20 +61,20 @@ export default class LayoutSidebar extends Vue {
     }
   }
 }
-.router-link-active {
+.active {
   color: @RouterLinkActive !important;
-  background-color: #062634
+  background-color: #bfa892;
 }
-.exact-active-class {
-  color: @RouterLinkActive !important;
-  background-color: #062634
-}
-.active{
-  color: @RouterLinkActive !important;
-  background-color: #062634
-}
-.router-link-exact-active{
-   color: @RouterLinkActive !important;
-  background-color: #062634
-}
+// .router-link-active {
+//   color: @RouterLinkActive !important;
+//   background-color: #062634
+// }
+// .exact-active-class {
+//   color: @RouterLinkActive !important;
+//   background-color: #062634
+// }
+// .router-link-exact-active{
+//    color: @RouterLinkActive !important;
+//   background-color: #062634
+// }
 </style>

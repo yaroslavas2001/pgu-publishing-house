@@ -60,3 +60,6 @@
 .btn-text:hover {
   color: #bc8860;
 }
+.pointer{
+  cursor: pointer;
+}

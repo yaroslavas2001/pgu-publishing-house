@@ -4,12 +4,12 @@ const BaseTemplate = () => import("@/views/layouts/base-layout.vue");
 const UserLayout = () => import("@views/layouts/user/user-layout.vue");
 
 import NewArticlePage from "@/views/pages/user/new-article/new-article.vue"
-import UserArticles from "@/views/pages/user/user-articles/user-articles.vue"
+import UserMaterials from "@/views/pages/user/user-materials/user-materials.vue"
 import ReviewersResponse from "@/views/pages/user/reviewers-response/reviewers-response.vue"
 import ArticleArchive from "@/views/pages/user/article-archive/article-archive.vue"
 import AddAuthor from "@/views/pages/general/add-author.vue"
-
-import { USER, NEWARTICLE, ARTICLEARCHIVE, REVIEWERSRESPONSE, USERARTICLES, ADDAUTHOR } from "../routerNames";
+import UserMaterialDetailed from "@views/pages/user/user-materials/user-material-detailed.vue"
+import { USER, ARTICLEARCHIVE, REVIEWERSRESPONSE,  ADDAUTHOR,USERMATERIALS, ALLUSERMATERIALS, DETAILEDUSER, NEWMATERIALADD, NEWMATERIAL, } from "../routerNames";
 
 const UserRouter: Array<RouteRecordRaw> = [
   {
@@ -20,20 +20,50 @@ const UserRouter: Array<RouteRecordRaw> = [
         name: USER,
         path: USER,
         component: UserLayout,
-        redirect: { name: NEWARTICLE },
+        redirect: { name: USERMATERIALS },
         children: [
           {
-            name: USERARTICLES,
-            path: USERARTICLES,
-            component: UserArticles,
-            meta: { title: "Мои статьи" }
+            name: USERMATERIALS,
+            path: USERMATERIALS,
+            component: BaseTemplate,
+            redirect: { name: ALLUSERMATERIALS },
+            children: [
+              {
+                name: ALLUSERMATERIALS,
+                path: ALLUSERMATERIALS,
+                component: UserMaterials,
+                meta: { title: "Мои материалы" }
+              },
+              {
+                name: DETAILEDUSER,
+                path: DETAILEDUSER,
+                component: UserMaterialDetailed,
+                meta: { title: "Детальная" }
+              },
+            ]
           },
+
           {
-            name: NEWARTICLE,
-            path: NEWARTICLE,
-            component: NewArticlePage,
-            meta: { title: "Загрузить новую статью" }
+            name: NEWMATERIAL,
+            path: NEWMATERIAL,
+            component: BaseTemplate,
+            redirect: { name: NEWMATERIALADD },
+            children: [
+              {
+                name: NEWMATERIALADD,
+                path: NEWMATERIALADD,
+                component: NewArticlePage,
+                meta: { title: "Загрузить новую статью" },
+              },
+              {
+                name: ADDAUTHOR,
+                path: ADDAUTHOR,
+                component: AddAuthor,
+                meta: { title: "Добавить автора" }
+              },
+            ]
           },
+
           {
             name: ARTICLEARCHIVE,
             path: ARTICLEARCHIVE,
@@ -46,12 +76,7 @@ const UserRouter: Array<RouteRecordRaw> = [
             component: ReviewersResponse,
             meta: { title: "Ответ проверяющего" }
           },
-          {
-            name: ADDAUTHOR,
-            path: ADDAUTHOR,
-            component: AddAuthor,
-            meta: { title: "Добавить автора" }
-          },
+
         ]
       }
     ]

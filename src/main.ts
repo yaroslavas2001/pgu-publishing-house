@@ -15,8 +15,9 @@ import Btn from "@/views/components/rio-psy/btn.vue"
 import UITabsComponent from "@views/components/rio-psy/ui-tabs/ui-tabs.vue"
 import UITabItemComponent from "@views/components/rio-psy/ui-tabs/ui-tab-item.vue"
 import UiCheckbox from "@components/rio-psy/ui-checkbox.vue";
-
-
+import PaperBlock from "@/views/components/rio-psy/paper-block.vue"
+import ContentTable from "@/views/components/rio-psy/content-table/content-table.vue";
+import ContentTableTest from "@/views/components/rio-psy/content-table/content-table-test.vue"
 
 
 import UiTable from "@views/components/ui-table/ui-table.vue";
@@ -31,7 +32,6 @@ import UiFileInput from "@components/ui-file-input/ui-file-input.vue";
 import UiDatePicker from "@components/ui-date-picker/ui-date-picker.vue";
 import ControlValidatorGroup from "@views/components/control-validator-group.vue";
 import UiGroupValidator from "@views/components/ui-group-validator.vue";
-import ContentTable from "@/views/components/content-table.vue";
 import UiUpdateEntityModal from "@/views/components/ui-update-entity-modal.vue";
 import UiTextEditorComponent from "@views/components/ui-text-editor/ui-text-editor.vue";
 
@@ -135,7 +135,6 @@ app.component("ui-toggle-switcher", UiToggleSwitcherComponent);
 app.component("ui-box-menu", UiBoxMenuComponent);
 app.component("ui-tabs", UITabsComponent);
 app.component("ui-tabs-item", UITabItemComponent);
-app.component("content-table", ContentTable);
 app.component("ui-update-entity-modal", UiUpdateEntityModal);
 app.component("ui-select-saerch", UiSelectSearchComponent);
 app.component("control-time", ControlTimeComponent);
@@ -176,5 +175,8 @@ app.component("toggle-switcher", ToggleSwitcherComponent)
 app.component("select-autocomplete", SelectAutocompleteComponent)
 app.component("modal-block", ModalBlock)
 app.component("btn", Btn)
+app.component("paper-block", PaperBlock)
+app.component("content-table", ContentTable);
+app.component("content-table-test", ContentTableTest);
 
 app.mount("#app");

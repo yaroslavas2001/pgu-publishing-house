@@ -10,11 +10,11 @@ import {
 @Options({
   // emits: ["goToAdmin"],
 })
-export default class Authors extends Vue {}
+export default class Reviewer extends Vue {}
 </script>
 <style scoped >
 .authors{
-  /* background-color: rgb(146, 39, 39); */
+  background-color: rgb(146, 39, 39);
   height: 500px;
   width: 500px;
 }

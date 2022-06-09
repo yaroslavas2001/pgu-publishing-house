@@ -33,12 +33,14 @@ export default class AdminLayout extends Vue {}
   min-height: 100vh;
   .container-custom {
     flex-grow: 1;
-    background: #e7e7f2;
+    background: #ffffff;
     display: flex;
     overflow-x: auto;
     .content {
       flex-grow: 1;
       margin: 15px;
+                background: #eff0e8;
+
     }
   }
 }

@@ -7,7 +7,7 @@
           src="../../../assets/img/login-arrow-symbol-entering-back-into-a-square_icon-icons.com_73221.svg"
           alt="arrow-back"
           @click="$emit('clickBack')"
-          class="modal-block-img"
+          class="pointer"
         />
       </div>
       <slot />
@@ -61,7 +61,5 @@ export default class ModalBlock extends Vue {
     }
   }
 }
-.modal-block-img{
-  cursor: pointer;
-}
+
 </style>

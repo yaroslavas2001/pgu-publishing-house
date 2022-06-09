@@ -12,13 +12,15 @@
       v-model="model.Volume"
       type="number"
     />
+    Сделать выпадающий список с расчетом работ
+    <!-- форма заказ наряд -->
     <ui-checkbox v-model="model.IsEditing" class="mb-5">
-      Редактирование
+      Редактирование - вычитка, исправление ошибок
     </ui-checkbox>
     <ui-checkbox v-model="model.IsFirstProofreading" class="mb-5">
-      Первая корректура
+      Первая корректура - вносится исправления
     </ui-checkbox>
-    <ui-checkbox v-model="model.IsRevision" class="mb-5">Ревизия</ui-checkbox>
+    <ui-checkbox v-model="model.IsRevision" class="mb-5">Ревизия - </ui-checkbox>
     <ui-checkbox v-model="model.IsTyping" class="mb-5">Набор</ui-checkbox>
     <ui-checkbox v-model="model.IsPrototyping" class="mb-5">
       Макетирование

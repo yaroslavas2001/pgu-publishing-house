@@ -33,13 +33,13 @@ export default class UserLayout extends Vue {}
   min-height: 100vh;
   .container-custom {
     flex-grow: 1;
-    background: #e7e7f2;
+    background: #ffffff;
     display: flex;
     overflow-x: auto;
     .content {
       flex-grow: 1;
       margin: 29px 28px;
-          background: #ffffff;
+          background: #eff0e8;
 
     }
   }
