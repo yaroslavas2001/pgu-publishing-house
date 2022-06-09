@@ -30,7 +30,6 @@
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import { DETAILEDUSER } from "@/router/routerNames";
-import MaterialTableModel from "@/models/MaterialTableModel";
 interface IPaginationResponse {
   Items: Object[];
   Count: number;

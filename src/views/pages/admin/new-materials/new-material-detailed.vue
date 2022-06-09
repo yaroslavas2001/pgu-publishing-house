@@ -7,7 +7,7 @@ import { FORGOTPESSWORD, REGISTRATION } from "@/router/routerNames";
 @Options({
   // emits: ["goToAdmin"],
 })
-export default class NewMaterials extends Vue {}
+export default class NewMaterialDetailed extends Vue {}
 </script>
 <style scoped >
 .articles__block{

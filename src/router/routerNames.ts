@@ -13,12 +13,20 @@ export const CALCULATION ="calculation"
 
 export const ADMIN = "admin";
 export const AUTHORS = "authors";
+export const AUTHORSGROUP = "authors-group";
+export const AUTHOR = "authors-detailed";
+
 export const ADMINMATERIALS = "admin-materials";
 export const ALLADMINMATERIALS = "all-admin-materials";
 export const DETAILEDADMIN = "detailed-admin";
+export const NEWMATERIALADMIN = "new-material-admin";
+export const ALLNEWMATERIALADMIN = "all-new-material-admin";
+export const  DETAILEDNEWMATERIALADMIN = "detailed-new-material-admin";
 
 
 export const REVIEWER = "reviewer";
+export const ALLREVIEWER = "all-reviewer";
+export const REVIEWERDETAILED = "reviewer-detailed";
 
 
 
