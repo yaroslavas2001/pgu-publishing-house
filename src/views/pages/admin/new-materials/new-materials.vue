@@ -1,18 +1,69 @@
 <template>
-  <div class="articles__block">articles</div>
+  <content title="Новые материалы">
+    <content-table-test
+      :columns="columns"
+      :filter="filterCity"
+      templateColumns="1fr 1fr 1fr 1fr"
+      :getDataFunc="getUsersAsync"
+      ref="contentTable"
+    >
+      <template #default="data">
+        <ui-table-body-item>{{ data.name }}</ui-table-body-item>
+        <ui-table-body-item>
+          {{ data.autors }}
+        </ui-table-body-item>
+        <ui-table-body-item>
+          {{ data.type }}
+        </ui-table-body-item>
+        <ui-table-body-item class="pointer" @click="toAddress(data.id)">
+          <info />
+        </ui-table-body-item>
+      </template>
+    </content-table-test>
+  </content>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { FORGOTPESSWORD, REGISTRATION } from "@/router/routerNames";
+import { DETAILEDNEWMATERIALADMIN } from "@/router/routerNames";
+interface IPaginationResponse {
+  Items: Object[];
+  Count: number;
+}
 @Options({
   // emits: ["goToAdmin"],
 })
-export default class NewMaterials extends Vue {}
+export default class NewMaterials extends Vue {
+  test: IPaginationResponse = {
+    Items: [
+      {
+        id: 1,
+        name: "Название",
+        autors: "Авторы",
+        type: "Тип издания",
+      },
+    ],
+    Count: 10,
+  };
+  columns = ["Название", "Авторы", "Тип издания", "Детальная"];
+  filterCity: any = {
+    search: "",
+  };
+  getUsersAsync: Function = null;
+
+  created() {
+    this.getUsersAsync = this.testF;
+  }
+  toAddress(id: number) {
+    console.log("id", id);
+    this.$router.push({
+      name: DETAILEDNEWMATERIALADMIN,
+      params: { id: id },
+    });
+  }
+  async testF() {
+    return await this.test;
+  }
+}
 </script>
 <style scoped >
-.articles__block{
-   background-color: rgb(66, 93, 209);
-  height: 500px;
-  width: 500px;
-}
 </style>

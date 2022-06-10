@@ -15,7 +15,7 @@
           :styl="selLine == item.id ? true : false"
         >
         </slot>
-        <div class="inner-item" :style="getInnerTableStyle(index*2+1)">
+        <div class="inner-item" :style="getInnerTableStyle(Number(index)*2+1)">
           <slot name="inner" :item="item"></slot>
         </div>
       </template>
@@ -138,6 +138,8 @@ export default class UiTableComponent extends Vue {
   .ui-table-header-item {
     display: flex;
     align-items: center;
+        padding-left: 5px;
+
     // justify-content: space-between;
     // background-color: #dde0e6;
     // padding-left: @uiTablePadding;

@@ -68,7 +68,7 @@ export default class SelectAutocompleteComponent extends Vue {
   hasFocus = false;
   autocomplete = true;
   search = "";
-  private open = false;
+  open = false;
   preventCurrentClick = false;
   // обычное значение
   @Watch("modelValue")
@@ -230,13 +230,12 @@ export default class SelectAutocompleteComponent extends Vue {
 }
 </script>
 <style lang="less" scoped>
-@uiSelectColor: #3c3f40;
-@uiSelectIconColor: #062634;
-@uiSelectBorderColor: #263958;
-@uiSelectActiveColor: #ced4de;
-@uiSelectBackColor: #fff;
-@uiSelectColorLabel: #7a7878;
-
+@bgItem: #fff;
+@colorItem: #bb8b65;
+@borderCurent: #ced4de;
+@hoverItembg: #deded5;
+@activeItembg: #cec0ae;
+@curentColor: #000;
 .ui-select {
   position: relative;
   user-select: none;
@@ -245,35 +244,28 @@ export default class SelectAutocompleteComponent extends Vue {
   min-width: 11em;
   &:focus {
     .current {
-      border: 1px #ced4de solid;
-    //  &.active {
-        // border-width: 1px 1px 0px 1px;
-        // border-color: #062634;
-        // border-bottom: 1px solid #ced4de;
-      //}
+      border: 1px @borderCurent solid;
     }
   }
   .current {
-    // background: url("~@assets/img/arrow-botton.png") no-repeat 95% center,
-      // #f3f4fa;
-    border: 1px solid #ced4de;
+    border: 1px solid @borderCurent;
+    background-color: @bgItem;
     height: 100%;
     padding: 6px 10px;
     border-radius: 4px;
-    color: #8797af;
+    color: @curentColor;
     font-size: 12px;
     outline: none !important;
   }
   .current-input {
     outline: none;
-    border: 1px solid #ced4de;
+    border: 1px solid @borderCurent;
     width: 100%;
+    box-sizing: border-box;
     padding: 6px 7px;
-    color: #162a47;
     font-size: 14px;
   }
   .container {
-    color: #162a47;
     display: none;
     padding: 0;
     &.active {
@@ -282,27 +274,27 @@ export default class SelectAutocompleteComponent extends Vue {
       z-index: 1000;
       min-width: calc(~"100%");
       top: 100%;
-      border: 1px #f3f4fa solid;
       border-width: 0px 1px 1px 1px;
-      border-color: #d0d9de;
+      box-sizing: border-box;
+
       .item {
         padding: 7px 10px;
-        background-color: #f3f4fa;
-        border-top: @uiSelectBorderColor;
+        background-color: @bgItem;
         font-size: 14px;
+        color: @colorItem;
+        box-sizing: border-box;
+
         &.hover,
         &:hover {
-          background-color: #eff0f7;
+          background-color: @hoverItembg;
         }
         &.active {
           border: 0px;
-          // background-color: #062634;
-          color: #4f5e74;
           font-weight: bold;
         }
         &.hover.active,
         &:hover.active {
-          background-color: #eff0f7;
+          background-color: @activeItembg;
         }
       }
     }

@@ -24,7 +24,7 @@ const AdminRouter: Array<RouteRecordRaw> = [
         name: ADMIN,
         path: ADMIN,
         component: AdminLayout,
-        redirect: { name: ADMINMATERIALS },
+        redirect: { name: NEWMATERIALADMIN },
         children: [
           {
             name: AUTHORSGROUP,

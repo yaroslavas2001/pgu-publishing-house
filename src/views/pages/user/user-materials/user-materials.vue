@@ -21,7 +21,7 @@
           {{ data.status }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
-          <div class="info" />
+          <info />
         </ui-table-body-item>
       </template>
     </content-table-test>
@@ -180,16 +180,4 @@ export default class UserMaterials extends Vue {
 }
 </script>
 <style scoped  lang="less">
-.info {
-  background: url("./../../../../assets/img/icons8-info.svg") center no-repeat;
-  background-size: 100% 100vh;
-  height: 20px;
-  width: 20px;
-}
-.info:hover,
-.info:active,
-.info:focus {
-  background: url("./../../../../assets/img/icons8-info.gif") center no-repeat;
-  background-size: 20px;
-}
 </style>

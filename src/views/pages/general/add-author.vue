@@ -2,87 +2,95 @@
   <content title="Добавить автора">
     <label-input
       nameLabel="Имя"
-      placeholder="placeholder"
+      placeholder="Введите имя автора"
       v-model="newAuthor.firstName"
     />
     <label-input
-      nameLabel="фамилия"
-      placeholder="placeholder"
+      nameLabel="Фамилия"
+      placeholder="Введите фамилию автора"
       v-model="newAuthor.lastName"
     />
     <label-input
       nameLabel="Отчество"
-      placeholder="placeholder"
+      placeholder="Введите отчество автора"
       v-model="newAuthor.fatherName"
     />
     <label-input
       nameLabel="Email"
-      placeholder="placeholder"
+      placeholder="Введите email автора"
       v-model="newAuthor.email"
     />
-     <label-input
-      nameLabel="contacts"
-      placeholder="placeholder"
+    <label-input
+      nameLabel="Контакты"
+      placeholder="Введите контакты автора"
       v-model="newAuthor.contacts"
     />
 
-    <div>
+    <div class="toggle-switcher-block">
       <toggle-switcher v-model="newAuthor.isTeacher" />
-      {{
-        newAuthor.isTeacher ? "Да, я преаодаватель" : "Нет, я не преподаватель"
-      }}
+      <p>
+        {{
+          newAuthor.isTeacher
+            ? "Да, я преаодаватель"
+            : "Нет, я не преподаватель"
+        }}
+      </p>
     </div>
-    <!-- <label-input
+    <label-input
       nameLabel="Место работы"
-      placeholder="placeholder"
-      v-model="newAuthor.PlaceWork"
+      placeholder="Введите ваше место работы"
+      v-model="newAuthor.placeWork"
       v-if="!newAuthor.isTeacher"
     />
-    <label for="Position">Должность, может инпут</label> -->
-    <select-autocomplete
-      keyField="Id"
-      valueField="Name"
-      :items="test"
-      v-model="newAuthor.positionId"
-      defaultText="Выберите должность"
-      id="Position"
-    />
-    <!-- <label for="Position">Факультет</label>
-    <select-autocomplete
-      keyField="Id"
-      valueField="Name"
-      :items="test"
-      v-model="newAuthor.IdDepartment"
-      defaultText="Выберите должность"
-      id="Position"
-    /> -->
-    <label for="Position">Кафедра</label>
+    <div v-else>
+      <label for="Position">Должность</label>
+      <select-autocomplete
+        keyField="Id"
+        valueField="Name"
+        :items="test"
+        v-model="newAuthor.positionId"
+        defaultText="Выберите должность"
+        id="Position"
+        class="mt-2 mb-8"
+      />
+    </div>
+    <label for="departmentId">Кафедра</label>
     <select-autocomplete
       keyField="Id"
       valueField="Name"
       :items="test"
       v-model="newAuthor.departmentId"
-      defaultText="Выберите должность"
-      id="Position"
+      defaultText="Выберите кафедру"
+      id="departmentId"
+      class="mt-2 mb-8"
     />
     <label for="Position">Научная степень</label>
-    newAuthor.degreeId :{{ newAuthor.degreeId }}
     <select-autocomplete
       keyField="Id"
       valueField="Name"
       :items="test"
       v-model="newAuthor.degreeId"
-      defaultText="Выберите должность"
+      defaultText="Выберите научную степень"
       id="Position"
+      class="mt-2"
     />
-    <button @click="saveAuthor">Сохранить автора</button>
-    <button>Отмена</button>
+
+    <btn
+      isSmall
+      isActive
+      title="Сохранить автора"
+      @click="saveAuthor"
+      class="btn-active"
+    />
+    <btn isSmall title="Отмена" @click="cansel" />
   </content>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import AllAuthorModel from "@/models/author/AllAuthorModel";
 import IdNameModel from "@/models/general/IdNameModel";
+import NewArticle from "../user/new-article/new-article.vue";
+import { NEWMATERIALADD } from "@/router/routerNames";
 @Options({
   emits: ["goToAdmin"],
 })
@@ -104,11 +112,28 @@ export default class AddAuthor extends Vue {
     this.newAuthor = new AllAuthorModel();
   }
   async saveAuthor() {
-    console.log("this.newAuthor",this.newAuthor,this.$api)
+    console.log("this.newAuthor", this.newAuthor, this.$api);
     let res = await this.$api.AuthorService.AddAuthor(this.newAuthor);
+    this.$router.push({ name: NEWMATERIALADD });
+
     console.log("newAuthor", this.newAuthor, res);
+  }
+  cansel() {
+    this.$router.push({ name: NEWMATERIALADD });
   }
 }
 </script>
-<style scoped >
+<style scoped lang="less">
+.btn-active {
+  margin-top: 15px;
+  margin-right: 6px;
+}
+.toggle-switcher-block {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  p {
+    margin-left: 10px;
+  }
+}
 </style>

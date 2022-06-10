@@ -27,16 +27,14 @@
     >
       <div v-if="getTypeDocument(item.type)" class="file-input-document">
         <p>Document: {{ item.fileName }}</p>
-        <button class="file-input-document-close" @click="del(item.fileName)">
-          Удалить
-        </button>
+        <btn isSmall @click="del(item.fileName)" title="Удалить" />
       </div>
       <div v-else class="file-input-img">
-        <img :src="item.url" alt="" class="input-img" />
-        <button class="file-input-img-close" @click="del(item.fileName)">
-          Удалить
-        </button>
-        <p class="file-input-img-name">{{ item.fileName }}</p>
+        <div>
+          <img :src="item.fileBody" alt="" class="input-img" />
+          <p class="file-input-img-name">{{ item.fileName }}</p>
+        </div>
+        <btn isSmall @click="del(item.fileName)" title="Удалить" />
       </div>
     </div>
   </div>
@@ -116,7 +114,6 @@ export default class UiFileInput extends Vue {
 </script>
 
 <style lang="less" scope>
-
 .file-input {
   display: flex;
   flex-direction: column;
@@ -135,12 +132,17 @@ export default class UiFileInput extends Vue {
     flex-direction: column;
     .file-input-document {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
       .file-input-document-close {
         background-color: #fff;
       }
     }
     .file-input-img {
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       .input-img {
         height: auto;
         width: auto;

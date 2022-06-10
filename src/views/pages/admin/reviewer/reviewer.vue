@@ -19,7 +19,7 @@
           {{ data.email }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
-          <div class="info" />
+          <info/>
         </ui-table-body-item>
       </template>
     </content-table-test>

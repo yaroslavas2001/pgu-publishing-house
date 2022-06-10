@@ -46,6 +46,46 @@
   margin-bottom: 10px;
 }
 
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-9 {
+  margin-top: 9px;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mt-7 {
+  margin-top: 7px;
+}
+
+.mt-6 {
+  margin-top: 6px;
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mt-4 {
+  margin-top: 4px;
+}
+
+.mt-3 {
+  margin-top: 3px;
+}
+
+.mt-2 {
+  margin-top: 2px;
+}
+
+.mt-1 {
+  margin-top: 1px;
+}
+
 .btn-text {
   background: transparent;
   border: 0px;
@@ -60,6 +100,7 @@
 .btn-text:hover {
   color: #bc8860;
 }
-.pointer{
+
+.pointer {
   cursor: pointer;
 }

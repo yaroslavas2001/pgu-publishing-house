@@ -1,18 +1,23 @@
 <template>
-  <div class="articles__block">articles</div>
+  <content title="Детальная материала" isBack @clickBack="clickBack">{{ id }} </content>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { FORGOTPESSWORD, REGISTRATION } from "@/router/routerNames";
+import { ADMINMATERIALS } from "@/router/routerNames";
 @Options({
   // emits: ["goToAdmin"],
 })
-export default class MaterialDetailed extends Vue {}
+export default class MaterialDetailed extends Vue {
+    id: number = null;
+  created() {
+    console.log(this.$route.params.id);
+    this.id = Number(this.$route.params.id);
+  }
+  clickBack() {
+    this.$router.push({ name: ADMINMATERIALS });
+  }
+}
 </script>
 <style scoped >
-.articles__block{
-   /* background-color: rgb(66, 93, 209); */
-  height: 500px;
-  width: 500px;
-}
+
 </style>

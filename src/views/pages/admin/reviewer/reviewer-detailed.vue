@@ -1,5 +1,7 @@
 <template>
-  <content title="Детальная" isBack @clickBack="clickBack">{{ id }} </content>
+  <content title="Детальная рецензента" isBack @clickBack="clickBack">
+    {{ id }}
+  </content>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";

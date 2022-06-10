@@ -1,36 +1,53 @@
 <template>
-  <content title="Добавить статью">
+  <content title="Добавить новый материал">
+     
     <file-input @onChange="onChangeArticle($event)">
-      <button>Добавить статью</button>
+      <btn isSmall title="Добавить материал" />
     </file-input>
     <file-input @onChange="onChangeAntiPl($event)">
-      <button>Добавить антиплагиат</button>
+      <btn isSmall title="Добавить антиплагиат" />
     </file-input>
+     <label for="Type">Тип печатного издания</label>
+      <select-autocomplete
+        keyField="Id"
+        valueField="Name"
+        :items="test"
+        v-model="newArticle.Type"
+        defaultText="Выберите тип"
+        id="Type"
+        class="mt-2 mb-8"
+      />
     <file-input @onChange="onChangeExtract($event)">
-      <button>Добавить выписку с кафедры</button>
+      <btn isSmall title="Добавить выписку с кафедры" />
     </file-input>
     <label-input
       nameLabel="Название статьи"
-      placeholder="placeholder"
+      placeholder="Введите название статьи"
       v-model="newArticle.NameArticle"
     />
     <label-input
       nameLabel="УДК"
-      placeholder="placeholder"
+      placeholder="Введите УДК"
       v-model="newArticle.UDC"
     />
     <label-input
       nameLabel="Ключевые слова"
-      placeholder="placeholder"
+      placeholder="Введите клчевые слова"
       v-model="newArticle.Keywords"
     />
     <label-input
       nameLabel="Комментарии"
-      placeholder="placeholder"
+      placeholder="Добавте комментарий для проверяющего"
       v-model="newArticle.Comments"
     />
-    <label for="autors">Авторы</label>
-    <button @click="addAuthor">Добавить автора</button>
+    <btn isSmall @click="addAuthor" title="Добавить автора" class="mb-5" />
+    <div
+      for="autors"
+      title="Если вы не нашли автора в списке, его нужно вначале добавить."
+      class="mb-3"
+    >
+      Авторы
+    </div>
 
     <autocomplete-multiselect
       class="autocomplete-multiselect"
@@ -41,8 +58,13 @@
       id="autors"
       :SearchAsyncFunc="GetAuthors"
     />
-
-    <button @click="Submit">Отправить</button>
+    <btn
+      isSmall
+      isActive
+      @click="Submit"
+      title="Отправить"
+      class="mt-10"
+    />
   </content>
 </template>
 <script lang="ts">
@@ -50,6 +72,7 @@ import { Options, Vue } from "vue-property-decorator";
 import FileInput from "@/views/components/rio-psy/ui-file-input/FileModel";
 import NewArticleModel from "@/models/new-article/NewArticleModel";
 import { ADDAUTHOR } from "@/router/routerNames";
+import IdNameModel from "@/models/general/IdNameModel";
 @Options({
   // emits: ["goToAdmin"],
 })
@@ -57,6 +80,18 @@ export default class NewArticle extends Vue {
   antiplagiat: Array<FileInput> = [];
   newArticle: NewArticleModel = new NewArticleModel();
   Authors: any = null;
+   test: Array<IdNameModel> = [
+    { Id: 1, Name: "34" },
+    { Id: 2, Name: "342" },
+    { Id: 3, Name: "343" },
+    { Id: 4, Name: "3424" },
+    { Id: 5, Name: "3425" },
+    { Id: 6, Name: "346" },
+    { Id: 7, Name: "3427" },
+    { Id: 8, Name: "34258" },
+    { Id: 9, Name: "3469" },
+    { Id: 10, Name: "342710" },
+  ];
   onChangeArticle(data: Array<FileInput>) {
     this.newArticle.Article = data;
   }
@@ -85,4 +120,5 @@ export default class NewArticle extends Vue {
 }
 </script>
 <style scoped >
+
 </style>

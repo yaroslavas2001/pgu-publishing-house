@@ -9,6 +9,8 @@ export default class AllAuthorModel {
     isTeacher:boolean = false
     departmentId:string
     positionId:number
+    placeWork:string
+
     degreeId:number
 
  

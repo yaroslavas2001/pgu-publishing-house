@@ -9,6 +9,7 @@ export default class NewArticleModel {
     Keywords:string
     Authors: Array<AuthorModel>
     Comments: string
+    Type:number
     constructor(obj?: Partial<NewArticleModel>) {
         obj && Object.assign(this, obj);
     }

@@ -18,7 +18,7 @@ import UiCheckbox from "@components/rio-psy/ui-checkbox.vue";
 import PaperBlock from "@/views/components/rio-psy/paper-block.vue"
 import ContentTable from "@/views/components/rio-psy/content-table/content-table.vue";
 import ContentTableTest from "@/views/components/rio-psy/content-table/content-table-test.vue"
-
+import Info from "@/views/components/rio-psy/info.vue"
 
 import UiTable from "@views/components/ui-table/ui-table.vue";
 import UiPagination from "@components/ui-table/ui-pagination.vue";
@@ -28,7 +28,7 @@ import UiButton from "@components/ui-button.vue";
 import UiLoading from "@components/ui-loading.vue";
 import UiImagePreview from "@components/ui-crop-image/ui-image-preview.vue";
 import UiCropImage from "@components/ui-crop-image/ui-crop-image.vue";
-import UiFileInput from "@components/ui-file-input/ui-file-input.vue";
+// import UiFileInput from "@components/ui-file-input/ui-file-input.vue";
 import UiDatePicker from "@components/ui-date-picker/ui-date-picker.vue";
 import ControlValidatorGroup from "@views/components/control-validator-group.vue";
 import UiGroupValidator from "@views/components/ui-group-validator.vue";
@@ -128,7 +128,7 @@ app.component("page-template", PageTemplate);
 app.component("ui-loading", UiLoading);
 app.component("ui-image-preview", UiImagePreview);
 app.component("ui-crop-image", UiCropImage);
-app.component("ui-file-input", UiFileInput);
+// app.component("ui-file-input", UiFileInput);
 app.component("ui-date-picker", UiDatePicker);
 app.component("control-validation-group", ControlValidatorGroup);
 app.component("ui-toggle-switcher", UiToggleSwitcherComponent);
@@ -175,6 +175,8 @@ app.component("toggle-switcher", ToggleSwitcherComponent)
 app.component("select-autocomplete", SelectAutocompleteComponent)
 app.component("modal-block", ModalBlock)
 app.component("btn", Btn)
+app.component("info", Info)
+
 app.component("paper-block", PaperBlock)
 app.component("content-table", ContentTable);
 app.component("content-table-test", ContentTableTest);

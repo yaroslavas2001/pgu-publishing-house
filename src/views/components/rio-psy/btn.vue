@@ -5,6 +5,7 @@
     :class="{
       btnSmall: isSmall,
       btnBig: !isSmall,
+      btnActive: isActive && isSmall,
     }"
   >
     {{ title }}
@@ -19,6 +20,7 @@ import { Options, Prop, Vue, Watch } from "vue-property-decorator";
 export default class Btn extends Vue {
   @Prop({ type: String, default: "lable" }) title: string;
   @Prop({ type: Boolean, default: false }) isSmall: boolean;
+  @Prop({ type: Boolean, default: false }) isActive: boolean;
 }
 </script>
 <style lang="less" scoped>
@@ -31,7 +33,7 @@ export default class Btn extends Vue {
   font-family: "Open Sans", sans-serif;
   cursor: pointer;
   transition: all 0.2s ease-out;
-  color:#000;
+  color: #000;
   &:hover {
     background: #cd8458;
     color: #dedfd7;
@@ -46,5 +48,12 @@ export default class Btn extends Vue {
   font-size: 15px;
   border-radius: 5px;
   padding: 3px 14px;
+}
+.btnActive {
+  background: #cd8458 !important;
+  color: #dedfd7 !important;
+  &:hover {
+    background: #e38448 !important;
+  }
 }
 </style>

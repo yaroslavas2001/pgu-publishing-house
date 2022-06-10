@@ -1,21 +1,24 @@
 <template>
-  <div class="authors">Authors</div>
+  <content title="Детальная автора" isBack @clickBack="clickBack">
+    {{ id }}
+  </content>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import {
-  FORGOTPESSWORD,
-  REGISTRATION,
-} from "@/router/routerNames";
+import { AUTHORSGROUP } from "@/router/routerNames";
 @Options({
   // emits: ["goToAdmin"],
 })
-export default class AuthorsDetailed extends Vue {}
+export default class AuthorsDetailed extends Vue {
+  id: number = null;
+  created() {
+    console.log(this.$route.params.id);
+    this.id = Number(this.$route.params.id);
+  }
+  clickBack() {
+    this.$router.push({ name: AUTHORSGROUP });
+  }
+}
 </script>
 <style scoped >
-.authors{
-  /* background-color: rgb(146, 39, 39); */
-  height: 500px;
-  width: 500px;
-}
 </style>

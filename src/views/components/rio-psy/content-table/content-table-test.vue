@@ -6,9 +6,9 @@
     </ui-table-filter>
     <ui-table :items="items" :templateColumns="templateColumns">
       <template #header>
-        <ui-table-header-item v-for="item in columns" :key="item">{{
-          item
-        }}</ui-table-header-item>
+        <ui-table-header-item v-for="item in columns" :key="item">
+          {{ item }}
+        </ui-table-header-item>
       </template>
       <template #body="data">
         <slot v-bind="data.item"></slot>
@@ -27,19 +27,20 @@ import { Options, Vue, Ref, Prop } from "vue-property-decorator";
 import UiTableFilter from "@/views/components/ui-table/ui-table-filter.vue";
 // import IFilter from "@models/interfaces/IFilter";
 import UiPagination from "@views/components/ui-table/ui-pagination.vue";
-import UiPaginationComponent from "./ui-pagination.vue"
+import UiPaginationComponent from "./ui-pagination.vue";
 //onFilterChanged
 interface IPaginationResponse {
   Items: Object[];
   Count: number;
 }
 interface IFilter {
-    toServerFilter(): Object;
+  toServerFilter(): Object;
 }
 @Options({
   name: "content-table",
   components: {
-    UiTableFilter,UiPaginationComponent
+    UiTableFilter,
+    UiPaginationComponent,
   },
 })
 export default class ContentTableComponent extends Vue {

@@ -82,7 +82,7 @@ export default class UiPaginationComponent extends Vue {
   goNext() {
     this.goToPage(this.currentPage + 1);
   }
-   goToPage(page: number) {
+  goToPage(page: number) {
     if (page < 1 || page > this.pagesCount) {
       return;
     }
@@ -123,15 +123,14 @@ export default class UiPaginationComponent extends Vue {
 }
 </script>
 
-<style lang="less">
-@uiPaginationBgColor: #f0f0f0;
+<style lang="less" scoped>
+@uiPaginationBgColor: #cec0ae;
 @uiPaginationBorderRadius: 5px;
 @uiPaginationColor: #1b283f;
 @uiPaginationLinkBgColor: #21324f;
-@uiPaginationSelectedColor:#d25338;
+@uiPaginationSelectedColor: #d25338;
 @uiPaginationDisabledColor: #707070;
-@uiPaginationSelectedBGColor: #f0f0f0;
-
+@uiPaginationSelectedBGColor: #bb8b65;
 
 .ui-pagination {
   display: flex;
@@ -146,7 +145,7 @@ export default class UiPaginationComponent extends Vue {
     align-items: center;
     justify-content: center;
     background: @uiPaginationBgColor;
-    font-family: ProximaNova;
+    font-family: "Open Sans", sans-serif !important;
     font-size: 1rem;
     color: @uiPaginationColor;
     min-height: 25px;

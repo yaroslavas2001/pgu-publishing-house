@@ -7,9 +7,14 @@
     class="ui-dropdown"
   >
     <div class="current-block" @click="clickCurrent">
-      <slot name="current" :key="innerValue" :value="innerValue" class="current">
+      <slot
+        name="current"
+        :key="innerValue"
+        :value="innerValue"
+        class="current"
+      >
         <div class="multiselect d-flex">
-          <div v-if="innerValue && innerValue.length == 0" >
+          <div v-if="innerValue && innerValue.length == 0">
             {{ selectText }}
           </div>
           <div
@@ -24,7 +29,7 @@
         </div>
       </slot>
     </div>
-    <div v-if="autocomplete && open" >
+    <div v-if="autocomplete && open">
       <input ref="searchEl" class="current-input" v-model="search" />
     </div>
     <slot name="container" :data="items">
@@ -64,7 +69,10 @@ export default class AutocompleteMultiselectComponent extends Vue {
   @Prop() keyField?: string;
   @Prop() valueField?: string;
   autocomplete = true;
-  items: any[] = [];
+  items: any[] = [
+    { Id: 2, Name: "343224" },
+    { Id: 1, Name: "3434" },
+  ];
   @Prop({ default: null }) selectText: string;
   @Prop({ default: true }) closeOnSelect: boolean;
   @Prop({ default: false }) checkActiveByRef: boolean;
@@ -101,7 +109,7 @@ export default class AutocompleteMultiselectComponent extends Vue {
   }
   hoveredIdx: number = null;
   hasFocus = false;
-  private open = false;
+  open = false;
   preventCurrentClick = false;
   async sendSearchRequest() {
     let data = await this.SearchAsyncFunc(this.search);
@@ -134,7 +142,8 @@ export default class AutocompleteMultiselectComponent extends Vue {
   //   _perPage: 10,
   // };
   async created() {
-    this.innerValue = this.modelValue;
+    // this.innerValue = this.modelValue;
+    this.innerValue = [{ Id: 1, Name: "3434" }];
   }
   mounted() {
     document.addEventListener("keydown", this.onKeyDown.bind(this));
@@ -280,52 +289,49 @@ export default class AutocompleteMultiselectComponent extends Vue {
 }
 </script>
 <style lang="less" scoped>
-@uiSelectColor: #3c3f40;
-@uiSelectIconColor: #062634;
-@uiSelectBorderColor: #263958;
-@uiSelectActiveColor: #ced4de;
-@uiSelectBackColor: #fff;
-@uiSelectColorLabel: #7a7878;
-
+@bgItem: #fff;
+@colorItem: #bb8b65;
+@borderCurent: #ced4de;
+@hoverItembg: #deded5;
+@activeItembg: #cec0ae;
+@curentColor: #000;
 .ui-dropdown {
   position: relative;
   user-select: none;
   cursor: pointer;
   outline: none;
   min-width: 11em;
-  // margin-left: 23px;
   &:focus {
     .current {
-      border: 1px #ced4de solid;
+      border: 1px @borderCurent solid;
       &.active {
         border-width: 1px 1px 0px 1px;
-        border-color: #062634;
-        border-bottom: 1px solid #ced4de;
+        border-color: @borderCurent;
+        border-bottom: 1px solid @borderCurent;
       }
     }
   }
   .current {
-    // background: url("~@assets/img/arrow-botton.png") no-repeat 95% center, #fff;
-    border: 1px solid #ced4de;
+    border: 1px solid @borderCurent;
     height: 100%;
     padding: 6px 10px;
-    color: #162a47;
+    color: @curentColor;
     font-size: 14px;
   }
   .current-input {
-    // background: url("~@assets/img/arrow-botton.png") no-repeat 95% center, #fff;
-    border: 1px solid #ced4de;
+    border: 1px solid @borderCurent;
     height: 100%;
     padding: 6px 10px;
-    color: #162a47;
+    color: @curentColor;
     font-size: 14px;
     width: 100%;
+    box-sizing: border-box;
   }
   .remove {
     margin-left: 4px;
   }
   .container {
-    color: #162a47;
+    color: @curentColor;
     display: none;
     padding: 0;
     &.active {
@@ -334,26 +340,28 @@ export default class AutocompleteMultiselectComponent extends Vue {
       z-index: 1000;
       min-width: calc(~"100%");
       top: 100%;
-      border: 1px #d0d9de solid;
+      border: 1px @borderCurent solid;
+      box-sizing: border-box;
       border-width: 0px 1px 1px 1px;
       .item {
         padding: 7px 10px;
-        background-color: #f3f4fa;
-        border-top: @uiSelectBorderColor;
+        background-color: @bgItem;
+        border-top: @borderCurent;
         font-size: 14px;
+        color: @colorItem;
+
         &.hover,
         &:hover {
-          background-color: #d8dae4;
+          background-color: @hoverItembg;
         }
         &.active {
           border: 0px;
-          background-color: #d8dae4;
-          color: #4f5e74;
+          background-color: @activeItembg;
           font-weight: bold;
         }
         &.hover.active,
         &:hover.active {
-          background-color: #d8dae4;
+          background-color: @activeItembg;
         }
       }
     }
@@ -361,19 +369,23 @@ export default class AutocompleteMultiselectComponent extends Vue {
 }
 .multiselect {
   flex-wrap: wrap;
-  background-color: #f3f4fa;
-  border: 1px solid #d0d9de;
+  background-color: @bgItem;
+  border: 1px solid @borderCurent;
   padding: 5px 12px;
   border-radius: 4px;
   font-size: 12px;
-  color: #8797af;
+  color: @curentColor;
   min-height: 30px;
 }
 .multiselect-item {
-  background-color: #e1e3eb;
-  border: 1px solid #d0d9de;
+  background-color: @hoverItembg;
+  border: 1px solid @borderCurent;
   padding: 1px 9px;
-  color: #4f5e74;
+  color: @colorItem;
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  font-size: 14px;
 }
 </style>
