@@ -17,6 +17,9 @@ export default class CalculationConstModel {
     ExpendableMaterialsColor:number = 4
     AccessoriesColor:number = 1.6
 
+
+    ColorExpendableMaterials:number = 4
+    ColorAccessories:number = 1.6
     constructor(obj?: Partial<CalculationConstModel>) {
         obj && Object.assign(this, obj);
     }

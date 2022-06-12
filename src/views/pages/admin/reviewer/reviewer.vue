@@ -1,5 +1,8 @@
 <template>
   <content title="Рецензенты">
+    <template #header>
+      <btn isSmall @click="addReviewer" title="Добавить рецензента" />
+    </template>
     <content-table-test
       :columns="columns"
       :filter="filterCity"
@@ -19,7 +22,7 @@
           {{ data.email }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
-          <info/>
+          <info />
         </ui-table-body-item>
       </template>
     </content-table-test>
@@ -66,6 +69,9 @@ export default class Reviewer extends Vue {
   }
   async testF() {
     return await this.test;
+  }
+  addReviewer() {
+    this.$router.push({ name: REVIEWERDETAILED });
   }
 }
 </script>

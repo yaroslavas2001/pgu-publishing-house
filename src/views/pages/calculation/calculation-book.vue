@@ -12,21 +12,48 @@
       v-model="model.Volume"
       type="number"
     />
-    Сделать выпадающий список с расчетом работ
-    <!-- форма заказ наряд -->
-    <ui-checkbox v-model="model.IsEditing" class="mb-5">
-      Редактирование - вычитка, исправление ошибок
+    <label-input
+      nameLabel="Редактирование"
+      placeholder="Введите число"
+      v-model="model.Editing"
+      type="number"
+      title="Сколько раз статья пройдет этап редактирования."
+    />
+    <label-input
+      nameLabel="Корректура"
+      placeholder="Введите число"
+      v-model="model.FirstProofreading"
+      type="number"
+      title="Исправление типографских ошибок на оттиске набора."
+    />
+    <!-- Сделать выпадающий список с расчетом работ -->
+    <ui-checkbox
+      v-model="model.IsRevision"
+      class="mb-5"
+      title="Проверка всех необходимых документов."
+    >
+      Ревизия
     </ui-checkbox>
-    <ui-checkbox v-model="model.IsFirstProofreading" class="mb-5">
-      Первая корректура - вносится исправления
+    <ui-checkbox
+      v-model="model.IsTyping"
+      class="mb-5"
+      title="Набор в эллектронный вид."
+    >
+      Набор
     </ui-checkbox>
-    <ui-checkbox v-model="model.IsRevision" class="mb-5">Ревизия - </ui-checkbox>
-    <ui-checkbox v-model="model.IsTyping" class="mb-5">Набор</ui-checkbox>
-    <ui-checkbox v-model="model.IsPrototyping" class="mb-5">
+    <ui-checkbox
+      v-model="model.IsPrototyping"
+      class="mb-5"
+      title="Создание макета печатного издания."
+    >
       Макетирование
     </ui-checkbox>
-    <!-- <ui-checkbox v-model="model.IsReplication">IsReplication</ui-checkbox> -->
-
+    <ui-checkbox
+      v-model="model.IsColor"
+      class="mb-5"
+    >
+      Цветная печать - рекомендована если есть картинки
+    </ui-checkbox>
     <div class="sum">Цена экземпляра : {{ one.toFixed(2) }}</div>
     <div class="sum">Итого затрат : {{ sum.toFixed(2) }}</div>
   </div>
@@ -48,7 +75,7 @@ export default class CalculationBook extends Vue {
       ? 0
       : this.model.one;
   }
-    get sum(): number {
+  get sum(): number {
     // console.log(this.model.one === NaN || this.model.one===Infinity? 0:this.model.one );
     return isNaN(this.model.all) ||
       this.model.all == Infinity ||

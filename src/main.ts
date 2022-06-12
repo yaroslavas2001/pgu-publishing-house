@@ -19,6 +19,8 @@ import PaperBlock from "@/views/components/rio-psy/paper-block.vue"
 import ContentTable from "@/views/components/rio-psy/content-table/content-table.vue";
 import ContentTableTest from "@/views/components/rio-psy/content-table/content-table-test.vue"
 import Info from "@/views/components/rio-psy/info.vue"
+import InfoBlock from "@/views/components/rio-psy/info-block.vue"
+
 
 import UiTable from "@views/components/ui-table/ui-table.vue";
 import UiPagination from "@components/ui-table/ui-pagination.vue";
@@ -180,5 +182,6 @@ app.component("info", Info)
 app.component("paper-block", PaperBlock)
 app.component("content-table", ContentTable);
 app.component("content-table-test", ContentTableTest);
+app.component("info-block", InfoBlock);
 
 app.mount("#app");

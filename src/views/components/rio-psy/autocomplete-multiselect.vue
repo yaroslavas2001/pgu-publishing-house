@@ -5,6 +5,7 @@
     v-click-outside="onBlur"
     ref="root"
     class="ui-dropdown"
+    :class="{ isActive: !closeOnSelect }"
   >
     <div class="current-block" @click="clickCurrent">
       <slot
@@ -74,7 +75,7 @@ export default class AutocompleteMultiselectComponent extends Vue {
     { Id: 1, Name: "3434" },
   ];
   @Prop({ default: null }) selectText: string;
-  @Prop({ default: true }) closeOnSelect: boolean;
+  @Prop({ default: false }) closeOnSelect: boolean;
   @Prop({ default: false }) checkActiveByRef: boolean;
   @Prop({ type: [String, Number, Number, Date, Object, Array] })
   modelValue: any | any[] | String | Number | string | number | Date;
@@ -170,6 +171,7 @@ export default class AutocompleteMultiselectComponent extends Vue {
   }
 
   setOpen(value: boolean) {
+    if (this.closeOnSelect) return;
     this.open = value;
     var active = this.active;
     if (value && this.autocomplete) {
@@ -196,6 +198,7 @@ export default class AutocompleteMultiselectComponent extends Vue {
     document.removeEventListener("keydown", this.onKeyDown.bind(this));
   }
   onGetFocus() {
+    if (this.closeOnSelect) return;
     this.setOpen(true);
     this.preventCurrentClick = true;
     setTimeout(() => (this.preventCurrentClick = false), 300);
@@ -260,6 +263,7 @@ export default class AutocompleteMultiselectComponent extends Vue {
     });
   }
   deleteItem(item: any) {
+    if (this.closeOnSelect) return;
     this.setOpen(false);
     this.isSelect(item)
       ? (this.innerValue = this.innerValue.filter(
@@ -295,10 +299,12 @@ export default class AutocompleteMultiselectComponent extends Vue {
 @hoverItembg: #deded5;
 @activeItembg: #cec0ae;
 @curentColor: #000;
+.isActive {
+  cursor: pointer;
+}
 .ui-dropdown {
   position: relative;
   user-select: none;
-  cursor: pointer;
   outline: none;
   min-width: 11em;
   &:focus {

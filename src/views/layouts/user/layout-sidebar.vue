@@ -39,6 +39,7 @@ export default class LayoutSidebar extends Vue {
 .layout-sidebar {
   min-height: 100%;
   width: 200px;
+  min-width: 200px;
   background-color: @LayoutSidebar;
   .layout-sidebar-menu {
     height: auto;

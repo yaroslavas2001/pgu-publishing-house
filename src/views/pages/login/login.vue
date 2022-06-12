@@ -19,7 +19,7 @@
       <button class="btn-text" @click="goToUser">user</button>
       <div class="btn-block-right">
         <btn isSmall @click="registration" title="Регистрация" class="mb-5" />
-        <button class="btn-text" @click="forgot">Забыли пароль</button>
+        <!-- <button class="btn-text" @click="forgot">Забыли пароль</button> -->
       </div>
     </div>
   </modal-block>
