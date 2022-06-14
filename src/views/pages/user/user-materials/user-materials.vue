@@ -18,7 +18,7 @@
           {{ data.autors }}
         </ui-table-body-item>
         <ui-table-body-item>
-          {{ data.status }}
+          {{ status(data.status) }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
           <info />
@@ -48,100 +48,17 @@ export default class UserMaterials extends Vue {
       },
       {
         id: 2,
-        name: "интересно",
-        status: 2,
+        name: "Разработка контента",
+        status: 3,
         autors: [],
       },
       {
         id: 3,
-        name: "тест фильтра",
-        status: 2,
+        name: "Основы програмирования",
+        status: 1,
         autors: [],
       },
-      {
-        id: 4,
-        name: "проверка фильтрв",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 5,
-        name: "Методология разработки",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 6,
-        name: "интересно",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 7,
-        name: "тест фильтра",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 8,
-        name: "проверка фильтрв",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 9,
-        name: "Методология разработки",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 10,
-        name: "интересно",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 11,
-        name: "тест фильтра",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 12,
-        name: "проверка фильтрв",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 8,
-        name: "проверка фильтрв",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 9,
-        name: "Методология разработки",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 10,
-        name: "интересно",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 11,
-        name: "тест фильтра",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 12,
-        name: "проверка фильтрв",
-        status: 2,
-        autors: [],
-      },
+    
     ],
     Count: 10,
   };
@@ -163,6 +80,9 @@ export default class UserMaterials extends Vue {
     "ул. Карала-Маркса2",
     "ул. Карала-Маркса3",
   ];
+  status(status):string{
+    return  status==1?"На проверке у рецензиата":"На печать"
+  }
   created() {
     this.getUsersAsync = this.testF;
     // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRrr")

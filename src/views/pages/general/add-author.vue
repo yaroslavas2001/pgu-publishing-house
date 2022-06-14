@@ -47,7 +47,7 @@
       <select-autocomplete
         keyField="Id"
         valueField="Name"
-        :items="test"
+        :items="testPosition"
         v-model="newAuthor.positionId"
         defaultText="Выберите должность"
         id="Position"
@@ -58,7 +58,7 @@
     <select-autocomplete
       keyField="Id"
       valueField="Name"
-      :items="test"
+      :items="testKaf"
       v-model="newAuthor.departmentId"
       defaultText="Выберите кафедру"
       id="departmentId"
@@ -68,7 +68,7 @@
     <select-autocomplete
       keyField="Id"
       valueField="Name"
-      :items="test"
+      :items="testDegree"
       v-model="newAuthor.degreeId"
       defaultText="Выберите научную степень"
       id="Position"
@@ -96,17 +96,26 @@ import { NEWMATERIALADD } from "@/router/routerNames";
 })
 export default class AddAuthor extends Vue {
   newAuthor: AllAuthorModel = new AllAuthorModel();
-  test: Array<IdNameModel> = [
-    { Id: 1, Name: "34" },
-    { Id: 2, Name: "342" },
-    { Id: 3, Name: "343" },
-    { Id: 4, Name: "3424" },
-    { Id: 5, Name: "3425" },
-    { Id: 6, Name: "346" },
-    { Id: 7, Name: "3427" },
-    { Id: 8, Name: "34258" },
-    { Id: 9, Name: "3469" },
-    { Id: 10, Name: "342710" },
+  testPosition: Array<IdNameModel> = [
+    { Id: 1, Name: "Профессор" },
+    { Id: 2, Name: "Доцент" },
+    { Id: 3, Name: "Старший преподаватель" },
+    { Id: 4, Name: "Преподаватель" },
+    { Id: 5, Name: "Глаавный научный сотрудник" },
+
+  ];
+  testKaf: Array<IdNameModel> = [
+    { Id: 1, Name: "Электронный бизнес" },
+    { Id: 2, Name: "Кафедра биологии и физиологии человека" },
+    { Id: 3, Name: "Кафедра автоматизированных технологий и промышленных комплексов" },
+    { Id: 4, Name: "Кафедра электротехнического оборудования" },
+    { Id: 5, Name: "Кафедра электротехнического оборудования" },
+
+  ];
+  testDegree: Array<IdNameModel> = [
+    { Id: 1, Name: "Кандидат наук" },
+    { Id: 2, Name: "Доктор наук" },
+    { Id: 3, Name: "Без степени" },
   ];
   created() {
     this.newAuthor = new AllAuthorModel();

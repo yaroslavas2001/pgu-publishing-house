@@ -27,6 +27,7 @@
     >
       <div v-if="getTypeDocument(item.type)" class="file-input-document">
         <p>Document: {{ item.fileName }}</p>
+        <a :href="item.fileBody" :download="item.fileName">Скачать</a>
         <btn isSmall @click="del(item.fileName)" title="Удалить" />
       </div>
       <div v-else class="file-input-img">
@@ -34,7 +35,14 @@
           <img :src="item.fileBody" alt="" class="input-img" />
           <p class="file-input-img-name">{{ item.fileName }}</p>
         </div>
-        <btn isSmall @click="del(item.fileName)" title="Удалить" />
+        <btn
+          isSmall
+          @click="del(item.fileName)"
+          title="Удалить"
+          v-if="canselDelete"
+        />
+        <a :href="item.fileBody" :download="item.fileName">Скачать</a>
+        <!-- <btn isSmall @click="download(item.fileName)" title="Скачать" /> -->
       </div>
     </div>
   </div>
@@ -49,6 +57,9 @@ import FileModel from "./FileModel";
 export default class UiFileInput extends Vue {
   @Prop({ default: false }) readonly!: boolean;
   @Prop({ default: 5 }) maxSizeMb: number;
+  @Prop({ default: false, type: Boolean }) canselDelete: boolean;
+  // @Prop({ default: true,type:Boolean}) download: boolean;
+
   fileArray: Array<FileModel> = [];
   private file: File;
   errorMessage: string = "";
@@ -98,6 +109,14 @@ export default class UiFileInput extends Vue {
     (this.$refs.file as HTMLElement).click();
   }
   del(fileName: string) {
+    for (var i = this.fileArray.length - 1; i >= 0; --i) {
+      if (this.fileArray[i].fileName == fileName) {
+        this.fileArray.splice(i, 1);
+        this.$emit("onChange", this.fileArray);
+      }
+    }
+  }
+  download(fileName: string) {
     for (var i = this.fileArray.length - 1; i >= 0; --i) {
       if (this.fileArray[i].fileName == fileName) {
         this.fileArray.splice(i, 1);

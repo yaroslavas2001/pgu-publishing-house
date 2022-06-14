@@ -10,6 +10,7 @@ export default class NewArticleModel {
     Authors: Array<AuthorModel>
     Comments: string
     Type:number
+    Status:number
     constructor(obj?: Partial<NewArticleModel>) {
         obj && Object.assign(this, obj);
     }

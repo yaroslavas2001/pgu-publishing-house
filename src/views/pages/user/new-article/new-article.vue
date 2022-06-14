@@ -11,7 +11,7 @@
       <select-autocomplete
         keyField="Id"
         valueField="Name"
-        :items="test"
+        :items="testMaterial"
         v-model="newArticle.Type"
         defaultText="Выберите тип"
         id="Type"
@@ -80,6 +80,12 @@ export default class NewArticle extends Vue {
   antiplagiat: Array<FileInput> = [];
   newArticle: NewArticleModel = new NewArticleModel();
   Authors: any = null;
+  testMaterial:Array<IdNameModel> = [
+    { Id: 1, Name: "Статья" },
+    { Id: 2, Name: "Книга" },
+    { Id: 3, Name: "Методическое пособие" },
+    { Id: 4, Name: "Бланк" },
+  ];
    test: Array<IdNameModel> = [
     { Id: 1, Name: "34" },
     { Id: 2, Name: "342" },

@@ -71,8 +71,8 @@ export default class AutocompleteMultiselectComponent extends Vue {
   @Prop() valueField?: string;
   autocomplete = true;
   items: any[] = [
-    { Id: 2, Name: "343224" },
-    { Id: 1, Name: "3434" },
+    { Id: 2, Name: "Иванов Иванович" },
+    { Id: 1, Name: "Евгений Викторович" },
   ];
   @Prop({ default: null }) selectText: string;
   @Prop({ default: false }) closeOnSelect: boolean;
@@ -144,7 +144,7 @@ export default class AutocompleteMultiselectComponent extends Vue {
   // };
   async created() {
     // this.innerValue = this.modelValue;
-    this.innerValue = [{ Id: 1, Name: "3434" }];
+    this.innerValue = [{ Id: 1, Name: "Иванов Иванович" }];
   }
   mounted() {
     document.addEventListener("keydown", this.onKeyDown.bind(this));
