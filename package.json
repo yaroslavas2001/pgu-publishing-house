@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "set-registry": "npm set registry http://31.31.24.200:5051/"
+    "set-registry": "npm set registry https://localhost:7212/"
   },
   "dependencies": {
     "@babel/core": "^7.13.15",

@@ -20,6 +20,22 @@ export default class AuthorService extends RequestService<any, any, any, any>{
         console.log("res Author/Add", res)
         return res;
     }
+    public async Search(request: AllAuthorModel): Promise<HttpResponseResult<AuthorModel>> {
+        let res = await this.createRequestPromise<any>('/Search', 'GET', request);
+        return res;
+    }
+    public async Get(request: AllAuthorModel): Promise<HttpResponseResult<AuthorModel>> {
+        let res = await this.createRequestPromise<any>('/Get', 'GET', request);
+        return res;
+    }
+    public async Update(request: AllAuthorModel): Promise<HttpResponseResult<AuthorModel>> {
+        let res = await this.createRequestPromise<any>('/Update', 'PATCH', request);
+        return res;
+    }
+    public async Delete(request: AllAuthorModel): Promise<HttpResponseResult<AuthorModel>> {
+        let res = await this.createRequestPromise<any>('/Delete', 'DELETE', request);
+        return res;
+    }
     // public GetTechStateList(): Promise<HttpResponseResult<Array<any>>> {
 
     //     return this.createRequestPromise<Array<any>>('/TechState/DropDownList', 'GET');

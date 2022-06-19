@@ -97,7 +97,7 @@ app.use(ErrorHandler, {
 
 import AdminApi from './api/apiDataSource.plugin';
 
-app.use(AdminApi, { url: "http://31.31.24.200:5051/" });
+app.use(AdminApi, { url: "https://localhost:7212/" });
 
 import Store from "@/store"
 

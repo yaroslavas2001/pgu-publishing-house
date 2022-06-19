@@ -7,10 +7,9 @@ export default class HttpResponseResult<T>{
     // StatusText: string
     // ResponseHeaders: any
     // ErrorInfo?: ErrorResponse
-
-    TypeName?: string
     isSuccess: boolean
     errorMessage: string
     stackTrace: string
+    TypeName?: string
     data: T
 }

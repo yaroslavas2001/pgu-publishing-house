@@ -2,22 +2,18 @@ export default class AllAuthorModel {
     id: number
     firstName: string
     lastName: string
-    fatherName: string
+    sureName: string
 
-    contacts:string
-    email:string
-    isTeacher:boolean = false
-    departmentId:string
-    positionId:number
-    placeWork:string
+    contacts: string
+    email: string
+    isTeacher: boolean = false
 
-    degreeId:number
-
- 
-    // PlaceWork: string
-    // IdFaculty: number
-
-
+    departmentId: string
+    employeerPosition: number
+    academicDegree:number
+    
+    nonStuffPosition: string
+    nonStuffWorkPlace: number
 
 
     constructor(obj?: Partial<AllAuthorModel>) {

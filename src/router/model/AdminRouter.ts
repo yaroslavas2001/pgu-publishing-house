@@ -11,8 +11,8 @@ import ReviewerDetailed from "@views/pages/admin/reviewer/reviewer-detailed.vue"
 import MaterialDetailed from "@views/pages/admin/materials/material-detailed.vue"
 import NewMaterials from "@views/pages/admin/new-materials/new-materials.vue"
 import NewMaterialDetailed from "@views/pages/admin/new-materials/new-material-detailed.vue"
-
-import { ADMIN, AUTHORS, DETAILEDADMIN, ADMINMATERIALS, ALLADMINMATERIALS, NEWMATERIALADMIN, ALLNEWMATERIALADMIN, DETAILEDNEWMATERIALADMIN, REVIEWER, ALLREVIEWER, REVIEWERDETAILED, AUTHOR, AUTHORSGROUP} from "../routerNames";
+import Departments from "@views/pages/admin/departments/departments.vue"
+import { ADMIN, AUTHORS, DETAILEDADMIN, ADMINMATERIALS, ALLADMINMATERIALS, NEWMATERIALADMIN, ALLNEWMATERIALADMIN, DETAILEDNEWMATERIALADMIN, REVIEWER, ALLREVIEWER, REVIEWERDETAILED, AUTHOR, AUTHORSGROUP, DEPARTMENTS} from "../routerNames";
 
 //#endregion
 const AdminRouter: Array<RouteRecordRaw> = [
@@ -107,7 +107,12 @@ const AdminRouter: Array<RouteRecordRaw> = [
               },
             ]
           },
-         
+          {
+            name: DEPARTMENTS,
+            path: DEPARTMENTS,
+            component: Departments,
+            meta: { title: "Факультеты и кафедры" }
+          },
         ]
       }
     ]

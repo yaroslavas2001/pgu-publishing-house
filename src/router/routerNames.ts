@@ -15,6 +15,7 @@ export const ADMIN = "admin";
 export const AUTHORS = "authors";
 export const AUTHORSGROUP = "authors-group";
 export const AUTHOR = "authors-detailed";
+export const DEPARTMENTS = "departments";
 
 export const ADMINMATERIALS = "admin-materials";
 export const ALLADMINMATERIALS = "all-admin-materials";

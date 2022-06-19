@@ -13,7 +13,7 @@
     <label-input
       nameLabel="Отчество"
       placeholder="Введите отчество автора"
-      v-model="newAuthor.fatherName"
+      v-model="newAuthor.sureName"
     />
     <label-input
       nameLabel="Email"
@@ -39,7 +39,7 @@
     <label-input
       nameLabel="Место работы"
       placeholder="Введите ваше место работы"
-      v-model="newAuthor.placeWork"
+      v-model="newAuthor.nonStuffWorkPlace"
       v-if="!newAuthor.isTeacher"
     />
     <div v-else>
@@ -47,34 +47,33 @@
       <select-autocomplete
         keyField="Id"
         valueField="Name"
-        :items="testPosition"
-        v-model="newAuthor.positionId"
+        :items="EmployeePosition"
+        v-model="newAuthor.employeerPosition"
         defaultText="Выберите должность"
         id="Position"
         class="mt-2 mb-8"
       />
+      <label for="departmentId">Кафедра</label>
+      <select-autocomplete
+        keyField="Id"
+        valueField="Name"
+        :items="testKaf"
+        v-model="newAuthor.departmentId"
+        defaultText="Выберите кафедру"
+        id="departmentId"
+        class="mt-2 mb-8"
+      />
+      <label for="Position">Научная степень</label>
+      <select-autocomplete
+        keyField="Id"
+        valueField="Name"
+        :items="AcademicDegree"
+        v-model="newAuthor.academicDegree"
+        defaultText="Выберите научную степень"
+        id="Position"
+        class="mt-2"
+      />
     </div>
-    <label for="departmentId">Кафедра</label>
-    <select-autocomplete
-      keyField="Id"
-      valueField="Name"
-      :items="testKaf"
-      v-model="newAuthor.departmentId"
-      defaultText="Выберите кафедру"
-      id="departmentId"
-      class="mt-2 mb-8"
-    />
-    <label for="Position">Научная степень</label>
-    <select-autocomplete
-      keyField="Id"
-      valueField="Name"
-      :items="testDegree"
-      v-model="newAuthor.degreeId"
-      defaultText="Выберите научную степень"
-      id="Position"
-      class="mt-2"
-    />
-
     <btn
       isSmall
       isActive
@@ -91,31 +90,25 @@ import AllAuthorModel from "@/models/author/AllAuthorModel";
 import IdNameModel from "@/models/general/IdNameModel";
 import NewArticle from "../user/new-article/new-article.vue";
 import { NEWMATERIALADD } from "@/router/routerNames";
+import AcademicDegree from "@/common/AcademicDegree";
+import EmployeePosition from "@/common/EmployeePosition";
 @Options({
   emits: ["goToAdmin"],
 })
 export default class AddAuthor extends Vue {
   newAuthor: AllAuthorModel = new AllAuthorModel();
-  testPosition: Array<IdNameModel> = [
-    { Id: 1, Name: "Профессор" },
-    { Id: 2, Name: "Доцент" },
-    { Id: 3, Name: "Старший преподаватель" },
-    { Id: 4, Name: "Преподаватель" },
-    { Id: 5, Name: "Глаавный научный сотрудник" },
+  AcademicDegree = AcademicDegree;
+  EmployeePosition = EmployeePosition;
 
-  ];
   testKaf: Array<IdNameModel> = [
     { Id: 1, Name: "Электронный бизнес" },
     { Id: 2, Name: "Кафедра биологии и физиологии человека" },
-    { Id: 3, Name: "Кафедра автоматизированных технологий и промышленных комплексов" },
+    {
+      Id: 3,
+      Name: "Кафедра автоматизированных технологий и промышленных комплексов",
+    },
     { Id: 4, Name: "Кафедра электротехнического оборудования" },
     { Id: 5, Name: "Кафедра электротехнического оборудования" },
-
-  ];
-  testDegree: Array<IdNameModel> = [
-    { Id: 1, Name: "Кандидат наук" },
-    { Id: 2, Name: "Доктор наук" },
-    { Id: 3, Name: "Без степени" },
   ];
   created() {
     this.newAuthor = new AllAuthorModel();
@@ -123,7 +116,7 @@ export default class AddAuthor extends Vue {
   async saveAuthor() {
     console.log("this.newAuthor", this.newAuthor, this.$api);
     let res = await this.$api.AuthorService.AddAuthor(this.newAuthor);
-    this.$router.push({ name: NEWMATERIALADD });
+    // this.$router.push({ name: NEWMATERIALADD });
 
     console.log("newAuthor", this.newAuthor, res);
   }
