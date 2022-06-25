@@ -21,7 +21,7 @@ export class StateModel {
   SettlementType: Array<Model> = []
   CurrentUser:string
   FirstName:string ="Иван"
-  FatherName:string ="Иванов"
+  SureName:string ="Иванов"
   UserRole:number
 }
 

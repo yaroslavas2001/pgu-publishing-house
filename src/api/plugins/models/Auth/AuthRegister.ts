@@ -4,6 +4,6 @@ export default class AuthRegister{
     confirmPassword:string
     firstName:string
     lastName:string
-    fatherName:string 
+sureName:string 
   
 }

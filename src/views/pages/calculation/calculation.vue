@@ -12,7 +12,7 @@
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { MAINPAGE } from "@/router/routerNames";
+import { INDEX } from "@/router/routerNames";
 import CalculationBook from "./calculation-book.vue";
 import CalculationForm from "./calculation-form.vue";
 @Options({
@@ -20,7 +20,7 @@ import CalculationForm from "./calculation-form.vue";
 })
 export default class Calculation extends Vue {
   goToMain() {
-    this.$router.push({ name: MAINPAGE });
+    this.$router.push({ name: INDEX });
   }
 }
 </script>

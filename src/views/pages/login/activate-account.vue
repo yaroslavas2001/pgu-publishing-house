@@ -19,7 +19,7 @@ export default class ActivateAccount extends Vue {
   confirmPassword: string = "";
   firstName: string = "";
   lastName: string = "";
-  fatherName: string = "";
+  SureName: string = "";
   errorMessage: string = "";
   wrong: boolean = false;
   isshowEye = false;
@@ -54,7 +54,7 @@ export default class ActivateAccount extends Vue {
       confirmPassword: this.confirmPassword,
       firstName: this.firstName,
       lastName: this.lastName,
-      fatherName: this.fatherName,
+    sureName: this.SureName,
     });
     console.log("res", res);
 

@@ -29,7 +29,7 @@
       <label-input
         nameLabel="Отчество"
         placeholder="Введите Ваше отчество"
-        v-model="fatherName"
+        v-model="sureName"
       />
     </form>
     <div class="btn-block">
@@ -54,7 +54,7 @@ export default class RegistrationPage extends Vue {
   confirmPassword: string = "";
   firstName: string = "";
   lastName: string = "";
-  fatherName: string = "";
+  sureName: string = "";
   errorMessage: string = "";
   wrong: boolean = false;
   isshowEye = false;
@@ -78,7 +78,7 @@ export default class RegistrationPage extends Vue {
       confirmPassword: this.confirmPassword,
       firstName: this.firstName,
       lastName: this.lastName,
-      fatherName: this.fatherName,
+      sureName: this.sureName,
     });
     console.log("res", res);
     if (res.isSuccess) {

@@ -31,7 +31,7 @@ import {
   REGISTRATION,
   ADMIN,
   USER,
-  MAINPAGE,
+  INDEX,
 } from "@/router/routerNames";
 import UserRole from "../../../Enum/UserRole";
 @Options({
@@ -61,7 +61,7 @@ export default class LoginPageComponent extends Vue {
         this.$router.push({ name: USER });
         this.$store.state.CurrentUser = this.username;
         this.$store.state.FirstName = res.data.firstName;
-        this.$store.state.FatherName = res.data.fatherName;
+        this.$store.state.SureName = res.data.sureName;
       } else {
         this.wrong = true;
         this.errorMessage = res.errorMessage;
@@ -84,7 +84,7 @@ export default class LoginPageComponent extends Vue {
     this.$router.push({ name: USER });
   }
   goToMainPage() {
-    this.$router.push({ name: MAINPAGE });
+    this.$router.push({ name: INDEX });
   }
 }
 </script>

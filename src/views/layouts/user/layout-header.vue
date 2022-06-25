@@ -24,7 +24,7 @@ export default class LayoutHeaderUser extends Vue {
   UserSureName: string;
   created() {
     this.userName = this.$store.state.FirstName;
-    this.UserSureName = this.$store.state.FatherName;
+    this.UserSureName = this.$store.state.SureName;
   }
   goOut() {
     this.$api.AuthService.logout();

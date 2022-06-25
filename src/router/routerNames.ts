@@ -7,7 +7,7 @@ export const ACTIVATEACCOUNTINFO = "activate-account-info";
 
 // общее
 export const ADDAUTHOR = "add-author";
-export const MAINPAGE ="main-page"
+export const INDEX ="index"
 export const CALCULATION ="calculation"
 
 

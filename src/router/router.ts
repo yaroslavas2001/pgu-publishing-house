@@ -12,7 +12,7 @@ import MainPage from "@/views/pages/general/main-page.vue"
 import Calculation from "@/views/pages/calculation/calculation.vue"
 import {
   DEFAULT, LOGIN, FORGOTPESSWORD, REGISTRATION,CALCULATION,
-  REVIEWER, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO, MAINPAGE
+  REVIEWER, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO, INDEX
 } from "./routerNames";
 
 import AdminRouter from "./model/AdminRouter"
@@ -22,11 +22,11 @@ const routes: Array<RouteRecordRaw> = [
   {
     name: DEFAULT,
     path: "/",
-    redirect: MAINPAGE
+    redirect: INDEX
   },
   {
-    name: MAINPAGE,
-    path: "/main-page",
+    name: INDEX,
+    path: "/index",
     component: MainPage,
     meta: {
       title: "Издательство ПГУ",

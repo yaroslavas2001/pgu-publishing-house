@@ -1,7 +1,7 @@
 export default class LoginResponse{
     token:string
     firstName:string
-    fatherName:string
+    sureName:string
     role:number
     id:number
 }
