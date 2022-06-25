@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw, RouterView } from "vue-router";
+import {  RouteRecordRaw} from "vue-router";
 
 const BaseTemplate = () => import("@/views/layouts/base-layout.vue");
 const UserLayout = () => import("@views/layouts/user/user-layout.vue");
@@ -7,9 +7,10 @@ import NewArticlePage from "@/views/pages/user/new-article/new-article.vue"
 import UserMaterials from "@/views/pages/user/user-materials/user-materials.vue"
 import ReviewersResponse from "@/views/pages/user/reviewers-response/reviewers-response.vue"
 import ArticleArchive from "@/views/pages/user/article-archive/article-archive.vue"
-import AddAuthor from "@/views/pages/general/add-author.vue"
+import AddAuthor from "@/views/pages/user/add-author/add-author.vue"
 import UserMaterialDetailed from "@views/pages/user/user-materials/user-material-detailed.vue"
-import { USER, ARTICLEARCHIVE, REVIEWERSRESPONSE,  ADDAUTHOR,USERMATERIALS, ALLUSERMATERIALS, DETAILEDUSER, NEWMATERIALADD, NEWMATERIAL, } from "../routerNames";
+import { USER, ARTICLEARCHIVE, REVIEWERSRESPONSE, ADDAUTHOR, USERMATERIALS, ALLUSERMATERIALS, 
+  DETAILEDUSER, NEWMATERIALADD, NEWMATERIAL, } from "../routerNames";
 
 const UserRouter: Array<RouteRecordRaw> = [
   {
@@ -55,12 +56,7 @@ const UserRouter: Array<RouteRecordRaw> = [
                 component: NewArticlePage,
                 meta: { title: "Загрузить новую статью" },
               },
-              {
-                name: ADDAUTHOR,
-                path: ADDAUTHOR,
-                component: AddAuthor,
-                meta: { title: "Добавить автора" }
-              },
+
             ]
           },
 
@@ -76,7 +72,12 @@ const UserRouter: Array<RouteRecordRaw> = [
             component: ReviewersResponse,
             meta: { title: "Ответ проверяющего" }
           },
-
+          {
+            name: ADDAUTHOR,
+            path: ADDAUTHOR,
+            component: AddAuthor,
+            meta: { title: "Добавить автора" }
+          },
         ]
       }
     ]

@@ -30,7 +30,6 @@
 import { Options, Vue, Ref, Prop } from "vue-property-decorator";
 import UiTableFilter from "@/views/components/ui-table/ui-table-filter.vue";
 import UiPagination from "@views/components/ui-table/ui-pagination.vue";
-import GetListRequest from "@/api/plugins/models/getListRequest";
 import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
 import ContentTableModel from "@views/components/rio-psy/content-table/ContentTableModel"
 @Options({
@@ -43,7 +42,7 @@ export default class ContentTableComponent extends Vue {
   @Ref("pagination") pagination: UiPagination;
 
   @Prop({ type: Object, default: null, required: false })
-  filter: GetListRequest<any>; //IFilter;
+  filter:any; //IFilter;
   @Prop({ type: Function, required: true }) getDataFunc: (
     filter?: Object
   ) => Promise<HttpResponseResult<any>>;

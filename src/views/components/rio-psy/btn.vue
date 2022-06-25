@@ -1,6 +1,5 @@
 <template>
   <button
-    @click="$emit('click')"
     class="btn"
     :class="{
       btnSmall: isSmall,

@@ -58,10 +58,7 @@
 </template>
 <script lang="ts">
 import { Vue, Options, Prop, Watch, Ref } from "vue-property-decorator";
-import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
-import GetListRequest from "@/api/plugins/models/getListRequest";
-// import EnterpriseListRequest from "@/api/plugins/models/controllersModels/enterprises/EnterpriseListRequest";
-import GetListResponse from "@/api/plugins/models/getListResponse";
+import IdNameSmallModel from "@/models/general/IdNameSmallModel";
 @Options({
   name: "UiAutocompleteMultiselectComponent",
   emits: ["update:modelValue"],
@@ -70,10 +67,7 @@ export default class AutocompleteMultiselectComponent extends Vue {
   @Prop() keyField?: string;
   @Prop() valueField?: string;
   autocomplete = true;
-  items: any[] = [
-    { Id: 2, Name: "Иванов Иванович" },
-    { Id: 1, Name: "Евгений Викторович" },
-  ];
+  items: any[] = [];
   @Prop({ default: null }) selectText: string;
   @Prop({ default: false }) closeOnSelect: boolean;
   @Prop({ default: false }) checkActiveByRef: boolean;
@@ -83,8 +77,8 @@ export default class AutocompleteMultiselectComponent extends Vue {
 
   @Prop({ type: Function, required: true })
   SearchAsyncFunc: (
-    search?: string //GetListRequest<any>
-  ) => Promise<HttpResponseResult<GetListResponse<any>>>;
+    search?: string 
+  ) => Array<IdNameSmallModel>;
 
   innerValue: any | any[] | String | Number | string | number | Date = null;
 
@@ -113,8 +107,8 @@ export default class AutocompleteMultiselectComponent extends Vue {
   open = false;
   preventCurrentClick = false;
   async sendSearchRequest() {
-    let data = await this.SearchAsyncFunc(this.search);
-    // this.items = data.data;
+    this.items = await this.SearchAsyncFunc(this.search);
+    console.log("items",this.items,"search",this.search)
   }
   get active(): any {
     if (this.innerValue)
@@ -135,16 +129,8 @@ export default class AutocompleteMultiselectComponent extends Vue {
     }
     return text;
   }
-  // onSearchResult(res: HttpResponseResult<ISearchResponse>) {
-  //   this.items = res.Response.Items;
-  // }
-  // filter: GetListRequest<any> = {
-  //   _page: 1,
-  //   _perPage: 10,
-  // };
   async created() {
-    // this.innerValue = this.modelValue;
-    this.innerValue = [{ Id: 1, Name: "Иванов Иванович" }];
+    this.innerValue = this.modelValue;
   }
   mounted() {
     document.addEventListener("keydown", this.onKeyDown.bind(this));

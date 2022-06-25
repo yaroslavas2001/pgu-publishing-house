@@ -9,11 +9,11 @@ export default class AllAuthorModel {
     isTeacher: boolean = false
 
     departmentId: string
-    employeerPosition: number
-    academicDegree:number
+    positionId: number
+    degreeId:number
     
     nonStuffPosition: string
-    nonStuffWorkPlace: number
+    nonStuffWorkPlace: string
 
 
     constructor(obj?: Partial<AllAuthorModel>) {

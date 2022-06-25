@@ -3,12 +3,11 @@ import RequestGetAllDepartmentModel from "../models/Department/RequestGetAllDepa
 import ResponseGetAllDepartmentModel from "../models/Department/ResponseGetAllDepartmentModel";
 import HttpResponseResult from "../models/httpResponseResult";
 import { WebApiService } from "../webApiService";
-import RequestService from "./requestsService";
+import BaseRequestService from "./baseRequestService";
 
-export default class DepartmentService extends RequestService<any, any, any, any>{
+export default class DepartmentService extends BaseRequestService{
     constructor(api: WebApiService) {
         super(api, "Departmane");
-
     }
 
     public async Add(request: RequestAddDepartmentModel): Promise<HttpResponseResult<any>> {

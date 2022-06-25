@@ -84,7 +84,6 @@ export default class UiLoading extends Vue {
   width: 100px;
   height: 100px;
   background-size: cover;
-  // background: url("~@assets/img/giphy.gif") no-repeat center center;
-    // background: url("~@assets/img/runpay-loading.svg") no-repeat center center;
+  background:  url("~@assets/img/loading.gif") no-repeat center center;
 }
 </style>

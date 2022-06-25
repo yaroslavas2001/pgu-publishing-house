@@ -53,9 +53,7 @@
 <script lang="ts">
 import { Vue, Options, Prop, Watch, Ref } from "vue-property-decorator";
 import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
-import GetListRequest from "@/api/plugins/models/getListRequest";
 // import EnterpriseListRequest from "@/api/plugins/models/controllersModels/enterprises/EnterpriseListRequest";
-import GetListResponse from "@/api/plugins/models/getListResponse";
 @Options({
   name: "UiAutocompleteMultiselectComponent",
   emits: ["update:modelValue"],
@@ -74,8 +72,8 @@ export default class UiAutocompleteMultiselectComponent extends Vue {
 
   @Prop({ type: Function, required: true })
   SearchAsyncFunc: (
-    search?: string //GetListRequest<any>
-  ) => Promise<HttpResponseResult<GetListResponse<any>>>;
+    search?: string 
+  ) => Promise<HttpResponseResult<any>>;
 
   innerValue: any | any[] | String | Number | string | number | Date = null;
 
@@ -101,7 +99,7 @@ export default class UiAutocompleteMultiselectComponent extends Vue {
   }
   hoveredIdx: number = null;
   hasFocus = false;
-  private open = false;
+ open = false;
   preventCurrentClick = false;
   async sendSearchRequest() {
     let data = await this.SearchAsyncFunc(this.search);
@@ -129,7 +127,7 @@ export default class UiAutocompleteMultiselectComponent extends Vue {
   // onSearchResult(res: HttpResponseResult<ISearchResponse>) {
   //   this.items = res.Response.Items;
   // }
-  filter: GetListRequest<any> = {
+  filter: any = {
     _page: 1,
     _perPage: 10,
   };

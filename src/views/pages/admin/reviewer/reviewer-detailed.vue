@@ -3,7 +3,7 @@
     <div v-if="!isId">
       <info-block title="Имя" :description="reviewer.firstName" />
       <info-block title="Фамилия" :description="reviewer.secondName" />
-      <info-block title="Отчество" :description="reviewer.fatgerName" />
+      <info-block title="Отчество" :description="reviewer.sureName" />
       <info-block title="Почта" :description="reviewer.email" />
     </div>
     <div v-else>
@@ -20,7 +20,7 @@
       <label-input
         nameLabel="Отчество"
         placeholder="Введите отчество"
-        v-model="reviewer.fatgerName"
+        v-model="reviewer.sureName"
       />
       <label-input
         nameLabel="Почта"
@@ -36,18 +36,18 @@
       />
       <btn isSmall @click="cancel" title="Отмена" />
     </div>
+    <div v-if="wrong">{{ wrong }}</div>
   </content>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import { REVIEWER } from "@/router/routerNames";
-import ReviewerModel from "@models/reviewer/ReviewerModel";
-@Options({
-  // emits: ["goToAdmin"],
-})
+import AddReviewerRequestModel from "@/api/plugins/models/Reviewer/AddReviewerRequestModel";
+@Options({})
 export default class ReviewerDetailed extends Vue {
   id: number = null;
-  reviewer: ReviewerModel = new ReviewerModel();
+  reviewer: AddReviewerRequestModel = new AddReviewerRequestModel();
+  wrong: string = null;
   get isId(): any {
     return this.id == undefined || this.id == null || isNaN(this.id);
   }
@@ -57,21 +57,23 @@ export default class ReviewerDetailed extends Vue {
   created() {
     this.id = Number(this.$route.params.id);
     //запрос
-    if (this.isId) this.reviewer = new ReviewerModel();
+    if (this.isId) this.reviewer = new AddReviewerRequestModel();
     else
       this.reviewer = {
-        Id: 1,
-        fatgerName: "terd",
-        secondName: "23",
-        firstName: "2",
-        email: "45",
+        id: 1,
+        sureName: "test",
+        secondName: "test",
+        firstName: "test",
+        email: "test",
       };
   }
   clickBack() {
     this.$router.push({ name: REVIEWER });
   }
-  addReviewer() {
-    //запрос на создание
+  async addReviewer() {
+    let res = await this.$api.ReviewerService.Add(this.reviewer);
+    if (res.isSuccess) this.$router.push({ name: REVIEWER });
+    else this.wrong = res.errorMessage;
   }
   cancel() {
     this.$router.push({ name: REVIEWER });

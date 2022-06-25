@@ -17,7 +17,6 @@ export class WebApiService {
 
   public sendXHR<T>(url: string, method: string, data?: any, callback?: (res: HttpResponseResult<T>) => void): void {
 
-
     var self = this;
     if (!url)
       url = ''
@@ -35,14 +34,10 @@ export class WebApiService {
       let resp: HttpResponseResult<T>;
       try {
         resp = JSON.parse(xhr.response)
-        // console.log("resp", resp);
-
       }
       catch {
         resp = xhr.response
       }
-      console.log("resp", resp);
-      console.log("xhr", xhr)
       let res: HttpResponseResult<T> = {
         isSuccess: resp.isSuccess,
         TypeName: resp.TypeName,
@@ -52,7 +47,6 @@ export class WebApiService {
         stackTrace: resp.stackTrace
         // ResponseHeaders: {}
       }
-      console.log("res", res)
       if (xhr.status != 200 && xhr.status != 201) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
         console.error(self.TAG, 'Request:', url, xhr.status, xhr.statusText);
         if (xhr.status === 401) {
@@ -68,30 +62,10 @@ export class WebApiService {
       } else { // если всё прошло гладко, выводим результат        
 
         let headers = {}
-        // console.log('xhr.getAllResponseHeaders()',xhr.getAllResponseHeaders());
-
         xhr.getAllResponseHeaders().split('\r\n').forEach(x => {
           let header = x.split(':').map(x => x.trim());
           headers[header[0]] = header[1];
         })
-        // res.ResponseHeaders = headers;
-
-
-        //self.setResponseCookies(headers);
-        //Content-Range: 0-10/2536
-        // console.log(self.TAG,'Request:',url,result);
-        // //тест
-        // let resp = {}
-        // // console.log('xhr.getAllResponseHeaders()',xhr.getAllResponseHeaders());
-
-        // res.Response.split('\r\n').forEach(x => {
-        //   let resp = x.split(':').map(x => x.trim());
-        //   headers[resp[0]] = resp[1];
-        // })
-        // // res.ResponseHeaders = resp;
-        // console.log("RESPONSE");
-
-        //тест
         if (callback)
           callback(res);
       }
@@ -108,10 +82,8 @@ export class WebApiService {
         stackTrace: ""
         // ResponseHeaders: {}
       }
-      // console.log("RES",res);
       if (callback)
         callback(res);
-      // console.error(self.TAG, 'Request:', url, e);
     };
 
     xhr.onprogress = function (event) { // запускается периодически
@@ -120,47 +92,35 @@ export class WebApiService {
       // event.total - количество байт всего (только если lengthComputable равно true)
       //alert(`Загружено ${event.loaded} из ${event.total}`);
     };
+
     xhr.open(method, url, true);
     // xhr.withCredentials = true;
+
     let jwtoken = Cookies.get(AuthService.AdminAuthTokenName);
     if (jwtoken)
       xhr.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
-
-    //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     let body
-    //: string = JSON.stringify(data);
-    // xhr.setRequestHeader('Content-Type', 'application/json');
-    // console.log("body",body)
+
     if (typeof data === 'string') {
       body = data;
-      xhr.setRequestHeader('Content-Type', 'application/json');
     }
     else if (data) {
       body = new FormData();
       this.buildFormData(body, data);
-   
+      body = JSON.stringify(data)
     }
-
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(body);
 
   }
 
   setResponseCookies(headers: any) {
-    //Set-Cookie: .AspNetCore.Session=CfDJ8GkfjhKMjQlOinc0I6TUBbpaOre3IzL20Q8aIkmJ59gy31dCiw8se7eEdfNagU%2B8SWE6AnkkzrRYHfyFSCnoHVZPEHpPi9FzMnjimZph%2FiorCwlrtoLOoDVqL0wBvfo7sHBKJWHCLfmOb%2FC2jM9yMhW0rzEKrfrQUhK1nxEm5S6c; path=/; samesite=lax; httponly
     let header = headers['set-cookie'];
-    console.log('header', headers, header);
-
     if (header) {
       let split = headers.split(';');
-      //if(split.length<2)
-      //return        ;
       let splitCookie = split[0].split('=');
       let name = splitCookie[0];
       let value = splitCookie[1];
-      console.log('lalal', name, value);
-
-      Cookies.set(name, value, { domain: 'mddev.runpay.com' })
-      //let value = split[1].split(';')
     }
   }
   buildFormData(formData: FormData, data: any, parentKey?: string) {
@@ -174,6 +134,4 @@ export class WebApiService {
       formData.append(parentKey, value);
     }
   }
-
-
 }

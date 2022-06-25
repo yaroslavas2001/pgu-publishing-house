@@ -2,7 +2,7 @@
   <content title="Авторы">
     <content-table-test
       :columns="columns"
-      :filter="filterCity"
+      :filter="filter"
       templateColumns="1fr 1fr 1fr 1fr 1fr"
       :getDataFunc="getUsersAsync"
       ref="contentTable"
@@ -28,6 +28,9 @@
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import { AUTHOR } from "@/router/routerNames";
+import FilterModel from "@/models/Filter/FilterModel";
+import GetReviewerRequestModel from "@/api/plugins/models/Reviewer/GetReviewerRequestModel";
+import SearchModel from "@/api/plugins/models/Search/SearchModel";
 interface IPaginationResponse {
   Items: Object[];
   Count: number;
@@ -36,26 +39,23 @@ interface IPaginationResponse {
   // emits: ["goToAdmin"],
 })
 export default class Authors extends Vue {
-  test: IPaginationResponse = {
-    Items: [
-      {
-        id: 1,
-        firstName: "Иван",
-        lastName: "Сычов",
-        email: "test@mail.ru",
-        department:"123"
-      },
-    ],
-    Count: 10,
-  };
+  async getUsersAsync(filter: FilterModel<any>) {
+    console.log("filter",filter)
+    this.filter.page = filter.page;
+    this.filter.search=filter.search
+    console.log("filter",this.filter)
+    let res = await this.$api.AuthorService.Search(this.filter);
+    return res.data;
+  }
+  filter: SearchModel = new SearchModel();
   columns = ["Имя", "Фамилия", "Почта", "Кафедра","Детальная"];
-  filterCity: any = {
-    search: "",
-  };
-  getUsersAsync: Function = null;
-
+  
   created() {
-    this.getUsersAsync = this.testF;
+     this.filter = new SearchModel();
+    this.filter.page = {
+      skip: 0,
+      take: 10,
+    };
   }
   toAddress(id: number) {
     console.log("id", id);
@@ -63,9 +63,6 @@ export default class Authors extends Vue {
       name: AUTHOR,
       params: { id: id },
     });
-  }
-  async testF() {
-    return await this.test;
   }
 }
 </script>

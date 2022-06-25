@@ -4,7 +4,7 @@
       Издательство ПГУ <br>им. Т.Г. Шевченок
     </div>
     <div class="header-block">
-      <div class="header-name">{{ userName }} {{ UserFatherName }}</div>
+      <div class="header-name">{{ userName }} {{ UserSureName }}</div>
       <btn isSmall @click="goOut" title="Выход" />
     </div>
   </div>
@@ -21,10 +21,10 @@ import { LOGIN } from "@/router/routerNames";
 })
 export default class LayoutHeaderUser extends Vue {
   userName: string;
-  UserFatherName: string;
+  UserSureName: string;
   created() {
     this.userName = this.$store.state.FirstName;
-    this.UserFatherName = this.$store.state.FatherName;
+    this.UserSureName = this.$store.state.FatherName;
   }
   goOut() {
     this.$api.AuthService.logout();

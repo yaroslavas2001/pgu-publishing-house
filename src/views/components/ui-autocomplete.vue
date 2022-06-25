@@ -57,7 +57,6 @@
 // import { Events } from "@/api/plugins/events";
 import { Vue, Options, Prop, Watch, Ref } from "vue-property-decorator";
 import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
-import GetListResponse from "@/api/plugins/models/getListResponse";
 @Options({
   name: "ui-autocomplite",
   emits: ["update:modelValue"],
@@ -70,8 +69,8 @@ export default class UiAutocompleteComponent extends Vue {
   items: any[] = [];
   @Prop({ type: Function, required: true })
   SearchAsyncFunc: (
-    search?: string //GetListRequest<any>
-  ) => Promise<HttpResponseResult<GetListResponse<any>>>;
+    search?: string 
+  ) => Promise<HttpResponseResult<any>>;
 
   @Prop({ default: null }) selectText: string;
   @Prop({ default: true }) closeOnSelect: boolean;

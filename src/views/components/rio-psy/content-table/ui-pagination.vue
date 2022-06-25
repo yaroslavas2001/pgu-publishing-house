@@ -128,7 +128,7 @@ export default class UiPaginationComponent extends Vue {
 @uiPaginationBorderRadius: 5px;
 @uiPaginationColor: #1b283f;
 @uiPaginationLinkBgColor: #21324f;
-@uiPaginationSelectedColor: #d25338;
+@uiPaginationSelectedColor: white;
 @uiPaginationDisabledColor: #707070;
 @uiPaginationSelectedBGColor: #bb8b65;
 

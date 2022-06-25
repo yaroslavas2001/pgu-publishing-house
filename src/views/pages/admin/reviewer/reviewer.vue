@@ -5,8 +5,8 @@
     </template>
     <content-table-test
       :columns="columns"
-      :filter="filterCity"
-      templateColumns="1fr 1fr 1fr 1fr 1fr"
+      :filter="filter"
+      templateColumns="1fr 1fr 1fr 1fr"
       :getDataFunc="getUsersAsync"
       ref="contentTable"
     >
@@ -16,14 +16,14 @@
           {{ data.lastName }}
         </ui-table-body-item>
         <ui-table-body-item>
-          {{ data.fatherName }}
+          {{ data.sureName }}
         </ui-table-body-item>
         <ui-table-body-item>
-          {{ data.email }}
+          {{ data.email ? data.email : "-" }}
         </ui-table-body-item>
-        <ui-table-body-item class="pointer" @click="toAddress(data.id)">
+        <!-- <ui-table-body-item class="pointer" @click="toAddress(data.id)">
           <info />
-        </ui-table-body-item>
+        </ui-table-body-item> -->
       </template>
     </content-table-test>
   </content>
@@ -31,44 +31,36 @@
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import { REVIEWERDETAILED } from "@/router/routerNames";
-interface IPaginationResponse {
-  Items: Object[];
-  Count: number;
-}
+import GetReviewerRequestModel from "@/api/plugins/models/Reviewer/GetReviewerRequestModel";
+import PageModel from "@/api/plugins/models/Page/PageModel";
+import FilterModel from "@/models/Filter/FilterModel";
 @Options({
   // emits: ["goToAdmin"],
 })
 export default class Reviewer extends Vue {
-  test: IPaginationResponse = {
-    Items: [
-      {
-        id: 1,
-        firstName: "Ярослава",
-        lastName: "Слободян",
-        fatherName: "Сергеевна",
-        email: "yaroslavas2001@list.ru",
-      },
-    ],
-    Count: 10,
-  };
-  columns = ["Имя", "Фамилия", "Отчество", "Почта", "Детальная"];
-  filterCity: any = {
-    search: "",
-  };
-  getUsersAsync: Function = null;
+  columns = ["Имя", "Фамилия", "Отчество", "Почта"];
 
+  async getUsersAsync(filter: FilterModel<any>) {
+    console.log("filter",filter)
+    this.filter.page = filter.page;
+    console.log("filter",this.filter)
+    let res = await this.$api.ReviewerService.Get(this.filter);
+    return res.data;
+  }
+  filter: GetReviewerRequestModel = new GetReviewerRequestModel();
   created() {
-    this.getUsersAsync = this.testF;
+    this.filter = new GetReviewerRequestModel();
+    this.filter.page = {
+      skip: 0,
+      take: 10,
+    };
+    // this.getUsersAsync(this.filter)
   }
   toAddress(id: number) {
-    console.log("id", id);
     this.$router.push({
       name: REVIEWERDETAILED,
       params: { id: id },
     });
-  }
-  async testF() {
-    return await this.test;
   }
   addReviewer() {
     this.$router.push({ name: REVIEWERDETAILED });

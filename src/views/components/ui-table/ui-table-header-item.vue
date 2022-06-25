@@ -23,7 +23,6 @@
 
 <script lang="ts">
 // import ShopListRequest from "@/api/plugins/models/controllersModels/shops/ShopListRequest";
-import GetListRequest from "@/api/plugins/models/getListRequest";
 import { Options, Vue } from "vue-class-component";
 import { Prop, Watch } from "vue-property-decorator";
 
@@ -40,11 +39,13 @@ import { Prop, Watch } from "vue-property-decorator";
   name:'UiTableHeaderItemComponent'
 })
 export default class UiTableHeaderItemComponent extends Vue {
-  @Prop({ type: Object }) filter: GetListRequest<any>;
+  @Prop({ type: Object }) filter: any;
   readonly styleCustom: Object = {};
   readonly sortName: string = "";
   readonly defaultSort: String = "";
   // activeText: string = "";
+  iconAsc:any
+  iconDesk:any
   sortType =
     this.defaultSort === null ? null : this.defaultSort === "asc" ? 0 : 1;
   get activeText(): string {

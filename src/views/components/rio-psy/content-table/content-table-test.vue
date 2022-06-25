@@ -28,16 +28,16 @@ import UiTableFilter from "@/views/components/ui-table/ui-table-filter.vue";
 // import IFilter from "@models/interfaces/IFilter";
 import UiPagination from "@views/components/ui-table/ui-pagination.vue";
 import UiPaginationComponent from "./ui-pagination.vue";
+import PageModel from "@/api/plugins/models/Page/PageModel";
+import FilterModel from "@/models/Filter/FilterModel"
 //onFilterChanged
 interface IPaginationResponse {
-  Items: Object[];
-  Count: number;
-}
-interface IFilter {
-  toServerFilter(): Object;
+  page:PageModel,
+  items: Object[];
+  count: number;
 }
 @Options({
-  name: "content-table",
+  name: "content-table-test",
   components: {
     UiTableFilter,
     UiPaginationComponent,
@@ -46,9 +46,9 @@ interface IFilter {
 export default class ContentTableComponent extends Vue {
   @Ref("pagination") pagination: UiPagination;
 
-  @Prop({ type: Object, default: null, required: false }) filter: IFilter;
+  @Prop({ type: Object, default: null, required: false }) filter: FilterModel<any>
   @Prop({ type: Function, required: true }) getDataFunc: (
-    filter?: Object
+    filter?: FilterModel<any>
   ) => Promise<IPaginationResponse>;
   @Prop({ type: Function }) mapFunction: (fromObj: Object) => Object;
   @Prop({ type: Array, required: true }) columns: string[];
@@ -67,24 +67,20 @@ export default class ContentTableComponent extends Vue {
     this.pagination.reset();
   }
   async fetchData() {
-    const filter = this.filter || {};
-    // const filter = this.filter.toServerFilter();
-    // после того как добавим метод приведем к toServerFilter
+    const filter = this.filter;
     this.isLoading = true;
     try {
-      //console.log("filter: ", filter);
-      const pag = {
-        Skip: this.pageSize * (this.currentPage - 1),
-        Take: this.pageSize,
+      filter.page = {
+        skip: this.pageSize * (this.currentPage - 1),
+        take: this.pageSize * (this.currentPage - 1)+10,
       };
-      Object.assign(filter, pag);
       const res = await this.getDataFunc(filter);
       const items =
         this.mapFunction == null
-          ? res.Items
-          : (res.Items || []).map(this.mapFunction);
+          ? res.items
+          : (res.items || []).map(this.mapFunction);
       this.items = items;
-      this.count = res.Count;
+      this.count = res.count;
     } catch (e) {
       throw e;
     } finally {

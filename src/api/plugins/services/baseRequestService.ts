@@ -5,9 +5,6 @@ export default class BaseRequestService{
 
     protected _controllerName:string;
     protected _api:WebApiService;
-    /**
-     *
-     */
     constructor(api:WebApiService, controllerName:string) {
         this._api = api;
         this._controllerName = controllerName;

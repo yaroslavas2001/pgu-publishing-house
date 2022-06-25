@@ -25,39 +25,51 @@
       placeholder="Введите контакты автора"
       v-model="newAuthor.contacts"
     />
-
     <div class="toggle-switcher-block">
       <toggle-switcher v-model="newAuthor.isTeacher" />
       <p>
-        {{
-          newAuthor.isTeacher
-            ? "Да, я преаодаватель"
-            : "Нет, я не преподаватель"
-        }}
+        {{ newAuthor.isTeacher ? "Преподаватель" : "Нет, не преподаватель" }}
       </p>
     </div>
-    <label-input
-      nameLabel="Место работы"
-      placeholder="Введите ваше место работы"
-      v-model="newAuthor.nonStuffWorkPlace"
-      v-if="!newAuthor.isTeacher"
-    />
+    <div v-if="!newAuthor.isTeacher">
+      <label-input
+        nameLabel="Место работы"
+        placeholder="Введите ваше место работы"
+        v-model="newAuthor.nonStuffWorkPlace"
+      />
+      <label-input
+        nameLabel="Должность"
+        placeholder="Введите вашу должность"
+        v-model="newAuthor.nonStuffPosition"
+      />
+    </div>
+
     <div v-else>
       <label for="Position">Должность</label>
       <select-autocomplete
         keyField="Id"
         valueField="Name"
         :items="EmployeePosition"
-        v-model="newAuthor.employeerPosition"
+        v-model="newAuthor.positionId"
         defaultText="Выберите должность"
         id="Position"
         class="mt-2 mb-8"
       />
+      <label for="departmentId">Факультет</label>
+      <select-autocomplete
+        keyField="id"
+        valueField="name"
+        :items="facultyList"
+        v-model="facultyId"
+        defaultText="Выберите факультет"
+        id="departmentId"
+        class="mt-2 mb-8"
+      />
       <label for="departmentId">Кафедра</label>
       <select-autocomplete
-        keyField="Id"
-        valueField="Name"
-        :items="testKaf"
+        keyField="id"
+        valueField="departmentName"
+        :items="DepartmentList"
         v-model="newAuthor.departmentId"
         defaultText="Выберите кафедру"
         id="departmentId"
@@ -68,7 +80,7 @@
         keyField="Id"
         valueField="Name"
         :items="AcademicDegree"
-        v-model="newAuthor.academicDegree"
+        v-model="newAuthor.degreeId"
         defaultText="Выберите научную степень"
         id="Position"
         class="mt-2"
@@ -85,13 +97,15 @@
   </content>
 </template>
 <script lang="ts">
-import { Options, Vue } from "vue-property-decorator";
+import { Options, Vue, Watch } from "vue-property-decorator";
 import AllAuthorModel from "@/models/author/AllAuthorModel";
-import IdNameModel from "@/models/general/IdNameModel";
-import NewArticle from "../user/new-article/new-article.vue";
 import { NEWMATERIALADD } from "@/router/routerNames";
 import AcademicDegree from "@/common/AcademicDegree";
 import EmployeePosition from "@/common/EmployeePosition";
+import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
+import ResponseGetAllModel from "@/api/plugins/models/Faculty/ResponseGetAllModel";
+import GeneralModel from "@/api/plugins/models/GeneralModel";
+import ResponseGetAllDepartmentModel from "@/api/plugins/models/Department/ResponseGetAllDepartmentModel";
 @Options({
   emits: ["goToAdmin"],
 })
@@ -99,26 +113,29 @@ export default class AddAuthor extends Vue {
   newAuthor: AllAuthorModel = new AllAuthorModel();
   AcademicDegree = AcademicDegree;
   EmployeePosition = EmployeePosition;
-
-  testKaf: Array<IdNameModel> = [
-    { Id: 1, Name: "Электронный бизнес" },
-    { Id: 2, Name: "Кафедра биологии и физиологии человека" },
-    {
-      Id: 3,
-      Name: "Кафедра автоматизированных технологий и промышленных комплексов",
-    },
-    { Id: 4, Name: "Кафедра электротехнического оборудования" },
-    { Id: 5, Name: "Кафедра электротехнического оборудования" },
-  ];
-  created() {
+  facultyList: Array<ResponseGetAllModel> = [];
+  facultyId: number = null;
+  DepartmentList: Array<ResponseGetAllDepartmentModel> = [];
+  @Watch("facultyId")
+  async update() {
+    this.newAuthor.departmentId = null;
+    let res: HttpResponseResult<Array<ResponseGetAllDepartmentModel>> =
+      await this.$api.DepartmentService.GetAll({
+        facultyId: this.facultyId,
+      });
+    this.DepartmentList = res.data;
+  }
+  async created() {
     this.newAuthor = new AllAuthorModel();
+    let res: HttpResponseResult<GeneralModel<Array<ResponseGetAllModel>>> =
+      await this.$api.FacultyService.GetAll();
+    this.facultyList = res.data.items;
   }
   async saveAuthor() {
     console.log("this.newAuthor", this.newAuthor, this.$api);
     let res = await this.$api.AuthorService.AddAuthor(this.newAuthor);
-    // this.$router.push({ name: NEWMATERIALADD });
-
-    console.log("newAuthor", this.newAuthor, res);
+    if (res.isSuccess) this.$router.push({ name: NEWMATERIALADD });
+    else console.log("newAuthor", this.newAuthor, res);
   }
   cansel() {
     this.$router.push({ name: NEWMATERIALADD });

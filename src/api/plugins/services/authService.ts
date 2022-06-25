@@ -4,9 +4,7 @@ import LoginRequest from "../models/loginRequest";
 import LoginResponse from "../models/loginResponse";
 import Cookies from "js-cookie"
 import BaseRequestService from "./baseRequestService";
-import GetListRequest from "../models/getListRequest";
-import GetListResponse from "../models/getListResponse";
-import AuthRegister from "../models/AuthRegister";
+import AuthRegister from "../models/Auth/AuthRegister";
 
 export default class AuthService extends BaseRequestService {
 
@@ -26,7 +24,6 @@ export default class AuthService extends BaseRequestService {
         return res;
     }
     public logout() {
-        // console.log("ds[jl")
         Cookies.set(AuthService.AdminAuthTokenName, '');
     }
     public createUser(requestBody: AuthRegister): Promise<HttpResponseResult<any>> {
