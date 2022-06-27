@@ -3,18 +3,18 @@
     title="Детальная"
     isBack
     @clickBack="clickBack"
-    v-if="material.Status == 0"
+    v-if="material.status == 0"
   >
-    <info-block title="Название" :description="material.NameArticle" />
-    <info-block title="Тип издания" :description="material.Type.toString()" />
-    <info-block title="УДК" :description="material.UDC" />
-    <info-block title="Ключевые слова" :description="material.Keywords" />
+    <info-block title="Название" :description="material.nameArticle" />
+    <info-block title="Тип издания" :description="material.type.toString()" />
+    <info-block title="УДК" :description="material.udc" />
+    <info-block title="Ключевые слова" :description="material.tags" />
     <info-block title="Авторы">
       <autocomplete-multiselect
         class="autocomplete-multiselect"
         keyField="Id"
         valueField="Name"
-        v-model="material.Authors"
+        v-model="material.authors"
         id="autors"
         :SearchAsyncFunc="GetAuthors"
         :closeOnSelect="true"
@@ -25,7 +25,7 @@
     title="Редактирование материала"
     isBack
     @clickBack="clickBack"
-    v-if="(material.Status = 1)"
+    v-if="(material.status = 1)"
   >
     <file-input @onChange="onChangeArticle($event)">
       <btn isSmall title="Добавить материал" />
@@ -38,7 +38,7 @@
       keyField="Id"
       valueField="Name"
       :items="testMaterial"
-      v-model="material.Type"
+      v-model="material.type"
       defaultText="Выберите тип"
       id="Type"
       class="mt-2 mb-8"
@@ -49,22 +49,22 @@
     <label-input
       nameLabel="Название статьи"
       placeholder="Введите название статьи"
-      v-model="material.NameArticle"
+      v-model="material.nameArticle"
     />
     <label-input
       nameLabel="УДК"
       placeholder="Введите УДК"
-      v-model="material.UDC"
+      v-model="material.udc"
     />
     <label-input
       nameLabel="Ключевые слова"
       placeholder="Введите клчевые слова"
-      v-model="material.Keywords"
+      v-model="material.tags"
     />
     <label-input
       nameLabel="Комментарии"
       placeholder="Добавте комментарий для проверяющего"
-      v-model="material.Comments"
+      v-model="material.comments"
     />
     <div
       for="autors"
@@ -97,14 +97,14 @@ import { Options, Vue } from "vue-property-decorator";
 import { USERMATERIALS } from "@/router/routerNames";
 import FileInput from "@/views/components/rio-psy/ui-file-input/FileModel";
 
-import NewArticleModel from "@/models/new-article/NewArticleModel";
+import NewMaterialModel from "@/models/new-material/NewMaterialModel";
 import IdNameModel from "@/models/general/IdNameModel";
 @Options({
   // emits: ["goToAdmin"],
 })
 export default class UserMaterialDetailed extends Vue {
   id: number = null;
-  material: NewArticleModel = new NewArticleModel();
+  material: NewMaterialModel = new NewMaterialModel();
   testMaterial: Array<IdNameModel> = [
     { Id: 1, Name: "Статья" },
     { Id: 2, Name: "Книга" },
@@ -122,31 +122,32 @@ export default class UserMaterialDetailed extends Vue {
     console.log(this.$route.params.id);
     this.id = Number(this.$route.params.id);
     // запрос статьи по id
-    this.material = new NewArticleModel();
+    this.material = new NewMaterialModel();
     this.material = {
-      Article: [],
-      AntiPlagiarism: [],
-      Excerpt: [],
-      NameArticle:
+      material: [],
+      antiPlagiarism: [],
+      excerpt: [],
+      nameArticle:
         "СОВРЕМЕННЫЕ ТЕХНОЛОГИИ ПРОГРАММИРОВАНИЯ. РАЗРАБОТКА ПРИЛОЖЕНИЙ НА БАЗЕ WPF И SILVERLIGHT",
-      UDC: "978-5-7972-1779-4",
-      Keywords:
+      udc: "978-5-7972-1779-4",
+      tags:
         "	ВЫЧИСЛИТЕЛЬНАЯ ТЕХНИКА, ВЫЧИСЛИТЕЛЬНЫЕ МАШИНЫ ЭЛЕКТРОННЫЕ ЦИФРОВЫЕ, АВТОМАТИЧЕСКАЯ ОБРАБОТКА ИНФОРМАЦИИ, ИНФОРМАЦИОННЫЕ СИСТЕМЫ И СЕТИ, ПРОГРАММИРОВАНИЕ, АВТОМАТИЗАЦИЯ, УЧЕБНИК ДЛЯ ВЫСШЕЙ ШКОЛЫ, БИЗНЕС-ПРИЛОЖЕНИЯ",
-      Authors: [],
-      Comments: "string",
-      Type: 1,
-      Status: 1,
+      authors: [],
+      comments: "string",
+      type: 1,
+      status: 1,
+      userId:this.$store.state.UserId
     };
     // сделать запрос на получение комментария и документа
   }
   onChangeArticle(data: Array<FileInput>) {
-    this.material.Article = data;
+    this.material.material = data;
   }
   onChangeAntiPl(data: Array<FileInput>) {
-    this.material.AntiPlagiarism = data;
+    this.material.antiPlagiarism = data;
   }
   onChangeExtract(data: Array<FileInput>) {
-    this.material.Excerpt = data;
+    this.material.excerpt = data;
   }
   clickBack() {
     this.$router.push({ name: USERMATERIALS });

@@ -11,7 +11,7 @@
       keyField="Id"
       valueField="Name"
       :items="testMaterial"
-      v-model="newArticle.Type"
+      v-model="newArticle.type"
       defaultText="Выберите тип"
       id="Type"
       class="mt-2 mb-8"
@@ -19,19 +19,19 @@
     <file-input @onChange="onChangeExtract($event)">
       <btn isSmall title="Добавить выписку с кафедры" />
     </file-input>
-    <info-block title="Название" :description="newArticle.NameArticle" />
+    <info-block title="Название" :description="newArticle.nameArticle" />
 
-    <info-block title="УДК" :description="newArticle.UDC" />
+    <info-block title="УДК" :description="newArticle.udc" />
 
     <label-input
       nameLabel="Ключевые слова"
       placeholder="Введите клчевые слова"
-      v-model="newArticle.Keywords"
+      v-model="newArticle.tags"
     />
     <label-input
       nameLabel="Комментарии"
       placeholder="Добавте комментарий для проверяющего"
-      v-model="newArticle.Comments"
+      v-model="newArticle.comments"
     />
     <div
       for="autors"
@@ -45,7 +45,7 @@
         class="autocomplete-multiselect"
         keyField="Id"
         valueField="Name"
-        v-model="newArticle.Authors"
+        v-model="newArticle.authors"
         id="autors"
         :SearchAsyncFunc="GetAuthors"
         :closeOnSelect="true"
@@ -58,7 +58,7 @@
 import { Options, Vue } from "vue-property-decorator";
 import { ADMINMATERIALS } from "@/router/routerNames";
 import IdNameModel from "@/models/general/IdNameModel";
-import NewArticleModel from "@/models/new-article/NewArticleModel";
+import NewMaterialModel from "@/models/new-material/NewMaterialModel";
 import FileInput from "@/views/components/rio-psy/ui-file-input/FileModel";
 
 @Options({
@@ -67,7 +67,7 @@ import FileInput from "@/views/components/rio-psy/ui-file-input/FileModel";
 export default class MaterialDetailed extends Vue {
   id: number = null;
   Authors: any = null;
-  newArticle: NewArticleModel = new NewArticleModel();
+  newArticle: NewMaterialModel = new NewMaterialModel();
 
   testMaterial: Array<IdNameModel> = [
     { Id: 1, Name: "Статья" },
@@ -88,31 +88,32 @@ export default class MaterialDetailed extends Vue {
     { Id: 10, Name: "342710" },
   ];
   onChangeArticle(data: Array<FileInput>) {
-    this.newArticle.Article = data;
+    this.newArticle.material = data;
   }
   onChangeAntiPl(data: Array<FileInput>) {
-    this.newArticle.AntiPlagiarism = data;
+    this.newArticle.antiPlagiarism = data;
   }
   onChangeExtract(data: Array<FileInput>) {
-    this.newArticle.Excerpt = data;
+    this.newArticle.excerpt = data;
   }
   created() {
     console.log(this.$route.params.id);
     this.id = Number(this.$route.params.id);
-    this.newArticle = new NewArticleModel();
+    this.newArticle = new NewMaterialModel();
     this.newArticle = {
-      Article: [],
-      AntiPlagiarism: [],
-      Excerpt: [],
-      NameArticle:
+      material: [],
+      antiPlagiarism: [],
+      excerpt: [],
+      nameArticle:
         "СОВРЕМЕННЫЕ ТЕХНОЛОГИИ ПРОГРАММИРОВАНИЯ. РАЗРАБОТКА ПРИЛОЖЕНИЙ НА БАЗЕ WPF И SILVERLIGHT",
-      UDC: "978-5-7972-1779-4",
-      Keywords:
+      udc: "978-5-7972-1779-4",
+      tags:
         "	ВЫЧИСЛИТЕЛЬНАЯ ТЕХНИКА, ВЫЧИСЛИТЕЛЬНЫЕ МАШИНЫ ЭЛЕКТРОННЫЕ ЦИФРОВЫЕ, АВТОМАТИЧЕСКАЯ ОБРАБОТКА ИНФОРМАЦИИ, ИНФОРМАЦИОННЫЕ СИСТЕМЫ И СЕТИ, ПРОГРАММИРОВАНИЕ, АВТОМАТИЗАЦИЯ, УЧЕБНИК ДЛЯ ВЫСШЕЙ ШКОЛЫ, БИЗНЕС-ПРИЛОЖЕНИЯ",
-      Authors: [],
-      Comments: "string",
-      Type: 1,
-      Status: 1,
+      authors: [],
+      comments: "string",
+      type: 1,
+      status: 1,
+      userId:this.$store.state.UserId
     };
   }
   Save() {}

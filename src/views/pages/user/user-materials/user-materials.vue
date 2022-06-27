@@ -2,8 +2,8 @@
   <content title="Мои материалы">
     <content-table-test
       :columns="columns"
-      :filter="filterCity"
-      templateColumns="1fr 1fr 1fr 100px"
+      :filter="filter"
+      templateColumns="1fr 1fr 1fr 1fr 1fr 100px"
       :getDataFunc="getUsersAsync"
       ref="contentTable"
     >
@@ -15,10 +15,16 @@
       <template #default="data">
         <ui-table-body-item>{{ data.name }}</ui-table-body-item>
         <ui-table-body-item>
-          {{ data.autors }}
+          {{ data.tags }}
         </ui-table-body-item>
         <ui-table-body-item>
-          {{ status(data.status) }}
+          {{ data.udc }}
+        </ui-table-body-item>
+        <ui-table-body-item>
+          {{ getType(data.type) }}
+        </ui-table-body-item>
+        <ui-table-body-item>
+          {{ getStatus(data.status) }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
           <info />
@@ -30,6 +36,10 @@
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import { DETAILEDUSER } from "@/router/routerNames";
+import GetPublicationRequestModel from "@/api/plugins/models/Publication/GetPublicationRequestModel";
+import FilterModel from "@/models/Filter/FilterModel";
+import MaterialType from "@/common/MaterialType";
+import PublicationStatus from "@/common/PublicationStatus";
 interface IPaginationResponse {
   Items: Object[];
   Count: number;
@@ -38,54 +48,37 @@ interface IPaginationResponse {
   // emits: ["goToAdmin"],
 })
 export default class UserMaterials extends Vue {
-  test: IPaginationResponse = {
-    Items: [
-      {
-        id: 1,
-        name: "Методология разработки",
-        status: 2,
-        autors: [],
-      },
-      {
-        id: 2,
-        name: "Разработка контента",
-        status: 3,
-        autors: [],
-      },
-      {
-        id: 3,
-        name: "Основы програмирования",
-        status: 1,
-        autors: [],
-      },
-    
-    ],
-    Count: 10,
-  };
-  columns = ["Название", "Авторы", "Статус", "Детальная"];
-  filterCity: any = {
-    search: "",
-    city: "",
-    street: "",
-    house: "",
-  };
-  isMainPage: boolean;
-  getUsersAsync: Function = null;
-  selectListCity = ["Город", "Москва", "Перьмь", "Владивосток"];
-  selectListHouse = ["Дом", "Дом 1", "Дом 2", "Дом 3", "Дом 4"];
-  selectListStreet = [
-    "Улица",
-    "ул. Карала-Маркса",
-    "ул. Карала-Маркса1",
-    "ул. Карала-Маркса2",
-    "ул. Карала-Маркса3",
-  ];
-  status(status):string{
-    return  status==1?"На проверке у рецензиата":"На печать"
-  }
+  columns = ["Название", "Ключевые слова", "УДК", "Тип", "Статус", "Детальная"];
+  filter: GetPublicationRequestModel = new GetPublicationRequestModel();
+  MaterialType = MaterialType;
+  PublicationStatus=PublicationStatus
   created() {
-    this.getUsersAsync = this.testF;
+    this.filter = new GetPublicationRequestModel();
+
     // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRrr")
+  }
+  async getUsersAsync(filter: FilterModel<any>) {
+    this.filter = {
+      userId: this.$store.state.UserId,
+      page: filter.page,
+      search:filter.search
+    };
+    let test: GetPublicationRequestModel = JSON.parse(
+      JSON.stringify(this.filter)
+    );
+    console.log("test", test);
+    let res = await this.$api.PublicationService.Get(test);
+    return res.data;
+  }
+
+  // status(status): string {
+  //   return status == 1 ? "На проверке у рецензиата" : "На печать";
+  // }
+  getType(id: number): string {
+    return this.MaterialType.find((el) => el.Id == id).Name;
+  }
+   getStatus(id: number): string {
+    return this.PublicationStatus.find((el) => el.Id == id).Name;
   }
   toAddress(id: number) {
     console.log("id", id);
@@ -93,9 +86,6 @@ export default class UserMaterials extends Vue {
       name: DETAILEDUSER,
       params: { id: id },
     });
-  }
-  async testF() {
-    return await this.test;
   }
 }
 </script>

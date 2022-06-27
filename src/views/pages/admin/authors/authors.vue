@@ -15,7 +15,7 @@
         <ui-table-body-item>
           {{ data.email }}
         </ui-table-body-item>
-          <ui-table-body-item>
+        <ui-table-body-item>
           {{ data.department }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
@@ -29,33 +29,21 @@
 import { Options, Vue } from "vue-property-decorator";
 import { AUTHOR } from "@/router/routerNames";
 import FilterModel from "@/models/Filter/FilterModel";
-import GetReviewerRequestModel from "@/api/plugins/models/Reviewer/GetReviewerRequestModel";
 import SearchModel from "@/api/plugins/models/Search/SearchModel";
-interface IPaginationResponse {
-  Items: Object[];
-  Count: number;
-}
-@Options({
-  // emits: ["goToAdmin"],
-})
+@Options({})
 export default class Authors extends Vue {
+  filter: SearchModel = new SearchModel();
+  columns = ["Имя", "Фамилия", "Почта", "Кафедра", "Детальная"];
+
+  created() {
+    this.filter = new SearchModel();
+  }
   async getUsersAsync(filter: FilterModel<any>) {
-    console.log("filter",filter)
     this.filter.page = filter.page;
-    this.filter.search=filter.search
-    console.log("filter",this.filter)
+    this.filter.search = filter.search;
+    console.log("filter", this.filter);
     let res = await this.$api.AuthorService.Search(this.filter);
     return res.data;
-  }
-  filter: SearchModel = new SearchModel();
-  columns = ["Имя", "Фамилия", "Почта", "Кафедра","Детальная"];
-  
-  created() {
-     this.filter = new SearchModel();
-    this.filter.page = {
-      skip: 0,
-      take: 10,
-    };
   }
   toAddress(id: number) {
     console.log("id", id);

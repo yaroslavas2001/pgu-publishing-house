@@ -1,6 +1,6 @@
 import PageModel from "../Page/PageModel"
 
 export default class SearchModel {
-    search: string
-    page: PageModel
+    search?: string =""
+    page?: PageModel
 }

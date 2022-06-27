@@ -2,7 +2,7 @@
   <content title="Материалы">
     <content-table-test
       :columns="columns"
-      :filter="filterCity"
+      :filter="filter"
       templateColumns="1fr 1fr 1fr 1fr 1fr"
       :getDataFunc="getUsersAsync"
       ref="contentTable"
@@ -28,6 +28,8 @@
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import { DETAILEDADMIN } from "@/router/routerNames";
+import GetPublicationRequestModel from "@/api/plugins/models/Publication/GetPublicationRequestModel";
+import FilterModel from "@/models/Filter/FilterModel";
 interface IPaginationResponse {
   Items: Object[];
   Count: number;
@@ -36,26 +38,20 @@ interface IPaginationResponse {
   // emits: ["goToAdmin"],
 })
 export default class Materials extends Vue {
-  test: IPaginationResponse = {
-    Items: [
-      {
-        id: 1,
-        name: "Название",
-        autors: "Авторы",
-        type: "Тип издания",
-        status:0
-      },
-    ],
-    Count: 10,
-  };
-  columns = ["Название", "Авторы", "Тип издания","Статус", "Детальная"];
-  filterCity: any = {
-    search: "",
-  };
-  getUsersAsync: Function = null;
+  filter: GetPublicationRequestModel = new GetPublicationRequestModel();
 
+  columns = ["Название", "Ключевые слова", "Тип издания","Статус", "Детальная"];
   created() {
-    this.getUsersAsync = this.testF;
+    this.filter = new GetPublicationRequestModel();
+    this.filter.status = 0;
+  }
+  async getUsersAsync(filter: FilterModel<any>) {
+    this.filter.page = filter.page;
+    this.filter.search = filter.search;
+    this.filter.status = 0;
+    console.log("filter", this.filter);
+    let res = await this.$api.PublicationService.Get(this.filter);
+    return res.data;
   }
   toAddress(id: number) {
     console.log("id", id);
@@ -64,9 +60,7 @@ export default class Materials extends Vue {
       params: { id: id },
     });
   }
-  async testF() {
-    return await this.test;
-  }
+
 }
 </script>
 <style scoped >

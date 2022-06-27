@@ -20,9 +20,10 @@ export class StateModel {
   KioskСondition: Array<Model> = []
   SettlementType: Array<Model> = []
   CurrentUser:string
-  FirstName:string ="Иван"
-  SureName:string ="Иванов"
-  UserRole:number
+  FirstName:string =""
+  SureName:string =""
+  UserRole:number=null
+  UserId:number=1
 }
 
 const install = (app: App) => {

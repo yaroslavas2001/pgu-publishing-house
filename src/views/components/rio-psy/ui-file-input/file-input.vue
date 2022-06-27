@@ -96,12 +96,15 @@ export default class UiFileInput extends Vue {
             fileName: file.name,
             type: file.type,
           });
+          console.log("path", file.webkitRelativePath);
+          console.log("reader", reader.result);
         }
         resolve(encoded);
       };
       reader.onerror = (error) => reject(error);
     });
   }
+  
   private clearValue() {
     (this.$refs.file as HTMLInputElement).value = null;
   }

@@ -57,11 +57,13 @@ export default class LoginPageComponent extends Vue {
         password: this.password,
       });
       if (res.isSuccess) {
-        this.$store.state.UserRole = UserRole.User;
-        this.$router.push({ name: USER });
-        this.$store.state.CurrentUser = this.username;
+                this.$store.state.UserRole = res.data.role;
+        this.$store.state.UserId = res.data.id;
         this.$store.state.FirstName = res.data.firstName;
         this.$store.state.SureName = res.data.sureName;
+        if (res.data.role == UserRole.Admin) this.$router.push({ name: ADMIN });
+        else if (res.data.role == UserRole.User)
+          this.$router.push({ name: USER });
       } else {
         this.wrong = true;
         this.errorMessage = res.errorMessage;

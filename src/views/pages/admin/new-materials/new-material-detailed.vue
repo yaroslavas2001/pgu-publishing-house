@@ -1,37 +1,38 @@
 <template>
-<content title="Указать статус материалу">
-    <file-input @onChange="onChangeArticle($event)">
+  <content title="Указать статус материалу">
+    <info-block title="Название" :description="publication.name" />
+    <info-block title="Ключевые слова" :description="publication.tags" />
+
+    <!-- <file-input @onChange="onChangeArticle($event)">
       <btn isSmall title="Добавить материал" />
     </file-input>
     <file-input @onChange="onChangeAntiPl($event)">
       <btn isSmall title="Добавить антиплагиат" />
-    </file-input>
-    <label for="Type">Тип печатного издания</label>
-    <select-autocomplete
+    </file-input> -->
+    <!-- <label for="Type">Тип печатного издания</label> -->
+    <!-- <select-autocomplete
       keyField="Id"
       valueField="Name"
       :items="testMaterial"
-      v-model="newArticle.Type"
+      v-model="newArticle.type"
       defaultText="Выберите тип"
       id="Type"
       class="mt-2 mb-8"
-    />
-    <file-input @onChange="onChangeExtract($event)">
+    /> -->
+    <!-- <file-input @onChange="onChangeExtract($event)">
       <btn isSmall title="Добавить выписку с кафедры" />
-    </file-input>
-    <info-block title="Название" :description="newArticle.NameArticle" />
+    </file-input> -->
 
-    <info-block title="УДК" :description="newArticle.UDC" />
 
     <label-input
       nameLabel="Ключевые слова"
       placeholder="Введите клчевые слова"
-      v-model="newArticle.Keywords"
+      v-model="newArticle.tags"
     />
     <label-input
       nameLabel="Комментарии"
       placeholder="Добавте комментарий для проверяющего"
-      v-model="newArticle.Comments"
+      v-model="newArticle.comments"
     />
     <div
       for="autors"
@@ -45,65 +46,74 @@
         class="autocomplete-multiselect"
         keyField="Id"
         valueField="Name"
-        v-model="newArticle.Authors"
+        v-model="newArticle.authors"
         id="autors"
         :SearchAsyncFunc="GetAuthors"
         :closeOnSelect="true"
       />
     </info-block>
     <btn isSmall isActive @click="Save" title="Отправить" class="mt-10" />
-  </content></template>
+  </content>
+</template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import FileInput from "@/views/components/rio-psy/ui-file-input/FileModel";
 
-import {  NEWMATERIALADMIN } from "@/router/routerNames";
-import NewArticleModel from "@/models/new-article/NewArticleModel";
-import IdNameModel from "@/models/general/IdNameModel";
-@Options({
-  // emits: ["goToAdmin"],
-})
+import { NEWMATERIALADMIN } from "@/router/routerNames";
+import NewMaterialModel from "@/models/new-material/NewMaterialModel";
+import FileGetResponseModel from "@/api/plugins/models/File/FileGetResponseModel";
+import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
+import GeneralModel from "@/api/plugins/models/GeneralModel";
+import GetPublicationResponseModel from "@/api/plugins/models/Publication/GetPublicationResponseModel";
+@Options({})
 export default class NewMaterialDetailed extends Vue {
   id: number = null;
   Authors: any = null;
-  newArticle: NewArticleModel = new NewArticleModel();
-
-  testMaterial: Array<IdNameModel> = [
-    { Id: 1, Name: "Статья" },
-    { Id: 2, Name: "Книга" },
-    { Id: 3, Name: "Методическое пособие" },
-    { Id: 4, Name: "Бланк" },
-  ];
-  test: Array<IdNameModel> = [
-    { Id: 1, Name: "34" },
-    { Id: 2, Name: "342" },
-    { Id: 3, Name: "343" },
-    { Id: 4, Name: "3424" },
-    { Id: 5, Name: "3425" },
-    { Id: 6, Name: "346" },
-    { Id: 7, Name: "3427" },
-    { Id: 8, Name: "34258" },
-    { Id: 9, Name: "3469" },
-    { Id: 10, Name: "342710" },
-  ];
+  newArticle: NewMaterialModel = new NewMaterialModel();
+  publication: GetPublicationResponseModel = new GetPublicationResponseModel();
+  async created() {
+    console.log(this.$route.params.id);
+    this.id = Number(this.$route.params.id);
+    if (this.id) {
+      let publication: HttpResponseResult<
+        GeneralModel<Array<GetPublicationResponseModel>>
+      > = await this.$api.PublicationService.Get({
+        publicationId: this.id,
+      });
+      this.publication = publication.data.items.find((el) => el.id == this.id);
+      if (this.publication) this.additionalMethods();
+    }
+  }
+  async additionalMethods() {
+    console.log("id",this.id)
+    let res: HttpResponseResult<Array<FileGetResponseModel>> =
+      await this.$api.FileService.Get({
+        publicationId: this.id,
+        isReviewer: false,
+      });
+    if (res.isSuccess) {
+      console.log("res",res.data)
+    }
+    // let autors = await this.$api.PublicationAuthorService.Get({
+    //   publicationId: this.id,
+    // });
+    // console.log("авторы",autors)
+  }
   onChangeArticle(data: Array<FileInput>) {
-    this.newArticle.Article = data;
+    this.newArticle.material = data;
   }
   Save() {}
   onChangeAntiPl(data: Array<FileInput>) {
-    this.newArticle.AntiPlagiarism = data;
+    this.newArticle.antiPlagiarism = data;
   }
   onChangeExtract(data: Array<FileInput>) {
-    this.newArticle.Excerpt = data;
+    this.newArticle.excerpt = data;
   }
-  created() {
-    console.log(this.$route.params.id);
-    this.id = Number(this.$route.params.id);
-  }
+
   clickBack() {
     this.$router.push({ name: NEWMATERIALADMIN });
   }
-    async GetAuthors(search?: string) {
+  async GetAuthors(search?: string) {
     //получение по search субагентов
     return [];
     // return await this.$api.EnterpriseService.getList({

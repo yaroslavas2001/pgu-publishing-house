@@ -2,7 +2,7 @@
   <content title="Новые материалы">
     <content-table-test
       :columns="columns"
-      :filter="filterCity"
+      :filter="filter"
       templateColumns="1fr 1fr 1fr 1fr"
       :getDataFunc="getUsersAsync"
       ref="contentTable"
@@ -10,10 +10,10 @@
       <template #default="data">
         <ui-table-body-item>{{ data.name }}</ui-table-body-item>
         <ui-table-body-item>
-          {{ data.autors }}
+          {{ data.tags }}
         </ui-table-body-item>
         <ui-table-body-item>
-          {{ data.type }}
+          {{ getType(data.type) }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
           <info />
@@ -25,33 +25,25 @@
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import { DETAILEDNEWMATERIALADMIN } from "@/router/routerNames";
-interface IPaginationResponse {
-  Items: Object[];
-  Count: number;
-}
-@Options({
-  // emits: ["goToAdmin"],
-})
+import FilterModel from "@/models/Filter/FilterModel";
+import GetPublicationRequestModel from "@/api/plugins/models/Publication/GetPublicationRequestModel";
+import MaterialType from "@/common/MaterialType";
+@Options({})
 export default class NewMaterials extends Vue {
-  test: IPaginationResponse = {
-    Items: [
-      {
-        id: 1,
-        name: "Название",
-        autors: "Авторы",
-        type: "Тип издания",
-      },
-    ],
-    Count: 10,
-  };
-  columns = ["Название", "Авторы", "Тип издания", "Детальная"];
-  filterCity: any = {
-    search: "",
-  };
-  getUsersAsync: Function = null;
-
+  filter: GetPublicationRequestModel = new GetPublicationRequestModel();
+  columns = ["Название", "Ключевые слова", "Тип материала", "Детальная"];
+  MaterialType = MaterialType;
   created() {
-    this.getUsersAsync = this.testF;
+    this.filter = new GetPublicationRequestModel();
+    this.filter.status = 0;
+  }
+  async getUsersAsync(filter: FilterModel<any>) {
+    this.filter.page = filter.page;
+    this.filter.search = filter.search;
+    this.filter.status = 0;
+    console.log("filter", this.filter);
+    let res = await this.$api.PublicationService.Get(this.filter);
+    return res.data;
   }
   toAddress(id: number) {
     console.log("id", id);
@@ -60,8 +52,8 @@ export default class NewMaterials extends Vue {
       params: { id: id },
     });
   }
-  async testF() {
-    return await this.test;
+  getType(type: number) {
+    return this.MaterialType.find((el) => (el.Id = type)).Name;
   }
 }
 </script>

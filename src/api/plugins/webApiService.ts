@@ -1,6 +1,7 @@
 import AuthService from "./services/authService";
 import Cookies from "js-cookie";
 import HttpResponseResult from "./models/httpResponseResult";
+import { StringLiteralLike } from "typescript";
 
 export class WebApiService {
   TAG: string = 'WebApiService';
@@ -13,8 +14,9 @@ export class WebApiService {
       baseUrl = baseUrl.substr(0, baseUrl.length - 1);
     this.baseUrl = baseUrl;
   }
-
-
+  test(key: any, data: any, dopPath?: string) {
+    return (dopPath ? dopPath + "." + key : key) + '=' + data
+  }
   public sendXHR<T>(url: string, method: string, data?: any, callback?: (res: HttpResponseResult<T>) => void): void {
 
     var self = this;
@@ -24,6 +26,28 @@ export class WebApiService {
       if (!url.startsWith('/'))
         url = '/' + url;
       url = this.baseUrl + url;
+      // console.log("url", url, data)
+      if (data && !url.includes("UploadFileForPublication")) {
+        // url = url +"?"
+        let params: string = ""
+        let array: Array<string> = []
+        for (let i = 0; i < Object.keys(data).length; i++) {
+          let key = Object.keys(data)[i]
+          if (typeof data[key] == "object") {
+            let testkey = key
+            let el = data[key]
+            Object.keys(el).map(key => {
+              if (el[key] != "")
+                array.push(this.test(key, el[key], testkey))
+            })
+          } else if (data[key] != "") array.push(this.test(key, data[key]))
+        }
+        params = array.join("&")
+        // console.log("params", params)
+        url = url + "?" + params
+      }
+
+      //   console.log("body",body)
     }
 
 
@@ -107,8 +131,11 @@ export class WebApiService {
     else if (data) {
       body = new FormData();
       this.buildFormData(body, data);
+      // console.log("build", this.buildFormData(body, data))
       body = JSON.stringify(data)
     }
+    // console.log("body",body,data,)
+    // console.log(xhr.pa)
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(body);
 
@@ -134,4 +161,19 @@ export class WebApiService {
       formData.append(parentKey, value);
     }
   }
+  // test(obj, path = [], result = []) {
+  //   Object.entries(obj).reduce((acc, [k, v]) => {
+  //     path.push(k);
+
+  //     if (v instanceof Object) {
+  //       this.test(v, path, acc);
+  //     } else {
+  //       acc.push(`${path.map((n, i) => i ? `[${n}]` : n).join('')}=${v}`);
+  //     }
+
+  //     path.pop();
+
+  //     return acc;
+  //   }
+  // }
 }

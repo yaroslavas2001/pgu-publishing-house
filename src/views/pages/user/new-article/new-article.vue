@@ -11,7 +11,7 @@
       keyField="Id"
       valueField="Name"
       :items="MaterialType"
-      v-model="newArticle.Type"
+      v-model="newMaterial.type"
       defaultText="Выберите тип"
       id="Type"
       class="mt-2 mb-8"
@@ -22,22 +22,22 @@
     <label-input
       nameLabel="Название статьи"
       placeholder="Введите название статьи"
-      v-model="newArticle.NameArticle"
+      v-model="newMaterial.nameArticle"
     />
     <label-input
       nameLabel="УДК"
       placeholder="Введите УДК"
-      v-model="newArticle.UDC"
+      v-model="newMaterial.udc"
     />
     <label-input
       nameLabel="Ключевые слова"
       placeholder="Введите клчевые слова"
-      v-model="newArticle.Keywords"
+      v-model="newMaterial.tags"
     />
     <label-input
       nameLabel="Комментарии"
       placeholder="Добавте комментарий для проверяющего"
-      v-model="newArticle.Comments"
+      v-model="newMaterial.comments"
     />
     <!-- <btn isSmall @click="addAuthor" title="Добавить автора" class="mb-5" /> -->
     <div
@@ -63,7 +63,7 @@
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import FileInput from "@/views/components/rio-psy/ui-file-input/FileModel";
-import NewArticleModel from "@/models/new-article/NewArticleModel";
+import NewMaterialModel from "@/models/new-material/NewMaterialModel";
 import { ADDAUTHOR } from "@/router/routerNames";
 import MaterialType from "@/common/MaterialType";
 import SearchModel from "@/api/plugins/models/Search/SearchModel";
@@ -71,18 +71,20 @@ import SearchAuthorResponseModel from "@/api/plugins/models/Author/SearchAuthorR
 import GeneralModel from "@/api/plugins/models/GeneralModel";
 import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
 import IdNameSmallModel from "@/models/general/IdNameSmallModel";
+import FileType from "@/Enum/FileType";
 @Options({
   // emits: ["goToAdmin"],
 })
 export default class NewArticle extends Vue {
   MaterialType = MaterialType;
   antiplagiat: Array<FileInput> = [];
-  newArticle: NewArticleModel = new NewArticleModel();
-  Authors: any = null;
+  newMaterial: NewMaterialModel = new NewMaterialModel();
+  Authors: Array<IdNameSmallModel> = null;
+  FileType = FileType;
   SearchModel: SearchModel = new SearchModel();
   created() {
     this.SearchModel = {
-      search: "",
+      search: '',
       page: {
         skip: 0,
         take: 6,
@@ -90,40 +92,87 @@ export default class NewArticle extends Vue {
     };
   }
   onChangeArticle(data: Array<FileInput>) {
-    this.newArticle.Article = data;
+    this.newMaterial.material = data;
   }
   onChangeAntiPl(data: Array<FileInput>) {
-    this.newArticle.AntiPlagiarism = data;
+    this.newMaterial.antiPlagiarism = data;
   }
   onChangeExtract(data: Array<FileInput>) {
-    this.newArticle.Excerpt = data;
+    this.newMaterial.excerpt = data;
   }
   addAuthor() {
     this.$router.push({ name: ADDAUTHOR });
   }
   async GetAuthors(search?: string) {
-    console.log("search",search)
+    // console.log("search", search);
     this.SearchModel.search = search;
     let res: HttpResponseResult<
       GeneralModel<Array<SearchAuthorResponseModel>>
     > = await this.$api.AuthorService.Search(this.SearchModel);
-    
+
     let mas: Array<IdNameSmallModel> = [];
     for (let i = 0; i < res.data.items.length; i++) {
       let item = res.data.items[i];
-      let fio = item.firstName + " " + item.secondName + " " + item.sureName
+      let fio = item.firstName + " " + item.secondName + " " + item.sureName;
       mas.push({
         id: item.id,
         name: fio,
       });
     }
-    console.log("mas",mas,"search",search)
+    console.log("mas", mas, "search", search);
     return mas;
   }
-  Submit() {
-    // проверка на заполнения полей
+  async Submit() {
+    let submit = await this.$api.PublicationService.Add({
+      udc: this.newMaterial.udc,
+      name: this.newMaterial.nameArticle,
+      tags: this.newMaterial.tags,
+      type: this.newMaterial.type,
+      userId: this.$store.state.UserId,
+    });
+    if (submit.isSuccess) {
+      for (let i = 0; i < this.Authors.length; i++) {
+        let el = this.Authors[i];
+        let avtor = await this.$api.PublicationAuthorService.Add({
+          publicationId: submit.data,
+          authorId: el.id,
+        });
+      }
+      for (let i = 0; i < this.newMaterial.material.length; i++) {
+        let el = this.newMaterial.material[i];
+        await this.$api.FileService.UploadFileForPublication({
+          path: el.fileName,
+          fileBase64: this.getBase64Only(el.fileBody),
+          isVisibleForReviewers: false,
+          fileType: this.newMaterial.type,
+          publicationId: submit.data,
+        });
+      }
+      for (let i = 0; i < this.newMaterial.antiPlagiarism.length; i++) {
+        let el = this.newMaterial.material[i];
+        await this.$api.FileService.UploadFileForPublication({
+          path: el.fileName,
+          fileBase64: this.getBase64Only(el.fileBody),
+          isVisibleForReviewers: false,
+          fileType: this.FileType.AntiPlagiarism,
+          publicationId: submit.data,
+        });
+      }
+      for (let i = 0; i < this.newMaterial.excerpt.length; i++) {
+        let el = this.newMaterial.material[i];
+        await this.$api.FileService.UploadFileForPublication({
+          path: el.fileName, //el.path,
+          fileBase64: this.getBase64Only(el.fileBody),
+          isVisibleForReviewers: false,
+          fileType: this.FileType.Extract,
+          publicationId: submit.data,
+        });
+      }
+    }
   }
-  // cansel() {}
+  getBase64Only(str: string): string {
+    return str.replaceAll("data:application/octet-stream;base64,", "");
+  }
 }
 </script>
 <style scoped >

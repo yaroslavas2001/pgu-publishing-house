@@ -72,7 +72,7 @@ export default class ContentTableComponent extends Vue {
     try {
       filter.page = {
         skip: this.pageSize * (this.currentPage - 1),
-        take: this.pageSize * (this.currentPage - 1)+10,
+        take: this.pageSize,
       };
       const res = await this.getDataFunc(filter);
       const items =
