@@ -8,6 +8,7 @@
           alt="arrow-back"
           @click="$emit('clickBack')"
           class="pointer"
+          v-if="isBask"
         />
       </div>
       <slot />
@@ -21,6 +22,8 @@ import { Options, Vue, Prop } from "vue-property-decorator";
 // Компонент для входа, как модальное окно толоко без фона сзади
 export default class ModalBlock extends Vue {
   @Prop({ type: String, default: "" }) title: string;
+    @Prop({ type: Boolean, default: true }) isBask: boolean;
+
 }
 </script>
 <style lang="less" scoped>

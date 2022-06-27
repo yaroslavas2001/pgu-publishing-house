@@ -17,9 +17,7 @@
 import { Options, Vue } from "vue-property-decorator";
 import { LOGIN } from "@/router/routerNames";
 
-@Options({
-  emits: ["goToAdmin"],
-})
+@Options({})
 export default class ForgotPasswordPageComponent extends Vue {
   phone = "";
   password = "";

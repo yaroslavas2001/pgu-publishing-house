@@ -15,8 +15,8 @@
 
     <div class="btn-block">
       <btn isSmall @click="enterPage" title="Войти" />
-      <button class="btn-text" @click="goToAdmin">admin</button>
-      <button class="btn-text" @click="goToUser">user</button>
+      <!-- <button class="btn-text" @click="goToAdmin">admin</button> -->
+      <!-- <button class="btn-text" @click="goToUser">user</button> -->
       <div class="btn-block-right">
         <btn isSmall @click="registration" title="Регистрация" class="mb-5" />
         <!-- <button class="btn-text" @click="forgot">Забыли пароль</button> -->
@@ -34,9 +34,7 @@ import {
   INDEX,
 } from "@/router/routerNames";
 import UserRole from "../../../Enum/UserRole";
-@Options({
-  emits: ["goToAdmin"],
-})
+@Options({})
 export default class LoginPageComponent extends Vue {
   username = "";
   password = "";

@@ -7,11 +7,8 @@ import { FORGOTPESSWORD, LOGIN, ADMIN,USER } from "@/router/routerNames";
 import Cookies from "js-cookie";
 import AuthService from "@/api/plugins/services/authService";
 import UserRole from "@/Enum/UserRole";
-import User from "../user/user.vue";
 
-@Options({
-  emits: ["goToAdmin"],
-})
+@Options({})
 export default class ActivateAccount extends Vue {
   username = "";
   password = "";
@@ -24,7 +21,7 @@ export default class ActivateAccount extends Vue {
   wrong: boolean = false;
   isshowEye = false;
   async created() {
-    console.log(this.$route.params.key);
+    // console.log(this.$route.params.key);
     let keyUser: string = this.$route.params.key as string;
     let res = await this.$api.AuthService.activateUser(keyUser);
     if (res.isSuccess) {
@@ -32,22 +29,12 @@ export default class ActivateAccount extends Vue {
       this.$store.state.UserRole = UserRole.User;
       this.$router.push({ name: USER });
     }
-    console.log("res", res);
+    // console.log("res", res);
   }
   goToHome() {
     this.$router.push({ name: LOGIN });
   }
   async enterPage() {
-    console.log(
-      "username",
-      this.username,
-      "password",
-      this.password,
-      "email",
-      this.email
-    );
-    console.log("api", this.$api);
-    // return
     let res = this.$api.AuthService.createUser({
       email: this.email,
       password: this.password,
@@ -56,7 +43,6 @@ export default class ActivateAccount extends Vue {
       lastName: this.lastName,
     sureName: this.SureName,
     });
-    console.log("res", res);
 
     //найти регулярное выражение для телефона, почитать про директивы
     // if (this.username.length == 0 || this.password.length == 0) {
@@ -82,9 +68,7 @@ export default class ActivateAccount extends Vue {
   forgot() {
     this.$router.push({ name: FORGOTPESSWORD });
   }
-  goToAdmin() {
-    // this.$router.push({ name: this.Users });
-  }
+
   ShowPassword() {
     var x = document.getElementById("password") as HTMLInputElement;
     if (x.type === "password") {

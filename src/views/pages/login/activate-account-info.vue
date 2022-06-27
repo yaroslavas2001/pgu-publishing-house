@@ -1,20 +1,18 @@
 <template>
-  <div class="login__fon">
-    На почту было отправлено подтверждение акаунта, перейдите пожалуйста по
-    ссылке
-  </div>
+  <modal-block title="Информация об активации" :isBask="false">
+    <div class="text mb-10">
+      На Вашу почту было отправлено письмо, подтверждение акаунта произойдет при
+      переходе по ссылке в письме.
+    </div>
+  </modal-block>
 </template>
 <script lang="ts">
-import { Options, Vue } from "vue-property-decorator";
-import { FORGOTPESSWORD, LOGIN, ADMIN } from "@/router/routerNames";
-import Cookies from "js-cookie";
-import AuthService from "@/api/plugins/services/authService";
-import UserRole from "@/Enum/UserRole";
+import {  Vue } from "vue-property-decorator";
 
-@Options({
-  emits: ["goToAdmin"],
-})
 export default class ActivateAccountInfo extends Vue {}
 </script>
 <style scoped >
+.text{
+  max-width: 300px;
+}
 </style>

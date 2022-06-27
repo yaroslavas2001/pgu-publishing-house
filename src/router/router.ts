@@ -6,6 +6,7 @@ import ForgotPasswordPageComponent from "@/views/pages/login/forgot-password.vue
 import ErrorPageComponent from "@/views/pages/login/404-page.vue"
 import RegistrationPage from "@views/pages/login/registration.vue"
 import ActivateAccount from "@views/pages/login/activate-account.vue"
+import ActivateAccountInfo from "@/views/pages/login/activate-account-info.vue"
 
 import Reviewer from "@views/pages/reviewer/reviewer.vue"
 import MainPage from "@/views/pages/general/main-page.vue"
@@ -66,18 +67,18 @@ const routes: Array<RouteRecordRaw> = [
       },
     ]
   },
-  {
-    name: FORGOTPESSWORD,
-    path: '/forgot-password',
-    component: ForgotPasswordPageComponent,
-    meta: {
-      allowAnonymous: true,
-    }
-  },
+  // {
+  //   name: FORGOTPESSWORD,
+  //   path: '/forgot-password',
+  //   component: ForgotPasswordPageComponent,
+  //   meta: {
+  //     allowAnonymous: true,
+  //   }
+  // },
   {
     name: ACTIVATEACCOUNTINFO,
     path: '/activate-account-info',
-    component: ForgotPasswordPageComponent,
+    component: ActivateAccountInfo,
   },
   {
     name: REVIEWER,
