@@ -10,15 +10,15 @@ export default class PublicationAuthorService extends BaseRequestService{
     }
 
     public async Add(request: AddPublicationAuthorRequestModel): Promise<HttpResponseResult<any>> {
-        let res = await this.createRequestPromise<any>('/Add', 'POST', request);
+        let res = await this.createRequestPromise<any>('/Add', 'POST', request,false);
         return res;
     }
-    public async Get(request: GetReviewRequestModel): Promise<HttpResponseResult<Array<any>>> {
-        let res = await this.createRequestPromise<any>('/Get', 'GET', request);
+    public async Get(request: GetReviewRequestModel): Promise<HttpResponseResult<Array<number>>> {
+        let res = await this.createRequestPromise<any>('/Get', 'GET', request,false);
         return res;
     }
     public async Remove(request: AddPublicationAuthorRequestModel): Promise<HttpResponseResult<any>> {
-        let res = await this.createRequestPromise<any>('/Remove', 'DELETE', request);
+        let res = await this.createRequestPromise<any>('/Remove', 'DELETE', request,false);
         return res;
     }
 }

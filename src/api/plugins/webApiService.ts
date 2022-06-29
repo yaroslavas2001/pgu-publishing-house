@@ -1,7 +1,6 @@
 import AuthService from "./services/authService";
 import Cookies from "js-cookie";
 import HttpResponseResult from "./models/httpResponseResult";
-import { StringLiteralLike } from "typescript";
 
 export class WebApiService {
   TAG: string = 'WebApiService';
@@ -14,11 +13,11 @@ export class WebApiService {
       baseUrl = baseUrl.substr(0, baseUrl.length - 1);
     this.baseUrl = baseUrl;
   }
-  test(key: any, data: any, dopPath?: string) {
+  buildString(key: any, data: any, dopPath?: string) {
     return (dopPath ? dopPath + "." + key : key) + '=' + data
   }
-  public sendXHR<T>(url: string, method: string, data?: any, callback?: (res: HttpResponseResult<T>) => void): void {
-
+  public sendXHR<T>(url: string, method: string, data?: any, isBody?: boolean, callback?: (res: HttpResponseResult<T>) => void): void {
+    // построение запрса
     var self = this;
     if (!url)
       url = ''
@@ -26,9 +25,7 @@ export class WebApiService {
       if (!url.startsWith('/'))
         url = '/' + url;
       url = this.baseUrl + url;
-      // console.log("url", url, data)
-      if (data && !url.includes("UploadFileForPublication")) {
-        // url = url +"?"
+      if (!isBody && !url.includes("UploadFileForPublication")) {
         let params: string = ""
         let array: Array<string> = []
         for (let i = 0; i < Object.keys(data).length; i++) {
@@ -37,24 +34,18 @@ export class WebApiService {
             let testkey = key
             let el = data[key]
             Object.keys(el).map(key => {
-              if (el[key] != "")
-                array.push(this.test(key, el[key], testkey))
+                array.push(this.buildString(key, el[key], testkey))
             })
-          } else if (data[key] != "") array.push(this.test(key, data[key]))
+          } else if (data[key].length>0 || typeof data[key]=="number"|| typeof data[key]=="boolean") {
+            array.push(this.buildString(key, data[key]))
+          }
         }
         params = array.join("&")
-        // console.log("params", params)
         url = url + "?" + params
       }
-
-      //   console.log("body",body)
     }
-
-
     let xhr = new XMLHttpRequest();
     xhr.onload = function () {
-
-
       let resp: HttpResponseResult<T>;
       try {
         resp = JSON.parse(xhr.response)
@@ -65,11 +56,9 @@ export class WebApiService {
       let res: HttpResponseResult<T> = {
         isSuccess: resp.isSuccess,
         TypeName: resp.TypeName,
-        // errorMessage: xhr.status,
         data: resp.data || null,
         errorMessage: resp.errorMessage,
         stackTrace: resp.stackTrace
-        // ResponseHeaders: {}
       }
       if (xhr.status != 200 && xhr.status != 201) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
         console.error(self.TAG, 'Request:', url, xhr.status, xhr.statusText);
@@ -79,12 +68,9 @@ export class WebApiService {
             location.reload();
           }, 1000);
         }
-        // res.errorMessage = resp;
-
         if (callback)
           callback(res);
       } else { // если всё прошло гладко, выводим результат        
-
         let headers = {}
         xhr.getAllResponseHeaders().split('\r\n').forEach(x => {
           let header = x.split(':').map(x => x.trim());
@@ -93,7 +79,6 @@ export class WebApiService {
         if (callback)
           callback(res);
       }
-
     };
 
     xhr.onerror = function (e) { // происходит, только когда запрос совсем не получилось выполнить
@@ -101,10 +86,8 @@ export class WebApiService {
       let res: HttpResponseResult<T> = {
         isSuccess: false,
         errorMessage: "Ошибка при отправке запроса",
-        // StatusCode: 1,
         data: null,
         stackTrace: ""
-        // ResponseHeaders: {}
       }
       if (callback)
         callback(res);
@@ -118,38 +101,23 @@ export class WebApiService {
     };
 
     xhr.open(method, url, true);
-    // xhr.withCredentials = true;
-
     let jwtoken = Cookies.get(AuthService.AdminAuthTokenName);
     if (jwtoken)
-      xhr.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
-    let body
-
+      xhr.setRequestHeader('Authorization', jwtoken);
+    let body: any
     if (typeof data === 'string') {
       body = data;
     }
     else if (data) {
       body = new FormData();
       this.buildFormData(body, data);
-      // console.log("build", this.buildFormData(body, data))
       body = JSON.stringify(data)
     }
-    // console.log("body",body,data,)
-    // console.log(xhr.pa)
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(body);
-
   }
 
-  setResponseCookies(headers: any) {
-    let header = headers['set-cookie'];
-    if (header) {
-      let split = headers.split(';');
-      let splitCookie = split[0].split('=');
-      let name = splitCookie[0];
-      let value = splitCookie[1];
-    }
-  }
+
   buildFormData(formData: FormData, data: any, parentKey?: string) {
     if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
       Object.keys(data).forEach(key => {

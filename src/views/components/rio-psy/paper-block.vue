@@ -27,9 +27,11 @@ export default class PaperBlock extends Vue {
     justify-content: center;
     align-items: center;
     width: 104px;
-    height: 270px;
-    margin: 0px 10px 5px;
+    height: 170px;
+    margin: 10px 10px 15px;
     font-size: 45px;
+    border-radius: 10px;
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
   .paper-block-price{
     text-align: center;

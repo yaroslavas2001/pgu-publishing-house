@@ -1,5 +1,6 @@
 import AllAuthorModel from "@/models/author/AllAuthorModel";
 import AuthorModel from "@/models/author/AuthorModel";
+import GetAutorRequestModel from "../models/Author/GetAutorRequestModel";
 import SearchAuthorResponseModel from "../models/Author/SearchAuthorResponseModel";
 import GeneralModel from "../models/GeneralModel";
 import HttpResponseResult from "../models/httpResponseResult";
@@ -17,11 +18,11 @@ export default class AuthorService extends BaseRequestService{
         return res;
     }
     public async Search(request: SearchModel): Promise<HttpResponseResult<GeneralModel<Array<SearchAuthorResponseModel>>>> {
-        let res = await this.createRequestPromise<any>('/Search', 'GET', request);
+        let res = await this.createRequestPromise<any>('/Search', 'GET', request,false);
         return res;
     }
-    public async Get(request: AllAuthorModel): Promise<HttpResponseResult<AuthorModel>> {
-        let res = await this.createRequestPromise<any>('/Get', 'GET', request);
+    public async Get(request: GetAutorRequestModel): Promise<HttpResponseResult<GeneralModel<Array<AllAuthorModel>>>> {
+        let res = await this.createRequestPromise<any>('/Get', 'GET', request,false);
         return res;
     }
     public async Update(request: AllAuthorModel): Promise<HttpResponseResult<AuthorModel>> {
@@ -29,7 +30,7 @@ export default class AuthorService extends BaseRequestService{
         return res;
     }
     public async Delete(request: AllAuthorModel): Promise<HttpResponseResult<AuthorModel>> {
-        let res = await this.createRequestPromise<any>('/Delete', 'DELETE', request);
+        let res = await this.createRequestPromise<any>('/Delete', 'DELETE', request,false);
         return res;
     }
 }

@@ -15,7 +15,7 @@ export default class FacultyService extends BaseRequestService{
         return res;
     }
     public async GetAll(): Promise<HttpResponseResult<GeneralModel<Array<ResponseGetAllModel>>>> {
-        let res = await this.createRequestPromise<any>('/GetAll', 'GET');
+        let res = await this.createRequestPromise<any>('/GetAll', 'GET',false);
         return res;
     }
 }

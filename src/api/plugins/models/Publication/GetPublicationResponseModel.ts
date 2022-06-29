@@ -6,4 +6,5 @@ export default class GetPublicationResponseModel {
     status:number
     reviewerId:number
     userId:number
+    udc:string
 }

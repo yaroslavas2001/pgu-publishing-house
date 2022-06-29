@@ -64,7 +64,7 @@
 import { Options, Vue } from "vue-property-decorator";
 import FileInput from "@/views/components/rio-psy/ui-file-input/FileModel";
 import NewMaterialModel from "@/models/new-material/NewMaterialModel";
-import { ADDAUTHOR } from "@/router/routerNames";
+import { ADDAUTHOR, ALLUSERMATERIALS } from "@/router/routerNames";
 import MaterialType from "@/common/MaterialType";
 import SearchModel from "@/api/plugins/models/Search/SearchModel";
 import SearchAuthorResponseModel from "@/api/plugins/models/Author/SearchAuthorResponseModel";
@@ -72,6 +72,8 @@ import GeneralModel from "@/api/plugins/models/GeneralModel";
 import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
 import IdNameSmallModel from "@/models/general/IdNameSmallModel";
 import FileType from "@/Enum/FileType";
+import AuthorModel from "@/models/author/AuthorModel";
+import { datatype } from "faker/locale/tr";
 @Options({
   // emits: ["goToAdmin"],
 })
@@ -84,7 +86,7 @@ export default class NewArticle extends Vue {
   SearchModel: SearchModel = new SearchModel();
   created() {
     this.SearchModel = {
-      search: '',
+      search: "",
       page: {
         skip: 0,
         take: 6,
@@ -92,6 +94,7 @@ export default class NewArticle extends Vue {
     };
   }
   onChangeArticle(data: Array<FileInput>) {
+    console.log("data",data)
     this.newMaterial.material = data;
   }
   onChangeAntiPl(data: Array<FileInput>) {
@@ -119,7 +122,7 @@ export default class NewArticle extends Vue {
         name: fio,
       });
     }
-    console.log("mas", mas, "search", search);
+    // console.log("mas", mas, "search", search);
     return mas;
   }
   async Submit() {
@@ -130,17 +133,20 @@ export default class NewArticle extends Vue {
       type: this.newMaterial.type,
       userId: this.$store.state.UserId,
     });
+    let resAvtor: HttpResponseResult<AuthorModel>;
+    let resDoc: HttpResponseResult<any>;
+
     if (submit.isSuccess) {
       for (let i = 0; i < this.Authors.length; i++) {
         let el = this.Authors[i];
-        let avtor = await this.$api.PublicationAuthorService.Add({
+        resAvtor = await this.$api.PublicationAuthorService.Add({
           publicationId: submit.data,
           authorId: el.id,
         });
       }
       for (let i = 0; i < this.newMaterial.material.length; i++) {
         let el = this.newMaterial.material[i];
-        await this.$api.FileService.UploadFileForPublication({
+        resDoc = await this.$api.FileService.UploadFileForPublication({
           path: el.fileName,
           fileBase64: this.getBase64Only(el.fileBody),
           isVisibleForReviewers: false,
@@ -167,6 +173,10 @@ export default class NewArticle extends Vue {
           fileType: this.FileType.Extract,
           publicationId: submit.data,
         });
+      }
+      if(resDoc.isSuccess && resAvtor.isSuccess)this.$router.push({name:ALLUSERMATERIALS})
+      else {
+        //todo ошибка
       }
     }
   }

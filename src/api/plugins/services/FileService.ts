@@ -15,7 +15,7 @@ export default class FileService extends BaseRequestService{
         return res;
     }
     public async Get(request: FileGetRequestModel): Promise<HttpResponseResult<Array<FileGetResponseModel>>> {
-        let res = await this.createRequestPromise<any>('/Get', 'GET', request);
+        let res = await this.createRequestPromise<any>('/Get', 'GET', request,false);
         return res;
     }
 }

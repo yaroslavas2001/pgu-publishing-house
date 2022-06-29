@@ -36,13 +36,13 @@ const AdminRouter: Array<RouteRecordRaw> = [
                 name: AUTHORS,
                 path: AUTHORS,
                 component: AuthorsPage,
-                meta: { title: "авторы" }
+                meta: { title: "Авторы" }
               },
               {
                 name: AUTHOR,
                 path: AUTHOR,
                 component: AuthorsDetailed,
-                meta: { title: "AuthorsDetailed" }
+                meta: { title: "Детальная автора" }
               },
             ]
           },
@@ -57,13 +57,13 @@ const AdminRouter: Array<RouteRecordRaw> = [
                 name: ALLREVIEWER,
                 path: ALLREVIEWER,
                 component: Reviewer,
-                meta: { title: "Reviewer" }
+                meta: { title: "Рецензент" }
               },
               {
                 name: REVIEWERDETAILED,
                 path: REVIEWERDETAILED,
                 component: ReviewerDetailed,
-                meta: { title: "ReviewerDetailed" }
+                meta: { title: "Детальная рецензента" }
               },
             ]
           },
@@ -83,7 +83,7 @@ const AdminRouter: Array<RouteRecordRaw> = [
                 name: DETAILEDADMIN,
                 path: DETAILEDADMIN,
                 component: MaterialDetailed,
-                meta: { title: "Детальная" }
+                meta: { title: "Детальная материала" }
               },
             ]
           },
@@ -103,7 +103,7 @@ const AdminRouter: Array<RouteRecordRaw> = [
                 name: DETAILEDNEWMATERIALADMIN,
                 path: DETAILEDNEWMATERIALADMIN,
                 component: NewMaterialDetailed,
-                meta: { title: "Детальная" }
+                meta: { title: "Детальная нового материала" }
               },
             ]
           },
@@ -118,7 +118,5 @@ const AdminRouter: Array<RouteRecordRaw> = [
     ]
   },
 ];
-
-
 
 export default AdminRouter;

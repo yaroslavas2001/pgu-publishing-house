@@ -1,7 +1,7 @@
 <template>
   <modal-block title="Расчет стоимости" @clickBack="goToMain">
     <ui-tabs>
-      <ui-tabs-item title="Книга">
+      <ui-tabs-item title="Издание">
         <calculation-book />
       </ui-tabs-item>
        <ui-tabs-item title="Бланк">

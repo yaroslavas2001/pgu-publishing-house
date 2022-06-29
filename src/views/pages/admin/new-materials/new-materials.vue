@@ -41,7 +41,6 @@ export default class NewMaterials extends Vue {
     this.filter.page = filter.page;
     this.filter.search = filter.search;
     this.filter.status = 0;
-    console.log("filter", this.filter);
     let res = await this.$api.PublicationService.Get(this.filter);
     return res.data;
   }

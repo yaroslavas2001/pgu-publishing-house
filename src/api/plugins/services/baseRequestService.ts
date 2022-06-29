@@ -10,11 +10,11 @@ export default class BaseRequestService{
         this._controllerName = controllerName;
     }
 
-    protected createRequestPromise<T>(url:string, method:string, requestBody?: any): Promise<HttpResponseResult<T>> 
+    protected createRequestPromise<T>(url:string, method:string, requestBody?: any,isBody?:boolean): Promise<HttpResponseResult<T>> 
     {
         let self = this;
         return  new Promise<HttpResponseResult<T>>((resolve) => {
-            self._api.sendXHR<T>(`/${self._controllerName}${url}`,method,requestBody, (res)=>{
+            self._api.sendXHR<T>(`/${self._controllerName}${url}`,method,requestBody,isBody ,(res)=>{
                 resolve(res)
             });
         });       

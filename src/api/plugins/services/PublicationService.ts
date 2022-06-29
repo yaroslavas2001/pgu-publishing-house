@@ -18,11 +18,11 @@ export default class PublicationService extends BaseRequestService{
         return res;
     }
     public async Get(request: GetPublicationRequestModel): Promise<HttpResponseResult<GeneralModel<Array<GetPublicationResponseModel>>>> {
-        let res = await this.createRequestPromise<any>('/Get', 'GET', request);
+        let res = await this.createRequestPromise<any>('/Get', 'GET', request,false);
         return res;
     }
     public async SetStatus(request: SetStatusPublicationRequestModel): Promise<HttpResponseResult<any>> {
-        let res = await this.createRequestPromise<any>('/SetStatus', 'PATCH', request);
+        let res = await this.createRequestPromise<any>('/SetStatus', 'PATCH', request,false);
         return res;
     }
     public async Update(request: UpdatePublicationRequestModel): Promise<HttpResponseResult<any>> {

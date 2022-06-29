@@ -15,15 +15,15 @@ export default class DepartmentService extends BaseRequestService{
         return res;
     }
     public async GetAll(request: RequestGetAllDepartmentModel): Promise<HttpResponseResult<Array<ResponseGetAllDepartmentModel>>> {
-        let res = await this.createRequestPromise<any>('/GetAll', 'GET', request);
+        let res = await this.createRequestPromise<any>('/GetAll', 'GET', request,false);
         return res;
     }
     public async Rename(request: any): Promise<HttpResponseResult<any>> {
-        let res = await this.createRequestPromise<any>('/Rename', 'PATCH', request);
+        let res = await this.createRequestPromise<any>('/Rename', 'PATCH', request,false);
         return res;
     }
     public async Delete(request: any): Promise<HttpResponseResult<any>> {
-        let res = await this.createRequestPromise<any>('/Delete', 'DELETE', request);
+        let res = await this.createRequestPromise<any>('/Delete', 'DELETE', request,false);
         return res;
     }
 }

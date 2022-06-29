@@ -17,11 +17,11 @@ export default class ReviewerService extends BaseRequestService{
         return res;
     }
     public async Get(request: GetReviewerRequestModel): Promise<HttpResponseResult<GeneralModel<Array<SearchAuthorResponseModel>>>> {
-        let res = await this.createRequestPromise<any>('/Get', 'GET', request);
+        let res = await this.createRequestPromise<any>('/Get', 'GET', request,false);
         return res;
     }
     public async GetPublications(request: GetPublicationsReviewerRequestModel): Promise<HttpResponseResult<any>> {
-        let res = await this.createRequestPromise<any>('/GetPublications', 'GET', request);
+        let res = await this.createRequestPromise<any>('/GetPublications', 'GET', request,false);
         return res;
     }
 }

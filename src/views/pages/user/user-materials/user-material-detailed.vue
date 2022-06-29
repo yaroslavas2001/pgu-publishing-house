@@ -5,52 +5,36 @@
     @clickBack="clickBack"
     v-if="material.status == 0"
   >
-    <info-block title="Название" :description="material.nameArticle" />
-    <info-block title="Тип издания" :description="material.type.toString()" />
-    <info-block title="УДК" :description="material.udc" />
+    <info-block title="Название" :description="material.name" />
     <info-block title="Ключевые слова" :description="material.tags" />
+    <info-block title="УДК" :description="material.udc" />
+
+    <info-block title="Тип издания" :description="getType(material.type)" />
+    <info-block title="Статус" :description="getStatus(material.status)" />
+
     <info-block title="Авторы">
-      <autocomplete-multiselect
-        class="autocomplete-multiselect"
-        keyField="Id"
-        valueField="Name"
-        v-model="material.authors"
-        id="autors"
-        :SearchAsyncFunc="GetAuthors"
-        :closeOnSelect="true"
-      />
+      <div v-for="(item, index) in AuthorsText" :key="index">
+        {{ item }}
+      </div>
     </info-block>
+
   </content>
   <content
     title="Редактирование материала"
     isBack
     @clickBack="clickBack"
-    v-if="(material.status = 1)"
+    v-if="material.status == 1"
   >
-    <file-input @onChange="onChangeArticle($event)">
-      <btn isSmall title="Добавить материал" />
-    </file-input>
-    <file-input @onChange="onChangeAntiPl($event)">
-      <btn isSmall title="Добавить антиплагиат" />
-    </file-input>
     <label for="Type">Тип печатного издания</label>
-    <select-autocomplete
-      keyField="Id"
-      valueField="Name"
-      :items="testMaterial"
-      v-model="material.type"
-      defaultText="Выберите тип"
-      id="Type"
-      class="mt-2 mb-8"
-    />
-    <file-input @onChange="onChangeExtract($event)">
+
+    <!-- <file-input @onChange="onChangeExtract($event)">
       <btn isSmall title="Добавить выписку с кафедры" />
     </file-input>
     <label-input
       nameLabel="Название статьи"
       placeholder="Введите название статьи"
       v-model="material.nameArticle"
-    />
+    /> -->
     <label-input
       nameLabel="УДК"
       placeholder="Введите УДК"
@@ -61,11 +45,11 @@
       placeholder="Введите клчевые слова"
       v-model="material.tags"
     />
-    <label-input
+    <!-- <label-input
       nameLabel="Комментарии"
       placeholder="Добавте комментарий для проверяющего"
       v-model="material.comments"
-    />
+    /> -->
     <div
       for="autors"
       title="Если вы не нашли автора в списке, его нужно вначале добавить."
@@ -73,8 +57,9 @@
     >
       Авторы
     </div>
-
-    <autocomplete-multiselect
+ 
+  
+    <!-- <autocomplete-multiselect
       class="autocomplete-multiselect"
       selectText="Выберите авторов"
       keyField="Id"
@@ -82,13 +67,13 @@
       v-model="Authors"
       id="autors"
       :SearchAsyncFunc="GetAuthors"
-    />
+    /> -->
     --------------------------------------------
     <info-block title="Комментарии рецензиата" :description="answer.Comm" />
-    <div v-for="(item,index) in answer.File" :key="index">
-    <file-input @onChange="onChangeArticle($event)">
-      <!-- <btn isSmall title="Добавить материал" /> -->
-    </file-input>
+    <div v-for="(item, index) in answer.File" :key="index">
+      <!-- <file-input @onChange="onChangeArticle($event)">
+        <btn isSmall title="Добавить материал" />
+      </file-input> -->
     </div>
   </content>
 </template>
@@ -99,55 +84,76 @@ import FileInput from "@/views/components/rio-psy/ui-file-input/FileModel";
 
 import NewMaterialModel from "@/models/new-material/NewMaterialModel";
 import IdNameModel from "@/models/general/IdNameModel";
-@Options({
-  // emits: ["goToAdmin"],
-})
+import GeneralModel from "@/api/plugins/models/GeneralModel";
+import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
+import GetPublicationResponseModel from "@/api/plugins/models/Publication/GetPublicationResponseModel";
+import AllAuthorModel from "@/models/author/AllAuthorModel";
+import MaterialType from "@/common/MaterialType";
+import PublicationStatus from "@/common/PublicationStatus";
+import FileGetResponseModel from "@/api/plugins/models/File/FileGetResponseModel";
+
 export default class UserMaterialDetailed extends Vue {
   id: number = null;
-  material: NewMaterialModel = new NewMaterialModel();
-  testMaterial: Array<IdNameModel> = [
-    { Id: 1, Name: "Статья" },
-    { Id: 2, Name: "Книга" },
-    { Id: 3, Name: "Методическое пособие" },
-    { Id: 4, Name: "Бланк" },
-  ];
-
-  Authors: any = null;
+  material: GetPublicationResponseModel = new GetPublicationResponseModel();
+  MaterialType = MaterialType;
+  PublicationStatus = PublicationStatus;
+  // Authors: Array<AllAuthorModel> = [];
+  AuthorsText: Array<string> = [];
+  files: Array<FileGetResponseModel> = [];
   answer: any = {
     Id: 123,
     Comm: "Не правильно заполенно что-то там",
     File: [],
   };
-  created() {
+  async created() {
     console.log(this.$route.params.id);
     this.id = Number(this.$route.params.id);
-    // запрос статьи по id
-    this.material = new NewMaterialModel();
-    this.material = {
-      material: [],
-      antiPlagiarism: [],
-      excerpt: [],
-      nameArticle:
-        "СОВРЕМЕННЫЕ ТЕХНОЛОГИИ ПРОГРАММИРОВАНИЯ. РАЗРАБОТКА ПРИЛОЖЕНИЙ НА БАЗЕ WPF И SILVERLIGHT",
-      udc: "978-5-7972-1779-4",
-      tags:
-        "	ВЫЧИСЛИТЕЛЬНАЯ ТЕХНИКА, ВЫЧИСЛИТЕЛЬНЫЕ МАШИНЫ ЭЛЕКТРОННЫЕ ЦИФРОВЫЕ, АВТОМАТИЧЕСКАЯ ОБРАБОТКА ИНФОРМАЦИИ, ИНФОРМАЦИОННЫЕ СИСТЕМЫ И СЕТИ, ПРОГРАММИРОВАНИЕ, АВТОМАТИЗАЦИЯ, УЧЕБНИК ДЛЯ ВЫСШЕЙ ШКОЛЫ, БИЗНЕС-ПРИЛОЖЕНИЯ",
-      authors: [],
-      comments: "string",
-      type: 1,
-      status: 1,
-      userId:this.$store.state.UserId
-    };
+    this.material = new GetPublicationResponseModel();
+    let res: HttpResponseResult<
+      GeneralModel<Array<GetPublicationResponseModel>>
+    > = await this.$api.PublicationService.Get({
+      publicationId: this.id,
+    });
+    this.material = res.data.items.find((el) => el.id == this.id);
+    let pubAutors: HttpResponseResult<Array<number>> =
+      await this.$api.PublicationAuthorService.Get({ publicationId: this.id });
+    for (let i = 0; i < pubAutors.data.length; i++) {
+      let autor: HttpResponseResult<GeneralModel<Array<AllAuthorModel>>> =
+        await this.$api.AuthorService.Get({
+          authorId: pubAutors.data[i],
+        });
+      this.AuthorsText.push(this.getAvtor(autor.data.items[0]));
+    }
+    this.getDocument();
     // сделать запрос на получение комментария и документа
   }
-  onChangeArticle(data: Array<FileInput>) {
-    this.material.material = data;
+  async getDocument() {
+    let res: HttpResponseResult<Array<FileGetResponseModel>> =
+      await this.$api.FileService.Get({ publicationId: this.id });
+    this.files = res.data;
+    console.log("res", res.data);
   }
-  onChangeAntiPl(data: Array<FileInput>) {
-    this.material.antiPlagiarism = data;
+  // onChangeArticle(data: Array<FileInput>) {
+  //   this.material.material = data;
+  // }
+  // onChangeAntiPl(data: Array<FileInput>) {
+  //   this.material.antiPlagiarism = data;
+  // }
+  // onChangeExtract(data: Array<FileInput>) {
+  //   this.material.excerpt = data;
+  // }
+  getAvtor(item: AllAuthorModel): string {
+    return (
+      this.ucFirst(item.secondName) +
+      " " +
+      this.ucFirst(item.firstName) +
+      " " +
+      this.ucFirst(item.sureName)
+    );
   }
-  onChangeExtract(data: Array<FileInput>) {
-    this.material.excerpt = data;
+  ucFirst(str: string): string {
+    if (!str) return str;
+    return str[0].toUpperCase() + str.slice(1);
   }
   clickBack() {
     this.$router.push({ name: USERMATERIALS });
@@ -160,6 +166,12 @@ export default class UserMaterialDetailed extends Vue {
     //   _page: 1,
     //   _perPage: 6,
     // });
+  }
+  getType(id: number): string {
+    return this.MaterialType.find((el) => el.Id == id).Name;
+  }
+  getStatus(id: number): string {
+    return this.PublicationStatus.find((el) => el.Id == id).Name;
   }
 }
 </script>

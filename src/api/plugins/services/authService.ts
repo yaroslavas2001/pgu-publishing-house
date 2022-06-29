@@ -17,7 +17,6 @@ export default class AuthService extends BaseRequestService {
 
     public async login(request: LoginRequest): Promise<HttpResponseResult<LoginResponse>> {
         let res = await this.createRequestPromise<LoginResponse>('/Login', 'POST', request);
-        // console.log("res", res)
         if (res.isSuccess) {
             Cookies.set(AuthService.AdminAuthTokenName, res.data.token);
             Cookies.set(AuthService.Role, res.data.role);
@@ -30,15 +29,15 @@ export default class AuthService extends BaseRequestService {
 
     }
     public createUser(requestBody: AuthRegister): Promise<HttpResponseResult<any>> {
-        console.log("requestBody", requestBody)
-        return this.createRequestPromise('/Register', 'POST', requestBody);
+        // console.log("requestBody", requestBody)
+        return this.createRequestPromise('/Register', 'PUT', requestBody);
     }
     public activateUser(key: string): Promise<HttpResponseResult<LoginResponse>> {
-        console.log("requestBody", key)
+        // console.log("requestBody", key)
         let a = {
             key: key
         }
-        return this.createRequestPromise('/ActivateAccount', 'POST', a);
+        return this.createRequestPromise('/ActivateAccount', 'PATCH', a);
     }
 }
 

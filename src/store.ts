@@ -19,11 +19,14 @@ export class StateModel {
   Color: Array<Model> = []
   KioskСondition: Array<Model> = []
   SettlementType: Array<Model> = []
-  CurrentUser:string
-  FirstName:string =""
-  SureName:string =""
-  UserRole:number=null
-  UserId:number=1
+  CurrentUser: string
+  FirstName: string = ""
+  SureName: string = ""
+  UserRole: number = null
+  UserId: number = 1
+  Parse(data: Object): Object {
+    return JSON.parse(JSON.stringify(data))
+  }
 }
 
 const install = (app: App) => {

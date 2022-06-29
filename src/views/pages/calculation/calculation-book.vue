@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="mb-10">Книга, статья, методическо пособие и др.</div>
     <label-input
       nameLabel="Тираж"
       placeholder="Введите число"

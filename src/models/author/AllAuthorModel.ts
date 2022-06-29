@@ -1,7 +1,7 @@
 export default class AllAuthorModel {
     id: number
     firstName: string
-    lastName: string
+    secondName: string
     sureName: string
 
     contacts: string

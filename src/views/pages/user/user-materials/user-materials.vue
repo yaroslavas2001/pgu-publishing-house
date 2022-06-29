@@ -40,13 +40,8 @@ import GetPublicationRequestModel from "@/api/plugins/models/Publication/GetPubl
 import FilterModel from "@/models/Filter/FilterModel";
 import MaterialType from "@/common/MaterialType";
 import PublicationStatus from "@/common/PublicationStatus";
-interface IPaginationResponse {
-  Items: Object[];
-  Count: number;
-}
-@Options({
-  // emits: ["goToAdmin"],
-})
+
+@Options({})
 export default class UserMaterials extends Vue {
   columns = ["Название", "Ключевые слова", "УДК", "Тип", "Статус", "Детальная"];
   filter: GetPublicationRequestModel = new GetPublicationRequestModel();
@@ -54,8 +49,6 @@ export default class UserMaterials extends Vue {
   PublicationStatus=PublicationStatus
   created() {
     this.filter = new GetPublicationRequestModel();
-
-    // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRrr")
   }
   async getUsersAsync(filter: FilterModel<any>) {
     this.filter = {
@@ -63,11 +56,7 @@ export default class UserMaterials extends Vue {
       page: filter.page,
       search:filter.search
     };
-    let test: GetPublicationRequestModel = JSON.parse(
-      JSON.stringify(this.filter)
-    );
-    console.log("test", test);
-    let res = await this.$api.PublicationService.Get(test);
+    let res = await this.$api.PublicationService.Get(this.$store.state.Parse(this.filter));
     return res.data;
   }
 

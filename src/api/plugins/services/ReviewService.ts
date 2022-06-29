@@ -16,11 +16,11 @@ export default class ReviewService extends BaseRequestService{
         return res;
     }
     public async Get(request: GetReviewRequestModel): Promise<HttpResponseResult<GetReviewResponseModel>> {
-        let res = await this.createRequestPromise<any>('/Get', 'GET', request);
+        let res = await this.createRequestPromise<any>('/Get', 'GET', request,false);
         return res;
     }
     public async Delete(request: DeleteReviewRequestModel): Promise<HttpResponseResult<any>> {
-        let res = await this.createRequestPromise<any>('/Delete', 'GET', request);
+        let res = await this.createRequestPromise<any>('/Delete', 'GET', request,false);
         return res;
     }
    

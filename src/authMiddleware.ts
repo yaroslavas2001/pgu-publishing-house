@@ -5,8 +5,7 @@ import Vuex, { Store } from 'vuex'
 import Cookies from "js-cookie";
 import AuthService from "./api/plugins/services/authService";
 import { LOGIN, ADMIN, USER, INDEX, CALCULATION } from "./router/routerNames";
-import ApiDataSource from "./api/ApiDataSource";
-import { StateModel } from "./store";
+
 import UserRole from "./Enum/UserRole"
 
 const install = (app: App, opts: { router: Router }) => {
@@ -45,12 +44,8 @@ const install = (app: App, opts: { router: Router }) => {
       return
     }
     next()
-
-
   });
 }
-
-
 export default {
   install,
 };

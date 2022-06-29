@@ -15,7 +15,7 @@
         <ui-table-body-item>
           {{ data.type }}
         </ui-table-body-item>
-         <ui-table-body-item>
+        <ui-table-body-item>
           {{ data.status }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
@@ -30,27 +30,28 @@ import { Options, Vue } from "vue-property-decorator";
 import { DETAILEDADMIN } from "@/router/routerNames";
 import GetPublicationRequestModel from "@/api/plugins/models/Publication/GetPublicationRequestModel";
 import FilterModel from "@/models/Filter/FilterModel";
-interface IPaginationResponse {
-  Items: Object[];
-  Count: number;
-}
-@Options({
-  // emits: ["goToAdmin"],
-})
+@Options({})
 export default class Materials extends Vue {
   filter: GetPublicationRequestModel = new GetPublicationRequestModel();
 
-  columns = ["Название", "Ключевые слова", "Тип издания","Статус", "Детальная"];
+  columns = [
+    "Название",
+    "Ключевые слова",
+    "Тип издания",
+    "Статус",
+    "Детальная",
+  ];
   created() {
     this.filter = new GetPublicationRequestModel();
-    this.filter.status = 0;
+        this.filter.excludeDraft = true;
+
+    // this.filter.status = 0;/
   }
   async getUsersAsync(filter: FilterModel<any>) {
     this.filter.page = filter.page;
     this.filter.search = filter.search;
-    this.filter.status = 0;
-    console.log("filter", this.filter);
-    let res = await this.$api.PublicationService.Get(this.filter);
+    this.filter.excludeDraft = true;
+    let res = await this.$api.PublicationService.Get(this.filter)
     return res.data;
   }
   toAddress(id: number) {
@@ -60,7 +61,6 @@ export default class Materials extends Vue {
       params: { id: id },
     });
   }
-
 }
 </script>
 <style scoped >

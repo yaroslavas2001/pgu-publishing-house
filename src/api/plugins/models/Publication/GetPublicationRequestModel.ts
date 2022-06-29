@@ -6,4 +6,5 @@ export default class GetPublicationRequestModel extends SearchModel{
     type?:number
     userId?:number
     reviewerId?:number
+    excludeDraft?:boolean
 }
