@@ -9,6 +9,7 @@ export const ACTIVATEACCOUNTINFO = "activate-account-info";
 export const ADDAUTHOR = "add-author";
 export const INDEX ="index"
 export const CALCULATION ="calculation"
+export const PUBLICATION ="publication"
 
 
 export const ADMIN = "admin";

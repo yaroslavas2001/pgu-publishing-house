@@ -1,7 +1,7 @@
-export default class AllAuthorModel {
+export default class AllAuthorModelSecondName {
     id: number
     firstName: string
-    lastName: string
+    secondName: string
     sureName: string
 
     contacts: string
@@ -9,14 +9,14 @@ export default class AllAuthorModel {
     isTeacher: boolean = false
 
     departmentId: number
-    positionId: number
-    degreeId:number
+    employerPosition: number
+    academicDegree:number
     
     nonStuffPosition: string
     nonStuffWorkPlace: string
 
 
-    constructor(obj?: Partial<AllAuthorModel>) {
+    constructor(obj?: Partial<AllAuthorModelSecondName>) {
         obj && Object.assign(this, obj);
     }
 }

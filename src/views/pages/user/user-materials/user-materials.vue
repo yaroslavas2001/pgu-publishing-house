@@ -21,10 +21,10 @@
           {{ data.udc }}
         </ui-table-body-item>
         <ui-table-body-item>
-          {{ getType(data.type) }}
+          {{ $store.state.getType(data.type) }}
         </ui-table-body-item>
         <ui-table-body-item>
-          {{ getStatus(data.status) }}
+          {{  $store.state.getStatus(data.status) }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
           <info />
@@ -38,15 +38,11 @@ import { Options, Vue } from "vue-property-decorator";
 import { DETAILEDUSER } from "@/router/routerNames";
 import GetPublicationRequestModel from "@/api/plugins/models/Publication/GetPublicationRequestModel";
 import FilterModel from "@/models/Filter/FilterModel";
-import MaterialType from "@/common/MaterialType";
-import PublicationStatus from "@/common/PublicationStatus";
 
 @Options({})
 export default class UserMaterials extends Vue {
   columns = ["Название", "Ключевые слова", "УДК", "Тип", "Статус", "Детальная"];
   filter: GetPublicationRequestModel = new GetPublicationRequestModel();
-  MaterialType = MaterialType;
-  PublicationStatus=PublicationStatus
   created() {
     this.filter = new GetPublicationRequestModel();
   }
@@ -60,15 +56,6 @@ export default class UserMaterials extends Vue {
     return res.data;
   }
 
-  // status(status): string {
-  //   return status == 1 ? "На проверке у рецензиата" : "На печать";
-  // }
-  getType(id: number): string {
-    return this.MaterialType.find((el) => el.Id == id).Name;
-  }
-   getStatus(id: number): string {
-    return this.PublicationStatus.find((el) => el.Id == id).Name;
-  }
   toAddress(id: number) {
     console.log("id", id);
     this.$router.push({

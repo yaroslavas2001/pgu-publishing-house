@@ -1,14 +1,14 @@
 <template>
   <content title="Добавить автора">
     <label-input
-      nameLabel="Имя"
-      placeholder="Введите имя автора"
-      v-model="newAuthor.firstName"
-    />
-    <label-input
       nameLabel="Фамилия"
       placeholder="Введите фамилию автора"
       v-model="newAuthor.lastName"
+    />
+    <label-input
+      nameLabel="Имя"
+      placeholder="Введите имя автора"
+      v-model="newAuthor.firstName"
     />
     <label-input
       nameLabel="Отчество"
@@ -106,9 +106,7 @@ import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
 import ResponseGetAllModel from "@/api/plugins/models/Faculty/ResponseGetAllModel";
 import GeneralModel from "@/api/plugins/models/GeneralModel";
 import ResponseGetAllDepartmentModel from "@/api/plugins/models/Department/ResponseGetAllDepartmentModel";
-@Options({
-  emits: ["goToAdmin"],
-})
+@Options({})
 export default class AddAuthor extends Vue {
   newAuthor: AllAuthorModel = new AllAuthorModel();
   AcademicDegree = AcademicDegree;
@@ -119,20 +117,23 @@ export default class AddAuthor extends Vue {
   @Watch("facultyId")
   async update() {
     this.newAuthor.departmentId = null;
-    let res: HttpResponseResult<Array<ResponseGetAllDepartmentModel>> =
-      await this.$api.DepartmentService.GetAll({
-        facultyId: this.facultyId,
-      });
-    this.DepartmentList = res.data;
+    let res: HttpResponseResult<
+      GeneralModel<Array<ResponseGetAllDepartmentModel>>
+    > = await this.$api.DepartmentService.GetAll({
+      facultyId: this.facultyId,
+    });
+    this.DepartmentList = res.data.items;
   }
   async created() {
     this.newAuthor = new AllAuthorModel();
     let res: HttpResponseResult<GeneralModel<Array<ResponseGetAllModel>>> =
-      await this.$api.FacultyService.GetAll();
+      await this.$api.FacultyService.GetAll({
+        skip: 0,
+        take: 20,
+      });
     this.facultyList = res.data.items;
   }
   async saveAuthor() {
-    console.log("this.newAuthor", this.newAuthor, this.$api);
     let res = await this.$api.AuthorService.AddAuthor(this.newAuthor);
     if (res.isSuccess) this.$router.push({ name: NEWMATERIALADD });
     else console.log("newAuthor", this.newAuthor, res);

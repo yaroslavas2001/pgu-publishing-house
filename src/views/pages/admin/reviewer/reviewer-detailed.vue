@@ -2,7 +2,7 @@
   <content :title="title" isBack @clickBack="clickBack">
     <div v-if="!isId">
       <info-block title="Имя" :description="reviewer.firstName" />
-      <info-block title="Фамилия" :description="reviewer.secondName" />
+      <info-block title="Фамилия" :description="reviewer.lastName" />
       <info-block title="Отчество" :description="reviewer.sureName" />
       <info-block title="Почта" :description="reviewer.email" />
     </div>
@@ -15,7 +15,7 @@
       <label-input
         nameLabel="Фамилия"
         placeholder="Введите фамилию"
-        v-model="reviewer.secondName"
+        v-model="reviewer.lastName"
       />
       <label-input
         nameLabel="Отчество"
@@ -62,7 +62,7 @@ export default class ReviewerDetailed extends Vue {
       this.reviewer = {
         id: 1,
         sureName: "test",
-        secondName: "test",
+        lastName: "test",
         firstName: "test",
         email: "test",
       };

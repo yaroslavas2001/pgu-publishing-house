@@ -7,13 +7,13 @@ import ErrorPageComponent from "@/views/pages/login/404-page.vue"
 import RegistrationPage from "@views/pages/login/registration.vue"
 import ActivateAccount from "@views/pages/login/activate-account.vue"
 import ActivateAccountInfo from "@/views/pages/login/activate-account-info.vue"
-
+// import Reviewer
 import Reviewer from "@views/pages/reviewer/reviewer.vue"
 import MainPage from "@/views/pages/general/main-page.vue"
 import Calculation from "@/views/pages/calculation/calculation.vue"
 import {
   DEFAULT, LOGIN, FORGOTPESSWORD, REGISTRATION,CALCULATION,
-  REVIEWER, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO, INDEX
+  REVIEWER, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO, INDEX, PUBLICATION
 } from "./routerNames";
 
 import AdminRouter from "./model/AdminRouter"
@@ -67,6 +67,22 @@ const routes: Array<RouteRecordRaw> = [
       },
     ]
   },
+  {
+    path: '/publication/',
+    component: BaseTemplate,
+    meta: {
+      allowAnonymous: true,
+    },
+    children: [
+      {
+        name: PUBLICATION,
+        path: ":id",
+        component: Reviewer,
+        props: true,
+        meta: { title: "Рецензирование" }
+      },
+    ]
+  },
   // {
   //   name: FORGOTPESSWORD,
   //   path: '/forgot-password',
@@ -80,14 +96,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/activate-account-info',
     component: ActivateAccountInfo,
   },
-  {
-    name: REVIEWER,
-    path: '/reviewer',
-    component: Reviewer,
-    meta: {
-      allowAnonymous: true,
-    }
-  },
+  // {
+  //   name: REVIEWER,
+  //   path: '/reviewer',
+  //   component: Reviewer,
+  //   meta: {
+  //     allowAnonymous: true,
+  //   }
+  // },
   {
     name: REGISTRATION,
     path: '/registration',

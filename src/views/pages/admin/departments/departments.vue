@@ -36,6 +36,12 @@
         @click="addDepartments"
       />
     </div>
+    <btn
+      isSmall
+      @click="updateTable"
+      title="Обновить таблицу кафедр и факультетов"
+      class="mt-10 mb-10"
+    />
     <div class="faculty">
       <div
         v-for="(item, index) in departments"
@@ -62,6 +68,7 @@ import GeneralModel from "@/api/plugins/models/GeneralModel";
 import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
 import { Options, Vue } from "vue-property-decorator";
 import DepartmentTableModel from "@/models/general/DepartmentTableModel";
+import ResponseGetAllDepartmentModel from "@/api/plugins/models/Department/ResponseGetAllDepartmentModel";
 @Options({})
 export default class Departments extends Vue {
   department: string = null;
@@ -71,19 +78,11 @@ export default class Departments extends Vue {
   departmentName: string = null;
   departments: Array<DepartmentTableModel> = [];
   created() {
-    this.getAllFaculty();
+    this.updateTable();
   }
   async addFaculty() {
-    await this.$api.FacultyService.Add({ name: this.faculty });
-    this.faculty = null;
-    this.getAllFaculty();
-    this.getAllDepartments()
-  }
-  async getAllFaculty() {
-    let res: HttpResponseResult<GeneralModel<Array<ResponseGetAllModel>>> =
-      await this.$api.FacultyService.GetAll();
-    this.facultyList = res.data.items;
-  
+    let res = await this.$api.FacultyService.Add({ name: this.faculty });
+    if (res.isSuccess) this.faculty = null;
   }
   async addDepartments() {
     this.$api.DepartmentService.Add({
@@ -91,17 +90,30 @@ export default class Departments extends Vue {
       facultyId: this.facultyId,
     });
     this.departmentName = null;
-    this.getAllDepartments()
+  }
+  async getAllFaculty() {
+    let res: HttpResponseResult<GeneralModel<Array<ResponseGetAllModel>>> =
+      await this.$api.FacultyService.GetAll({
+        skip: 0,
+        take: 20,
+      });
+    this.facultyList = res.data.items;
+  }
+  updateTable() {
+    this.getAllFaculty();
+    this.getAllDepartments();
   }
   async getAllDepartments() {
     this.departments = [];
     for (let i = 0; i < this.facultyList.length; i++) {
       let el = this.facultyList[i];
-      let res = await this.$api.DepartmentService.GetAll({ facultyId: el.id });
+      let res: HttpResponseResult<
+        GeneralModel<Array<ResponseGetAllDepartmentModel>>
+      > = await this.$api.DepartmentService.GetAll({ facultyId: el.id });
       this.departments.push({
         facultyId: el.id,
-        facultyName:el.name,
-        departments: res.data,
+        facultyName: el.name,
+        departments: res.data.items,
       });
     }
   }
@@ -113,18 +125,28 @@ export default class Departments extends Vue {
   flex-direction: column;
   .faculty-block {
     display: flex;
-    border: 1px solid red;
+    border: 1px solid #cd8458;
     justify-content: space-between;
+    padding: 10px 5px;
     .faculty-block-name {
       max-width: 300px;
       width: 100%;
+      margin-right: 20px;
     }
     .faculty-block-dep {
       display: flex;
       flex-direction: column;
       width: 100%;
       .dep-item {
-        border: 1px solid red;
+        border-bottom: 1px solid #cd8458;
+        padding: 5px 0px;
+        &:first-child {
+          padding: 0px 0px 5px 0px;
+        }
+        &:last-child {
+          border-bottom: 0px;
+          padding: 5px 0px 0px 0px;
+        }
       }
     }
   }

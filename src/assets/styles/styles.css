@@ -96,7 +96,6 @@
   transition: all 0.2s ease-out;
   font-size: 13px;
 }
-
 .btn-text:hover {
   color: #bc8860;
 }
@@ -107,4 +106,31 @@
 .column{
   display: flex;
   flex-direction: column;
+}
+.link {
+  outline: none;
+  background: transparent;
+  border: 1px #cd8458 solid;
+  width: fit-content;
+  height: fit-content;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  color: #000;
+  font-size: 15px;
+  border-radius: 5px;
+  padding: 3px 14px;
+  text-decoration: none;
+  box-sizing: border-box;
+  margin-left: 10px;
+}
+.link:hover{
+  background: #cd8458;
+  color: #dedfd7;
+}
+.title-text{
+  font-size: 16px;
+  margin: 20px 0 10px 0;
+  font-family: "Open Sans", sans-serif !important;
+  font-weight: bold;
 }

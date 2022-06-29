@@ -1,4 +1,4 @@
-import {  RouteRecordRaw} from "vue-router";
+import { RouteRecordRaw } from "vue-router";
 
 const BaseTemplate = () => import("@/views/layouts/base-layout.vue");
 const UserLayout = () => import("@views/layouts/user/user-layout.vue");
@@ -9,8 +9,10 @@ import ReviewersResponse from "@/views/pages/user/reviewers-response/reviewers-r
 import ArticleArchive from "@/views/pages/user/article-archive/article-archive.vue"
 import AddAuthor from "@/views/pages/user/add-author/add-author.vue"
 import UserMaterialDetailed from "@views/pages/user/user-materials/user-material-detailed.vue"
-import { USER, ARTICLEARCHIVE, REVIEWERSRESPONSE, ADDAUTHOR, USERMATERIALS, ALLUSERMATERIALS, 
-  DETAILEDUSER, NEWMATERIALADD, NEWMATERIAL, } from "../routerNames";
+import {
+  USER, ARTICLEARCHIVE, REVIEWERSRESPONSE, ADDAUTHOR, USERMATERIALS, ALLUSERMATERIALS,
+  DETAILEDUSER, NEWMATERIALADD, NEWMATERIAL,
+} from "../routerNames";
 
 const UserRouter: Array<RouteRecordRaw> = [
   {
@@ -37,7 +39,8 @@ const UserRouter: Array<RouteRecordRaw> = [
               },
               {
                 name: DETAILEDUSER,
-                path: DETAILEDUSER,
+                path: ":id",
+                props: true,
                 component: UserMaterialDetailed,
                 meta: { title: "Детальная" }
               },

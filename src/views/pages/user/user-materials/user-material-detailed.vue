@@ -9,15 +9,29 @@
     <info-block title="Ключевые слова" :description="material.tags" />
     <info-block title="УДК" :description="material.udc" />
 
-    <info-block title="Тип издания" :description="getType(material.type)" />
-    <info-block title="Статус" :description="getStatus(material.status)" />
+    <info-block
+      title="Тип издания"
+      :description="$store.state.getType(material.type)"
+    />
+    <info-block
+      title="Статус"
+      :description="$store.state.getStatus(material.status)"
+    />
 
     <info-block title="Авторы">
       <div v-for="(item, index) in AuthorsText" :key="index">
         {{ item }}
       </div>
     </info-block>
-
+    <div class="title-text">Материалы</div>
+    
+    <div v-if="files.length > 0" class="files">
+      <div v-for="(item, index) in files" :key="index" class="files-item">
+        {{ item.name }}
+        <!-- <a :href="item.url" target="_blank" class="link">Посмотреть</a> -->
+        <a :href="item.url" :download="item.name" class="link">Скачать</a>
+      </div>
+    </div>
   </content>
   <content
     title="Редактирование материала"
@@ -57,8 +71,7 @@
     >
       Авторы
     </div>
- 
-  
+
     <!-- <autocomplete-multiselect
       class="autocomplete-multiselect"
       selectText="Выберите авторов"
@@ -80,24 +93,17 @@
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import { USERMATERIALS } from "@/router/routerNames";
-import FileInput from "@/views/components/rio-psy/ui-file-input/FileModel";
 
-import NewMaterialModel from "@/models/new-material/NewMaterialModel";
-import IdNameModel from "@/models/general/IdNameModel";
 import GeneralModel from "@/api/plugins/models/GeneralModel";
 import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
 import GetPublicationResponseModel from "@/api/plugins/models/Publication/GetPublicationResponseModel";
-import AllAuthorModel from "@/models/author/AllAuthorModel";
-import MaterialType from "@/common/MaterialType";
-import PublicationStatus from "@/common/PublicationStatus";
+
 import FileGetResponseModel from "@/api/plugins/models/File/FileGetResponseModel";
+import AllAuthorModelSecondName from "@/models/author/AllAuthorModelSecondName";
 
 export default class UserMaterialDetailed extends Vue {
   id: number = null;
   material: GetPublicationResponseModel = new GetPublicationResponseModel();
-  MaterialType = MaterialType;
-  PublicationStatus = PublicationStatus;
-  // Authors: Array<AllAuthorModel> = [];
   AuthorsText: Array<string> = [];
   files: Array<FileGetResponseModel> = [];
   answer: any = {
@@ -118,11 +124,12 @@ export default class UserMaterialDetailed extends Vue {
     let pubAutors: HttpResponseResult<Array<number>> =
       await this.$api.PublicationAuthorService.Get({ publicationId: this.id });
     for (let i = 0; i < pubAutors.data.length; i++) {
-      let autor: HttpResponseResult<GeneralModel<Array<AllAuthorModel>>> =
-        await this.$api.AuthorService.Get({
-          authorId: pubAutors.data[i],
-        });
-      this.AuthorsText.push(this.getAvtor(autor.data.items[0]));
+      let autor: HttpResponseResult<
+        GeneralModel<Array<AllAuthorModelSecondName>>
+      > = await this.$api.AuthorService.Get({
+        authorId: pubAutors.data[i],
+      });
+      this.AuthorsText.push(this.$store.state.getAvtor(autor.data.items[0]));
     }
     this.getDocument();
     // сделать запрос на получение комментария и документа
@@ -133,47 +140,24 @@ export default class UserMaterialDetailed extends Vue {
     this.files = res.data;
     console.log("res", res.data);
   }
-  // onChangeArticle(data: Array<FileInput>) {
-  //   this.material.material = data;
-  // }
-  // onChangeAntiPl(data: Array<FileInput>) {
-  //   this.material.antiPlagiarism = data;
-  // }
-  // onChangeExtract(data: Array<FileInput>) {
-  //   this.material.excerpt = data;
-  // }
-  getAvtor(item: AllAuthorModel): string {
-    return (
-      this.ucFirst(item.secondName) +
-      " " +
-      this.ucFirst(item.firstName) +
-      " " +
-      this.ucFirst(item.sureName)
-    );
-  }
-  ucFirst(str: string): string {
-    if (!str) return str;
-    return str[0].toUpperCase() + str.slice(1);
-  }
   clickBack() {
     this.$router.push({ name: USERMATERIALS });
-  }
-  async GetAuthors(search?: string) {
-    //получение по search субагентов
-    return [];
-    // return await this.$api.EnterpriseService.getList({
-    //   _filters: { Name: search },
-    //   _page: 1,
-    //   _perPage: 6,
-    // });
-  }
-  getType(id: number): string {
-    return this.MaterialType.find((el) => el.Id == id).Name;
-  }
-  getStatus(id: number): string {
-    return this.PublicationStatus.find((el) => el.Id == id).Name;
   }
 }
 </script>
 <style scoped  lang="less">
+.files {
+  display: flex;
+  flex-direction: column;
+  .files-item {
+    height: auto;
+    min-height: 30px;
+  }
+}
+  .title-text {
+    font-size: 16px;
+    margin: 20px 0 10px 0;
+    font-family: "Open Sans", sans-serif !important;
+    font-weight: bold;
+  }
 </style>

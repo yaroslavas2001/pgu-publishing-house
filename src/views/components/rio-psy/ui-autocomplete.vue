@@ -20,35 +20,35 @@
     </div>
     <slot name="container" :data="items">
       <!-- <transition name="fade" appear> -->
-        <div
-          class="container"
-          v-if="open || isLoading"
-          :class="{ active: open, isLoading: isLoading }"
-        >
-          <ui-loading :loading="isLoading" />
+      <div
+        class="container"
+        v-if="open || isLoading"
+        :class="{ active: open, isLoading: isLoading }"
+      >
+        <ui-loading :loading="isLoading" />
 
-          <div
-            class="item"
-            v-for="(item, index) in items"
-            v-bind:key="index"
-            @mouseup="select(item)"
-            :class="{ active: isSelect(item), hover: index == hoveredIdx }"
-          >
-            <template v-if="item === undefined">
-              {{ defaultText }}
-            </template>
-            <template v-else>
-              <slot
-                name="item"
-                :item="item"
-                :index="index"
-                :hover="index == hoveredIdx"
-                :active="isSelect(item)"
-                >{{ getValue(item) }}</slot
-              >
-            </template>
-          </div>
+        <div
+          class="item"
+          v-for="(item, index) in items"
+          v-bind:key="index"
+          @mouseup="select(item)"
+          :class="{ active: isSelect(item), hover: index == hoveredIdx }"
+        >
+          <template v-if="item === undefined">
+            {{ defaultText }}
+          </template>
+          <template v-else>
+            <slot
+              name="item"
+              :item="item"
+              :index="index"
+              :hover="index == hoveredIdx"
+              :active="isSelect(item)"
+              >{{ getValue(item) }}</slot
+            >
+          </template>
         </div>
+      </div>
       <!-- </transition> -->
     </slot>
   </div>
@@ -68,9 +68,7 @@ export default class UiAutocompleteComponent extends Vue {
   // @Prop({ default: () => new Array<any>(), type: Array, required: true })
   items: any[] = [];
   @Prop({ type: Function, required: true })
-  SearchAsyncFunc: (
-    search?: string 
-  ) => Promise<HttpResponseResult<any>>;
+  SearchAsyncFunc: (search?: string) => any;
 
   @Prop({ default: null }) selectText: string;
   @Prop({ default: true }) closeOnSelect: boolean;
@@ -86,10 +84,10 @@ export default class UiAutocompleteComponent extends Vue {
   autocomplete = true;
   search = "";
   saveValue: any = null;
-  private open = false;
+  open = false;
   preventCurrentClick = false;
   isLoading: boolean = false;
-  clickMouse: boolean =false
+  clickMouse: boolean = false;
   // обычное значение
   @Watch("modelValue")
   onValueChanged(value, oldValue) {
@@ -99,9 +97,8 @@ export default class UiAutocompleteComponent extends Vue {
       this.firstObject[this.valueField] = this.getValue(this.modelValue);
       this.innerValue = this.getKey(this.modelValue);
     } else this.innerValue = this.modelValue;
-    if(!this.clickMouse) this.sendSearchRequest();
+    if (!this.clickMouse) this.sendSearchRequest();
     if (this.noUndefined) this.onSearchResult();
-    
   }
   // внутреннее значение
   @Watch("innerValue", { deep: true })
@@ -115,12 +112,12 @@ export default class UiAutocompleteComponent extends Vue {
   mouseup() {
     this.isLoading = true;
     this.sendSearchRequest();
-    this.clickMouse= true
+    this.clickMouse = true;
     this.isLoading = false;
   }
   async sendSearchRequest() {
     let data = await this.SearchAsyncFunc(this.search);
-    // this.items = data.Response.Items;
+    this.items = data;
     if (this.noUndefined) this.onSearchResult();
     if (this.firstObject != null) {
       for (var i = this.items.length - 1; i >= 0; --i) {
@@ -163,8 +160,8 @@ export default class UiAutocompleteComponent extends Vue {
   firstObject = null;
   // хуки жизненного цикла
   created() {
-    console.log("modelValue",this.modelValue);
-    
+    // console.log("modelValue", this.modelValue);
+
     if (typeof this.modelValue !== "number" && this.modelValue != null) {
       this.firstObject = {};
       this.firstObject[this.keyField] = this.getKey(this.modelValue);
@@ -249,7 +246,7 @@ export default class UiAutocompleteComponent extends Vue {
     this.select(this.items[this.hoveredIdx]);
   }
   clickCurrent() {
-    console.log("5345345");
+    // console.log("5345345");
 
     if (this.preventCurrentClick) {
       return;
@@ -333,7 +330,7 @@ export default class UiAutocompleteComponent extends Vue {
     padding: 5px 12px;
     border-radius: 4px;
     font-size: 12px;
-    color: #4F5E74;
+    color: #4f5e74;
     box-sizing: border-box;
     font-weight: 600;
   }
@@ -351,7 +348,7 @@ export default class UiAutocompleteComponent extends Vue {
     font-size: 14px;
     height: 30px;
   }
-  .input::placeholder{
+  .input::placeholder {
     opacity: 0.6;
   }
   .container {
@@ -386,7 +383,7 @@ export default class UiAutocompleteComponent extends Vue {
         &.active {
           border: 0px;
           // background-color: #e1e3eb;
-          color: #8797AF;
+          color: #8797af;
           font-weight: bold;
         }
         &.hover.active,

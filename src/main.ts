@@ -20,6 +20,7 @@ import ContentTable from "@/views/components/rio-psy/content-table/content-table
 import ContentTableTest from "@/views/components/rio-psy/content-table/content-table-test.vue"
 import Info from "@/views/components/rio-psy/info.vue"
 import InfoBlock from "@/views/components/rio-psy/info-block.vue"
+import UiAutocompleteComponent from "@/views/components/rio-psy/ui-autocomplete.vue"
 
 
 import UiTable from "@views/components/ui-table/ui-table.vue";
@@ -63,7 +64,6 @@ import UiSelectLabelComponent from "@/views/components/ui-select-label.vue"
 import UiDatetimePicker from "@/views/components/ui-datetime-picker/ui-datetime-picker.vue"
 import UiDateSelector from "@/views/components/ui-date-selector/ui-date-selector.vue"
 import UiAutocompleteMultiselectComponent from "@/views/components/ui-autocomplete-multiselect.vue"
-import UiAutocompleteComponent from "@/views/components/ui-autocomplete.vue"
 import UiQuickViewComponent from "@/views/components/ui-quick-view.vue"
 // пикер на 1 дату с часами
 import UiOneDatetimePicker from "@/views/components/ui-one-date-picker/ui-one-datatime-picker.vue"

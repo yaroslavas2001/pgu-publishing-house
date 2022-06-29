@@ -1,7 +1,9 @@
 import { App } from "vue";
 import { Store } from "vuex";
 import Vuex from 'vuex'
-
+import MaterialType from "@/common/MaterialType"
+import PublicationStatus from "@/common/PublicationStatus"
+import AllAuthorModel from "./models/author/AllAuthorModel";
 interface Model {
   Id: number
   Name: string
@@ -26,6 +28,28 @@ export class StateModel {
   UserId: number = 1
   Parse(data: Object): Object {
     return JSON.parse(JSON.stringify(data))
+  }
+  getType(id: number): string {
+    if (id)
+      return MaterialType.find((el) => el.Id == id).Name;
+  }
+  getStatus(id: number): string {
+    if (id)
+      return PublicationStatus.find((el) => el.Id == id).Name;
+  }
+  getAvtor(item: any): string {
+    if (item)
+      return (
+        this.ucFirst(item.lastName? item.lastName:item.secondName) +
+        " " +
+        this.ucFirst(item.firstName) +
+        " " +
+        this.ucFirst(item.sureName)
+      );
+  }
+  ucFirst(str: string): string {
+    if (!str) return str;
+    return str[0].toUpperCase() + str.slice(1);
   }
 }
 

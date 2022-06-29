@@ -3,20 +3,17 @@
     <content-table-test
       :columns="columns"
       :filter="filter"
-      templateColumns="1fr 1fr 1fr 1fr 1fr"
+      templateColumns="1fr 1fr 1fr 1fr"
       :getDataFunc="getUsersAsync"
       ref="contentTable"
     >
       <template #default="data">
+        <ui-table-body-item>
+          {{ data.secondName }}
+        </ui-table-body-item>
         <ui-table-body-item>{{ data.firstName }}</ui-table-body-item>
         <ui-table-body-item>
-          {{ data.lastName }}
-        </ui-table-body-item>
-        <ui-table-body-item>
-          {{ data.email }}
-        </ui-table-body-item>
-        <ui-table-body-item>
-          {{ data.department }}
+          {{ data.sureName }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
           <info />
@@ -33,7 +30,7 @@ import SearchModel from "@/api/plugins/models/Search/SearchModel";
 @Options({})
 export default class Authors extends Vue {
   filter: SearchModel = new SearchModel();
-  columns = ["Имя", "Фамилия", "Почта", "Кафедра", "Детальная"];
+  columns = ["Фамилия", "Имя", "Отчество", "Детальная"];
 
   created() {
     this.filter = new SearchModel();
@@ -50,6 +47,7 @@ export default class Authors extends Vue {
     this.$router.push({
       name: AUTHOR,
       params: { id: id },
+      
     });
   }
 }

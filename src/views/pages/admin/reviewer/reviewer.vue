@@ -11,9 +11,9 @@
       ref="contentTable"
     >
       <template #default="data">
-        <ui-table-body-item>{{ data.firstName }}</ui-table-body-item>
+        <ui-table-body-item>{{ data.lastName }}</ui-table-body-item>
         <ui-table-body-item>
-          {{ data.lastName }}
+          {{ data.firstName }}
         </ui-table-body-item>
         <ui-table-body-item>
           {{ data.sureName }}
@@ -21,9 +21,6 @@
         <ui-table-body-item>
           {{ data.email ? data.email : "-" }}
         </ui-table-body-item>
-        <!-- <ui-table-body-item class="pointer" @click="toAddress(data.id)">
-          <info />
-        </ui-table-body-item> -->
       </template>
     </content-table-test>
   </content>
@@ -32,21 +29,10 @@
 import { Options, Vue } from "vue-property-decorator";
 import { REVIEWERDETAILED } from "@/router/routerNames";
 import GetReviewerRequestModel from "@/api/plugins/models/Reviewer/GetReviewerRequestModel";
-import PageModel from "@/api/plugins/models/Page/PageModel";
 import FilterModel from "@/models/Filter/FilterModel";
-@Options({
-  // emits: ["goToAdmin"],
-})
+@Options({})
 export default class Reviewer extends Vue {
-  columns = ["Имя", "Фамилия", "Отчество", "Почта"];
-
-  async getUsersAsync(filter: FilterModel<any>) {
-    console.log("filter",filter)
-    this.filter.page = filter.page;
-    console.log("filter",this.filter)
-    let res = await this.$api.ReviewerService.Get(this.filter);
-    return res.data;
-  }
+  columns = ["Фамилия", "Имя", "Отчество", "Почта"];
   filter: GetReviewerRequestModel = new GetReviewerRequestModel();
   created() {
     this.filter = new GetReviewerRequestModel();
@@ -54,13 +40,10 @@ export default class Reviewer extends Vue {
       skip: 0,
       take: 10,
     };
-    // this.getUsersAsync(this.filter)
   }
-  toAddress(id: number) {
-    this.$router.push({
-      name: REVIEWERDETAILED,
-      params: { id: id },
-    });
+  async getUsersAsync(filter: FilterModel<any>) {
+    this.filter.page = filter.page;
+    return (await this.$api.ReviewerService.Get(this.filter)).data;
   }
   addReviewer() {
     this.$router.push({ name: REVIEWERDETAILED });

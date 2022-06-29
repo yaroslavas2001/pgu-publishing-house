@@ -13,7 +13,7 @@
           {{ data.tags }}
         </ui-table-body-item>
         <ui-table-body-item>
-          {{ getType(data.type) }}
+          {{  $store.state.getType(data.type) }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
           <info />
@@ -50,9 +50,6 @@ export default class NewMaterials extends Vue {
       name: DETAILEDNEWMATERIALADMIN,
       params: { id: id },
     });
-  }
-  getType(type: number) {
-    return this.MaterialType.find((el) => (el.Id = type)).Name;
   }
 }
 </script>

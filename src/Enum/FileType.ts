@@ -33,5 +33,9 @@ enum FileType {
     /// Общее
     /// </summary>
     Abstract = 7,
+    	/// <summary>
+	/// Рецензия
+	/// </summary>
+	 Review= 8,
 }
 export default FileType

@@ -4,7 +4,7 @@ const BaseTemplate = () => import("@/views/layouts/base-layout.vue");
 const AdminLayout = () => import("@views/layouts/admin/admin-layout.vue");
 
 import AuthorsPage from "@views/pages/admin/authors/authors.vue"
-import  AuthorsDetailed from "@views/pages/admin/authors/authors-detailed.vue"
+import AuthorsDetailed from "@views/pages/admin/authors/authors-detailed.vue"
 import MaterialsAdminPage from "@views/pages/admin/materials/materials.vue"
 import Reviewer from "@views/pages/admin/reviewer/reviewer.vue"
 import ReviewerDetailed from "@views/pages/admin/reviewer/reviewer-detailed.vue"
@@ -12,7 +12,7 @@ import MaterialDetailed from "@views/pages/admin/materials/material-detailed.vue
 import NewMaterials from "@views/pages/admin/new-materials/new-materials.vue"
 import NewMaterialDetailed from "@views/pages/admin/new-materials/new-material-detailed.vue"
 import Departments from "@views/pages/admin/departments/departments.vue"
-import { ADMIN, AUTHORS, DETAILEDADMIN, ADMINMATERIALS, ALLADMINMATERIALS, NEWMATERIALADMIN, ALLNEWMATERIALADMIN, DETAILEDNEWMATERIALADMIN, REVIEWER, ALLREVIEWER, REVIEWERDETAILED, AUTHOR, AUTHORSGROUP, DEPARTMENTS} from "../routerNames";
+import { ADMIN, AUTHORS, DETAILEDADMIN, ADMINMATERIALS, ALLADMINMATERIALS, NEWMATERIALADMIN, ALLNEWMATERIALADMIN, DETAILEDNEWMATERIALADMIN, REVIEWER, ALLREVIEWER, REVIEWERDETAILED, AUTHOR, AUTHORSGROUP, DEPARTMENTS } from "../routerNames";
 
 //#endregion
 const AdminRouter: Array<RouteRecordRaw> = [
@@ -40,13 +40,14 @@ const AdminRouter: Array<RouteRecordRaw> = [
               },
               {
                 name: AUTHOR,
-                path: AUTHOR,
+                path: ":id",
+                props: true,
                 component: AuthorsDetailed,
                 meta: { title: "Детальная автора" }
               },
             ]
           },
-      
+
           {
             name: REVIEWER,
             path: REVIEWER,
@@ -81,7 +82,8 @@ const AdminRouter: Array<RouteRecordRaw> = [
               },
               {
                 name: DETAILEDADMIN,
-                path: DETAILEDADMIN,
+                path: ":id",
+                props: true,
                 component: MaterialDetailed,
                 meta: { title: "Детальная материала" }
               },
@@ -101,7 +103,8 @@ const AdminRouter: Array<RouteRecordRaw> = [
               },
               {
                 name: DETAILEDNEWMATERIALADMIN,
-                path: DETAILEDNEWMATERIALADMIN,
+                path: ":id",
+                props: true,
                 component: NewMaterialDetailed,
                 meta: { title: "Детальная нового материала" }
               },

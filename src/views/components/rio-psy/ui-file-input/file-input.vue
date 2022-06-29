@@ -13,13 +13,6 @@
     <div class="ui-button-show" type="submit" @click="onClick">
       <slot></slot>
     </div>
-    <!-- <div
-      class="error-msg"
-      :class="{ hidden: !showError || !errorMessage }"
-      v-if="!showError == true"
-    >
-      {{ errorMessage }}
-    </div> -->
     <div
       v-for="(item, index) in fileArray"
       :key="index"
@@ -27,22 +20,21 @@
     >
       <div v-if="getTypeDocument(item.type)" class="file-input-document">
         <p>Document: {{ item.fileName }}</p>
-        <a :href="item.fileBody" :download="item.fileName">Скачать</a>
-        <btn isSmall @click="del(item.fileName)" title="Удалить" />
       </div>
       <div v-else class="file-input-img">
-        <div>
-          <img :src="item.fileBody" alt="" class="input-img" />
-          <p class="file-input-img-name">{{ item.fileName }}</p>
-        </div>
-        <btn
-          isSmall
-          @click="del(item.fileName)"
-          title="Удалить"
-          v-if="canselDelete"
-        />
-        <a :href="item.fileBody" :download="item.fileName">Скачать</a>
-        <!-- <btn isSmall @click="download(item.fileName)" title="Скачать" /> -->
+        <img :src="item.fileBody" alt="" class="input-img" />
+        <p class="file-input-img-name">{{ item.fileName }}</p>
+      </div>
+      <div>
+        <btn isSmall @click="del(item.fileName)" title="Удалить" v-if="isDel" />
+        <a
+          :href="item.fileBody"
+          :download="item.fileName"
+          class="btn-input-file"
+          v-if="isDownload"
+        >
+          Скачать
+        </a>
       </div>
     </div>
   </div>
@@ -57,7 +49,9 @@ import FileModel from "./FileModel";
 export default class UiFileInput extends Vue {
   @Prop({ default: false }) readonly!: boolean;
   @Prop({ default: 5 }) maxSizeMb: number;
-  @Prop({ default: false, type: Boolean }) canselDelete: boolean;
+  @Prop({ default: true, type: Boolean }) isDel: boolean;
+  @Prop({ default: true, type: Boolean }) isDownload: boolean;
+
   // @Prop({ default: true,type:Boolean}) download: boolean;
 
   fileArray: Array<FileModel> = [];
@@ -104,7 +98,7 @@ export default class UiFileInput extends Vue {
       reader.onerror = (error) => reject(error);
     });
   }
-  
+
   private clearValue() {
     (this.$refs.file as HTMLInputElement).value = null;
   }
@@ -135,7 +129,7 @@ export default class UiFileInput extends Vue {
 }
 </script>
 
-<style lang="less" scope>
+<style lang="less" scoped>
 .file-input {
   display: flex;
   flex-direction: column;
@@ -151,7 +145,10 @@ export default class UiFileInput extends Vue {
   }
   .file-input-block {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
     .file-input-document {
       display: flex;
       align-items: center;
@@ -161,10 +158,9 @@ export default class UiFileInput extends Vue {
       }
     }
     .file-input-img {
-      position: relative;
+      // position: relative;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
       .input-img {
         height: auto;
         width: auto;
@@ -180,6 +176,27 @@ export default class UiFileInput extends Vue {
         top: 30px;
       }
     }
+  }
+}
+.btn-input-file {
+  outline: none;
+  background: transparent;
+  border: 1px #cd8458 solid;
+  width: fit-content;
+  height: fit-content;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  color: #000;
+  font-size: 15px;
+  border-radius: 5px;
+  padding: 3px 14px;
+  text-decoration: none;
+  box-sizing: border-box;
+  margin-left: 10px;
+  &:hover {
+    background: #cd8458;
+    color: #dedfd7;
   }
 }
 </style>

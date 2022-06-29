@@ -10,13 +10,13 @@
       <template #default="data">
         <ui-table-body-item>{{ data.name }}</ui-table-body-item>
         <ui-table-body-item>
-          {{ data.autors }}
+          {{ data.tags }}
         </ui-table-body-item>
         <ui-table-body-item>
-          {{ data.type }}
+          {{ $store.state.getType(data.type) }}
         </ui-table-body-item>
         <ui-table-body-item>
-          {{ data.status }}
+          {{ $store.state.getStatus(data.status) }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
           <info />
@@ -37,7 +37,7 @@ export default class Materials extends Vue {
   columns = [
     "Название",
     "Ключевые слова",
-    "Тип издания",
+    "Тип материала",
     "Статус",
     "Детальная",
   ];

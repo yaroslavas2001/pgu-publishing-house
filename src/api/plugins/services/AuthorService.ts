@@ -1,4 +1,5 @@
 import AllAuthorModel from "@/models/author/AllAuthorModel";
+import AllAuthorModelSecondName from "@/models/author/AllAuthorModelSecondName";
 import AuthorModel from "@/models/author/AuthorModel";
 import GetAutorRequestModel from "../models/Author/GetAutorRequestModel";
 import SearchAuthorResponseModel from "../models/Author/SearchAuthorResponseModel";
@@ -14,14 +15,14 @@ export default class AuthorService extends BaseRequestService{
     }
     
     public async AddAuthor(request: AllAuthorModel): Promise<HttpResponseResult<AuthorModel>> {
-        let res = await this.createRequestPromise<any>('/Add', 'POST', request);
+        let res = await this.createRequestPromise<any>('/Add', 'POST', request,true);
         return res;
     }
     public async Search(request: SearchModel): Promise<HttpResponseResult<GeneralModel<Array<SearchAuthorResponseModel>>>> {
         let res = await this.createRequestPromise<any>('/Search', 'GET', request,false);
         return res;
     }
-    public async Get(request: GetAutorRequestModel): Promise<HttpResponseResult<GeneralModel<Array<AllAuthorModel>>>> {
+    public async Get(request: GetAutorRequestModel): Promise<HttpResponseResult<GeneralModel<Array<AllAuthorModelSecondName>>>> {
         let res = await this.createRequestPromise<any>('/Get', 'GET', request,false);
         return res;
     }

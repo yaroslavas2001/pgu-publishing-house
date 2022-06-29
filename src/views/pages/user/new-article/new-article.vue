@@ -6,6 +6,9 @@
     <file-input @onChange="onChangeAntiPl($event)">
       <btn isSmall title="Добавить антиплагиат" />
     </file-input>
+    <file-input @onChange="onChangeExtract($event)">
+      <btn isSmall title="Добавить выписку с кафедры" />
+    </file-input>
     <label for="Type">Тип печатного издания</label>
     <select-autocomplete
       keyField="Id"
@@ -16,9 +19,6 @@
       id="Type"
       class="mt-2 mb-8"
     />
-    <file-input @onChange="onChangeExtract($event)">
-      <btn isSmall title="Добавить выписку с кафедры" />
-    </file-input>
     <label-input
       nameLabel="Название статьи"
       placeholder="Введите название статьи"
@@ -34,12 +34,6 @@
       placeholder="Введите клчевые слова"
       v-model="newMaterial.tags"
     />
-    <label-input
-      nameLabel="Комментарии"
-      placeholder="Добавте комментарий для проверяющего"
-      v-model="newMaterial.comments"
-    />
-    <!-- <btn isSmall @click="addAuthor" title="Добавить автора" class="mb-5" /> -->
     <div
       for="autors"
       title="Если вы не нашли автора в списке, его нужно вначале добавить."
@@ -73,10 +67,7 @@ import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
 import IdNameSmallModel from "@/models/general/IdNameSmallModel";
 import FileType from "@/Enum/FileType";
 import AuthorModel from "@/models/author/AuthorModel";
-import { datatype } from "faker/locale/tr";
-@Options({
-  // emits: ["goToAdmin"],
-})
+@Options({})
 export default class NewArticle extends Vue {
   MaterialType = MaterialType;
   antiplagiat: Array<FileInput> = [];
@@ -94,7 +85,6 @@ export default class NewArticle extends Vue {
     };
   }
   onChangeArticle(data: Array<FileInput>) {
-    console.log("data",data)
     this.newMaterial.material = data;
   }
   onChangeAntiPl(data: Array<FileInput>) {
@@ -160,7 +150,7 @@ export default class NewArticle extends Vue {
           path: el.fileName,
           fileBase64: this.getBase64Only(el.fileBody),
           isVisibleForReviewers: false,
-          fileType: this.FileType.AntiPlagiarism,
+          fileType: FileType.AntiPlagiarism,
           publicationId: submit.data,
         });
       }
@@ -170,11 +160,12 @@ export default class NewArticle extends Vue {
           path: el.fileName, //el.path,
           fileBase64: this.getBase64Only(el.fileBody),
           isVisibleForReviewers: false,
-          fileType: this.FileType.Extract,
+          fileType: FileType.Extract,
           publicationId: submit.data,
         });
       }
-      if(resDoc.isSuccess && resAvtor.isSuccess)this.$router.push({name:ALLUSERMATERIALS})
+      if (resDoc.isSuccess && resAvtor.isSuccess)
+        this.$router.push({ name: ALLUSERMATERIALS });
       else {
         //todo ошибка
       }
