@@ -4,7 +4,7 @@ import Vuex, { Store } from 'vuex'
 
 import Cookies from "js-cookie";
 import AuthService from "./api/plugins/services/authService";
-import { LOGIN, ADMIN, USER, INDEX, CALCULATION } from "./router/routerNames";
+import { LOGIN, ADMIN, USER, INDEX, CALCULATION, REGISTRATION, ACTIVATEACCOUNTINFO, ACTIVATEACCOUNT } from "./router/routerNames";
 
 import UserRole from "./Enum/UserRole"
 
@@ -15,7 +15,9 @@ const install = (app: App, opts: { router: Router }) => {
     const role = Cookies.get(AuthService.Role);
 
     let isAuthorized = !!cookie && cookie != ''
-    if (to.name == INDEX || to.name == CALCULATION || to.name == LOGIN) {
+    if (to.name == INDEX || to.name == CALCULATION || to.name == LOGIN 
+      || to.name == REGISTRATION || to.name == ACTIVATEACCOUNTINFO 
+      || to.name == ACTIVATEACCOUNT) {
       next()
       return
     }

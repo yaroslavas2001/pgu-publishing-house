@@ -1,5 +1,5 @@
 export default class UploadFileForPublicationRequestModel{
-    path:string
+    name:string
     fileBase64:string
     isVisibleForReviewers:boolean
     fileType:number

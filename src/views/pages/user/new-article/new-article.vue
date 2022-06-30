@@ -137,8 +137,8 @@ export default class NewArticle extends Vue {
       for (let i = 0; i < this.newMaterial.material.length; i++) {
         let el = this.newMaterial.material[i];
         resDoc = await this.$api.FileService.UploadFileForPublication({
-          path: el.fileName,
-          fileBase64: this.getBase64Only(el.fileBody),
+          name: el.fileName,
+          fileBase64:this.$store.state.getBase64Only(el.fileBody),
           isVisibleForReviewers: false,
           fileType: this.newMaterial.type,
           publicationId: submit.data,
@@ -147,8 +147,8 @@ export default class NewArticle extends Vue {
       for (let i = 0; i < this.newMaterial.antiPlagiarism.length; i++) {
         let el = this.newMaterial.material[i];
         await this.$api.FileService.UploadFileForPublication({
-          path: el.fileName,
-          fileBase64: this.getBase64Only(el.fileBody),
+          name: el.fileName,
+          fileBase64: this.$store.state.getBase64Only(el.fileBody),
           isVisibleForReviewers: false,
           fileType: FileType.AntiPlagiarism,
           publicationId: submit.data,
@@ -157,8 +157,8 @@ export default class NewArticle extends Vue {
       for (let i = 0; i < this.newMaterial.excerpt.length; i++) {
         let el = this.newMaterial.material[i];
         await this.$api.FileService.UploadFileForPublication({
-          path: el.fileName, //el.path,
-          fileBase64: this.getBase64Only(el.fileBody),
+          name: el.fileName, //el.path,
+          fileBase64: this.$store.state.getBase64Only(el.fileBody),
           isVisibleForReviewers: false,
           fileType: FileType.Extract,
           publicationId: submit.data,
@@ -171,9 +171,7 @@ export default class NewArticle extends Vue {
       }
     }
   }
-  getBase64Only(str: string): string {
-    return str.replaceAll("data:application/octet-stream;base64,", "");
-  }
+ 
 }
 </script>
 <style scoped >

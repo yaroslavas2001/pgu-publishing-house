@@ -51,6 +51,10 @@ export class StateModel {
     if (!str) return str;
     return str[0].toUpperCase() + str.slice(1);
   }
+  
+  getBase64Only(str: string): string {
+    return str.replaceAll("data:application/octet-stream;base64,", "");
+  }
 }
 
 const install = (app: App) => {

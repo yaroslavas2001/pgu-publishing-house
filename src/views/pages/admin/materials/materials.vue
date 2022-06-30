@@ -43,15 +43,13 @@ export default class Materials extends Vue {
   ];
   created() {
     this.filter = new GetPublicationRequestModel();
-        this.filter.excludeDraft = true;
-
-    // this.filter.status = 0;/
+    this.filter.excludeDraft = true;
   }
   async getUsersAsync(filter: FilterModel<any>) {
     this.filter.page = filter.page;
     this.filter.search = filter.search;
     this.filter.excludeDraft = true;
-    let res = await this.$api.PublicationService.Get(this.filter)
+    let res = await this.$api.PublicationService.Get(this.filter);
     return res.data;
   }
   toAddress(id: number) {

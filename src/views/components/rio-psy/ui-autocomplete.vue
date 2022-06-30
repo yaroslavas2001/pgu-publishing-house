@@ -298,12 +298,12 @@ export default class UiAutocompleteComponent extends Vue {
 }
 </script>
 <style lang="less" scoped>
-@uiSelectColor: #3c3f40;
-@uiSelectIconColor: #062634;
-@uiSelectBorderColor: #f3f4fa;
-@uiSelectActiveColor: #ced4de;
-@uiSelectBackColor: #f3f4fa;
-@uiSelectColorLabel: #7a7878;
+@bgItem: #fff;
+@colorItem: #bb8b65;
+@borderCurent: #ced4de;
+@hoverItembg: #deded5;
+@activeItembg: #cec0ae;
+@curentColor: #000;
 
 .ui-autocomplete {
   position: relative;
@@ -317,20 +317,20 @@ export default class UiAutocompleteComponent extends Vue {
       // border: 1px #ced4de solid;
       &.active {
         border-width: 1px 1px 0px 1px;
-        border-color: #062634;
-        border-bottom: 1px solid #ced4de;
+        border-color: @borderCurent;
+        border-bottom: 1px solid @borderCurent;
       }
     }
   }
   .current {
     // background: url("~@assets/img/icon/s_down.svg") no-repeat 97% center, #fff;
     height: 30px;
-    background-color: #f3f4fa;
-    border: 1px solid #d0d9de;
+    background-color: @bgItem;
+    border: 1px solid @borderCurent;
     padding: 5px 12px;
     border-radius: 4px;
     font-size: 12px;
-    color: #4f5e74;
+    color: @curentColor;
     box-sizing: border-box;
     font-weight: 600;
   }
@@ -340,11 +340,11 @@ export default class UiAutocompleteComponent extends Vue {
   }
   .input {
     border-radius: 4px;
-    border: 1px solid #d0d9de;
+    border: 1px solid @borderCurent;
     outline: none;
     width: 100%;
     padding: 5px 7px;
-    color: #162a47;
+    color: @curentColor;
     font-size: 14px;
     height: 30px;
   }
@@ -352,14 +352,14 @@ export default class UiAutocompleteComponent extends Vue {
     opacity: 0.6;
   }
   .container {
-    color: #4f5e74;
+    color: @curentColor;
     display: none;
     padding: 0;
     position: absolute !important;
     &.isLoading {
       height: 100px;
       position: absolute !important;
-      background-color: #f3f4fa;
+      background-color: @bgItem;
     }
     &.active {
       display: block;
@@ -367,28 +367,29 @@ export default class UiAutocompleteComponent extends Vue {
       z-index: 100;
       min-width: calc(~"100%");
       top: 100%;
-      border: solid #d0d9de;
+      border: solid @borderCurent;
       // background-color: #e1e3eb;
 
       border-width: 0px 1px 1px 1px;
       .item {
         padding: 7px 10px;
-        background-color: #f3f4fa;
-        border-top: @uiSelectBorderColor;
+        color:@curentColor;
+        background-color: @bgItem;
+        border-top: @borderCurent;
         font-size: 14px;
         &.hover,
         &:hover {
-          background-color: #eff0f7;
+          background-color: @hoverItembg;
         }
         &.active {
           border: 0px;
           // background-color: #e1e3eb;
-          color: #8797af;
+          color: @colorItem;
           font-weight: bold;
         }
         &.hover.active,
         &:hover.active {
-          background-color: #eff0f7;
+          background-color:@activeItembg ;
         }
       }
     }

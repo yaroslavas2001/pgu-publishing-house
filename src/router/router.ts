@@ -7,13 +7,14 @@ import ErrorPageComponent from "@/views/pages/login/404-page.vue"
 import RegistrationPage from "@views/pages/login/registration.vue"
 import ActivateAccount from "@views/pages/login/activate-account.vue"
 import ActivateAccountInfo from "@/views/pages/login/activate-account-info.vue"
+import ReviewerGratitudePage from "@/views/pages/reviewer/reviewer-gratitude.vue"
 // import Reviewer
 import Reviewer from "@views/pages/reviewer/reviewer.vue"
 import MainPage from "@/views/pages/general/main-page.vue"
 import Calculation from "@/views/pages/calculation/calculation.vue"
 import {
   DEFAULT, LOGIN, FORGOTPESSWORD, REGISTRATION,CALCULATION,
-  REVIEWER, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO, INDEX, PUBLICATION
+  REVIEWER, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO, INDEX, PUBLICATION, ReviewerGratitude
 } from "./routerNames";
 
 import AdminRouter from "./model/AdminRouter"
@@ -78,6 +79,13 @@ const routes: Array<RouteRecordRaw> = [
         name: PUBLICATION,
         path: ":id",
         component: Reviewer,
+        props: true,
+        meta: { title: "Рецензирование" }
+      },
+      {
+        name: ReviewerGratitude,
+        path: ":id",
+        component: ReviewerGratitudePage,
         props: true,
         meta: { title: "Рецензирование" }
       },

@@ -41,7 +41,7 @@ export default class NewMaterials extends Vue {
     this.filter.page = filter.page;
     this.filter.search = filter.search;
     this.filter.status = 0;
-    let res = await this.$api.PublicationService.Get(this.filter);
+    let res = await this.$api.PublicationService.Get(this.$store.state.Parse(this.filter));
     return res.data;
   }
   toAddress(id: number) {

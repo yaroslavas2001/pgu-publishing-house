@@ -1,135 +1,175 @@
 <template>
   <content title="Указать статус материалу">
-    <file-input @onChange="onChangeArticle($event)">
-      <btn isSmall title="Добавить материал" />
-    </file-input>
-    <file-input @onChange="onChangeAntiPl($event)">
-      <btn isSmall title="Добавить антиплагиат" />
-    </file-input>
-    <label for="Type">Тип печатного издания</label>
+    <info-block title="Название" :description="publication.name" />
+    <info-block title="Ключевые слова" :description="publication.tags" />
+    <info-block title="УДК" :description="publication.udc" />
+    <info-block
+      title="Тип издания"
+      :description="$store.state.getType(publication.type)"
+    />
+
+    <info-block title="Авторы">
+      <div v-for="(item, index) in AuthorsText" :key="index">
+        {{ item }}
+      </div>
+    </info-block>
+    <div class="title-text">Материалы</div>
+    <div v-if="files.length > 0" class="files">
+      <div v-for="(item, index) in files" :key="index" class="files-item">
+        {{ item.name }}
+        <a :href="item.url" :download="item.name" class="link">Скачать</a>
+      </div>
+    </div>
+  
+    <div for="Type" class="mt-10">Выберите статус материала</div>
     <select-autocomplete
       keyField="Id"
       valueField="Name"
-      :items="testMaterial"
-      v-model="newArticle.type"
-      defaultText="Выберите тип"
+      :items="PublicationStatus"
+      v-model="publicationStatus"
+      defaultText="Выберите статус"
       id="Type"
       class="mt-2 mb-8"
     />
-    <file-input @onChange="onChangeExtract($event)">
-      <btn isSmall title="Добавить выписку с кафедры" />
-    </file-input>
-    <info-block title="Название" :description="newArticle.nameArticle" />
-
-    <info-block title="УДК" :description="newArticle.udc" />
-
-    <label-input
-      nameLabel="Ключевые слова"
-      placeholder="Введите клчевые слова"
-      v-model="newArticle.tags"
+    <!-- Добавить документ для ревьювера -->
+    <btn
+      isSmall
+      isActive
+      @click="SaveStatus"
+      title="Сохранить статус материала"
+      class="mt-10"
     />
-    <label-input
-      nameLabel="Комментарии"
-      placeholder="Добавте комментарий для проверяющего"
-      v-model="newArticle.comments"
-    />
-    <div
-      for="autors"
-      title="Если вы не нашли автора в списке, его нужно вначале добавить."
-      class="mb-3"
-    >
-      Авторы
-    </div>
-    <info-block title="Авторы">
-      <autocomplete-multiselect
-        class="autocomplete-multiselect"
-        keyField="Id"
-        valueField="Name"
-        v-model="newArticle.authors"
-        id="autors"
-        :SearchAsyncFunc="GetAuthors"
-        :closeOnSelect="true"
-      />
-    </info-block>
-    <btn isSmall isActive @click="Save" title="Отправить" class="mt-10" />
   </content>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
-import { ADMINMATERIALS } from "@/router/routerNames";
-import IdNameModel from "@/models/general/IdNameModel";
-import NewMaterialModel from "@/models/new-material/NewMaterialModel";
 import FileInput from "@/views/components/rio-psy/ui-file-input/FileModel";
 
-@Options({
-  // emits: ["goToAdmin"],
-})
+import { ADMINMATERIALS, NEWMATERIALADMIN } from "@/router/routerNames";
+import NewMaterialModel from "@/models/new-material/NewMaterialModel";
+import FileGetResponseModel from "@/api/plugins/models/File/FileGetResponseModel";
+import HttpResponseResult from "@/api/plugins/models/httpResponseResult";
+import GeneralModel from "@/api/plugins/models/GeneralModel";
+import GetPublicationResponseModel from "@/api/plugins/models/Publication/GetPublicationResponseModel";
+import MaterialType from "@/common/MaterialType";
+import PublicationStatus from "@/common/PublicationStatus";
+import IdNameModel from "@/models/general/IdNameModel";
+import AllAuthorModelSecondName from "@/models/author/AllAuthorModelSecondName";
+import IdNameSmallModel from "@/models/general/IdNameSmallModel";
+import GetReviewerRequestModel from "@/api/plugins/models/Reviewer/GetReviewerRequestModel";
+import GetReviewerResponseModel from "@/api/plugins/models/Reviewer/GetReviewerResponseModel";
+@Options({})
 export default class MaterialDetailed extends Vue {
   id: number = null;
-  Authors: any = null;
-  newArticle: NewMaterialModel = new NewMaterialModel();
-
-  testMaterial: Array<IdNameModel> = [
-    { Id: 1, Name: "Статья" },
-    { Id: 2, Name: "Книга" },
-    { Id: 3, Name: "Методическое пособие" },
-    { Id: 4, Name: "Бланк" },
-  ];
-  test: Array<IdNameModel> = [
-    { Id: 1, Name: "34" },
-    { Id: 2, Name: "342" },
-    { Id: 3, Name: "343" },
-    { Id: 4, Name: "3424" },
-    { Id: 5, Name: "3425" },
-    { Id: 6, Name: "346" },
-    { Id: 7, Name: "3427" },
-    { Id: 8, Name: "34258" },
-    { Id: 9, Name: "3469" },
-    { Id: 10, Name: "342710" },
-  ];
-  onChangeArticle(data: Array<FileInput>) {
-    this.newArticle.material = data;
-  }
-  onChangeAntiPl(data: Array<FileInput>) {
-    this.newArticle.antiPlagiarism = data;
-  }
-  onChangeExtract(data: Array<FileInput>) {
-    this.newArticle.excerpt = data;
-  }
-  created() {
-    console.log(this.$route.params.id);
-    this.id = Number(this.$route.params.id);
-    this.newArticle = new NewMaterialModel();
-    this.newArticle = {
-      material: [],
-      antiPlagiarism: [],
-      excerpt: [],
-      nameArticle:
-        "СОВРЕМЕННЫЕ ТЕХНОЛОГИИ ПРОГРАММИРОВАНИЯ. РАЗРАБОТКА ПРИЛОЖЕНИЙ НА БАЗЕ WPF И SILVERLIGHT",
-      udc: "978-5-7972-1779-4",
-      tags:
-        "	ВЫЧИСЛИТЕЛЬНАЯ ТЕХНИКА, ВЫЧИСЛИТЕЛЬНЫЕ МАШИНЫ ЭЛЕКТРОННЫЕ ЦИФРОВЫЕ, АВТОМАТИЧЕСКАЯ ОБРАБОТКА ИНФОРМАЦИИ, ИНФОРМАЦИОННЫЕ СИСТЕМЫ И СЕТИ, ПРОГРАММИРОВАНИЕ, АВТОМАТИЗАЦИЯ, УЧЕБНИК ДЛЯ ВЫСШЕЙ ШКОЛЫ, БИЗНЕС-ПРИЛОЖЕНИЯ",
-      authors: [],
-      comments: "string",
-      type: 1,
-      status: 1,
-      userId:this.$store.state.UserId
+  reviewer: NewMaterialModel = new NewMaterialModel();
+  publication: GetPublicationResponseModel = new GetPublicationResponseModel();
+  AuthorsText: Array<string> = [];
+  MaterialType = MaterialType;
+  PublicationStatus = PublicationStatus;
+  publicationStatus: number = null;
+  files: Array<FileGetResponseModel> = [];
+  Reviewer: number = null;
+  ReviewerName: string = null;
+  ReviewerDocument: Array<FileGetResponseModel> = [];
+  Authors: Array<IdNameSmallModel> = null;
+  SearchModel: GetReviewerRequestModel = new GetReviewerRequestModel();
+  async created() {
+    this.SearchModel = {
+      search: "",
+      page: {
+        skip: 0,
+        take: 6,
+      },
     };
+    this.id = Number(this.$route.params.id);
+    if (this.id) {
+      let publication: HttpResponseResult<
+        GeneralModel<Array<GetPublicationResponseModel>>
+      > = await this.$api.PublicationService.Get({
+        publicationId: this.id,
+      });
+      this.publication = publication.data.items.find((el) => el.id == this.id);
+      if (this.publication) {
+        this.publicationStatus=this.publication.status
+        this.additionalMethods();
+        if (this.publication.reviewerId != null) this.getReviewer();
+        this.checkReviewerDocument();
+      }
+    }
   }
-  Save() {}
+  async checkReviewerDocument() {
+    let res: HttpResponseResult<Array<FileGetResponseModel>> =
+      await this.$api.FileService.Get({
+        publicationId: this.publication.id,
+        isReviewer: true,
+      });
+    this.ReviewerDocument = res.data;
+    console.log("checkReviewerDocument", res.data);
+  }
+  // получить фио рецензента
+  async getReviewer() {
+    let res: HttpResponseResult<GeneralModel<Array<GetReviewerResponseModel>>> =
+      await this.$api.ReviewerService.Get({
+        reviewerId: this.publication.reviewerId,
+        publicationId: this.publication.id,
+        page: {
+          skip: 0,
+          take: 10,
+        },
+      });
+    let reviewer: GetReviewerResponseModel = res.data.items.find(
+      (el) => el.id == this.publication.reviewerId
+    );
+    this.ReviewerName =
+      reviewer.lastName + " " + reviewer.firstName + " " + reviewer.sureName;
+  }
+  async additionalMethods() {
+    let res: HttpResponseResult<Array<FileGetResponseModel>> =
+      await this.$api.FileService.Get({
+        publicationId: this.id,
+      });
+    if (res.isSuccess) {
+      console.log("res", res.data);
+    }
+    let pubAutors: HttpResponseResult<Array<number>> =
+      await this.$api.PublicationAuthorService.Get({ publicationId: this.id });
+    for (let i = 0; i < pubAutors.data.length; i++) {
+      let autor: HttpResponseResult<
+        GeneralModel<Array<AllAuthorModelSecondName>>
+      > = await this.$api.AuthorService.Get({
+        authorId: pubAutors.data[i],
+      });
+      this.AuthorsText.push(this.$store.state.getAvtor(autor.data.items[0]));
+    }
+        this.getDocument();
+  }
+  async getDocument() {
+    let res = await this.$api.FileService.Get({
+      publicationId: this.id,
+      isReviewer: false,
+    });
+    this.files = res.data;
+  }
   clickBack() {
     this.$router.push({ name: ADMINMATERIALS });
   }
-  async GetAuthors(search?: string) {
-    //получение по search субагентов
-    return [];
-    // return await this.$api.EnterpriseService.getList({
-    //   _filters: { Name: search },
-    //   _page: 1,
-    //   _perPage: 6,
-    // });
+
+
+  async SaveStatus() {
+    let res = await this.$api.PublicationService.SetStatus({
+      id: this.publication.id,
+      status: this.publicationStatus,
+    });
   }
 }
 </script>
-<style scoped >
+<style lang="less" >
+.files {
+  display: flex;
+  flex-direction: column;
+  .files-item {
+    height: auto;
+    min-height: 30px;
+  }
+}
 </style>

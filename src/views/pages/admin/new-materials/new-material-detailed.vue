@@ -20,17 +20,41 @@
         <a :href="item.url" :download="item.name" class="link">Скачать</a>
       </div>
     </div>
-    <div for="autors" class="mb-3">Рецензент</div>
-    <ui-autocomplete
-      class="autocomplete-multiselect mb-10"
-      selectText="Выберите рецензента"
-      keyField="Id"
-      valueField="Name"
-      v-model="Reviewer"
-      id="autors"
-      :SearchAsyncFunc="GetReviewer"
-    />
-    <label for="Type" class="mt-10">Выберите статус материала</label>
+    <div v-if="publication.reviewerId == null">
+      <div for="autors" class="mb-3">Рецензент</div>
+      <ui-autocomplete
+        class="autocomplete-multiselect mb-10"
+        selectText="Выберите рецензента"
+        keyField="Id"
+        valueField="Name"
+        v-model="Reviewer"
+        id="autors"
+        :SearchAsyncFunc="GetReviewer"
+      />
+      <btn
+        isSmall
+        isActive
+        @click="SaveReviewer"
+        title="Сохранить рецензента"
+        class="mt-10"
+      />
+    </div>
+    <div v-else>
+      <info-block title="Рецензент" :description="ReviewerName" />
+    </div>
+    <div v-if="ReviewerDocument.length == 0">
+      <file-input @onChange="onChangeArticle($event)">
+        <btn isSmall title="Добавить материал без авторов для рецензента" />
+      </file-input>
+      <btn
+        isSmall
+        isActive
+        @click="SaveReviewerDoc"
+        title="Сохранить материал без авторов"
+        class="mt-10"
+      />
+    </div>
+    <div for="Type" class="mt-10">Выберите статус материала</div>
     <select-autocomplete
       keyField="Id"
       valueField="Name"
@@ -40,8 +64,14 @@
       id="Type"
       class="mt-2 mb-8"
     />
-    Добавить документ для ревьювера
-    <btn isSmall isActive @click="Save" title="Сохранить" class="mt-10" />
+    <!-- Добавить документ для ревьювера -->
+    <btn
+      isSmall
+      isActive
+      @click="SaveStatus"
+      title="Сохранить статус материала"
+      class="mt-10"
+    />
   </content>
 </template>
 <script lang="ts">
@@ -64,7 +94,7 @@ import GetReviewerResponseModel from "@/api/plugins/models/Reviewer/GetReviewerR
 @Options({})
 export default class NewMaterialDetailed extends Vue {
   id: number = null;
-  newArticle: NewMaterialModel = new NewMaterialModel();
+  reviewer: NewMaterialModel = new NewMaterialModel();
   publication: GetPublicationResponseModel = new GetPublicationResponseModel();
   AuthorsText: Array<string> = [];
   MaterialType = MaterialType;
@@ -72,6 +102,10 @@ export default class NewMaterialDetailed extends Vue {
   publicationStatus: number = null;
   files: Array<FileGetResponseModel> = [];
   Reviewer: number = null;
+  ReviewerName: string = null;
+  ReviewerDocument: Array<FileGetResponseModel> = [];
+  Authors: Array<IdNameSmallModel> = null;
+  SearchModel: GetReviewerRequestModel = new GetReviewerRequestModel();
   async created() {
     console.log(this.$route.params.id);
     this.SearchModel = {
@@ -89,8 +123,37 @@ export default class NewMaterialDetailed extends Vue {
         publicationId: this.id,
       });
       this.publication = publication.data.items.find((el) => el.id == this.id);
-      if (this.publication) this.additionalMethods();
+      if (this.publication) {
+        this.additionalMethods();
+        if (this.publication.reviewerId != null) this.getReviewer();
+        this.checkReviewerDocument();
+      }
     }
+  }
+  async checkReviewerDocument() {
+    let res: HttpResponseResult<Array<FileGetResponseModel>> =
+      await this.$api.FileService.Get({
+        publicationId: this.publication.id,
+        isReviewer: true,
+      });
+    this.ReviewerDocument = res.data;
+    console.log("checkReviewerDocument", res.data);
+  }
+  async getReviewer() {
+    let res: HttpResponseResult<GeneralModel<Array<GetReviewerResponseModel>>> =
+      await this.$api.ReviewerService.Get({
+        reviewerId: this.publication.reviewerId,
+        publicationId: this.publication.id,
+        page: {
+          skip: 0,
+          take: 10,
+        },
+      });
+    let reviewer: GetReviewerResponseModel = res.data.items.find(
+      (el) => el.id == this.publication.reviewerId
+    );
+    this.ReviewerName =
+      reviewer.lastName + " " + reviewer.firstName + " " + reviewer.sureName;
   }
   async additionalMethods() {
     let res: HttpResponseResult<Array<FileGetResponseModel>> =
@@ -114,15 +177,15 @@ export default class NewMaterialDetailed extends Vue {
     this.getDocument();
   }
   async getDocument() {
-    let res = await this.$api.FileService.Get({ publicationId: this.id });
+    let res = await this.$api.FileService.Get({
+      publicationId: this.id,
+      isReviewer: false,
+    });
     this.files = res.data;
   }
   onChangeArticle(data: Array<FileInput>) {
-    this.newArticle.material = data;
+    this.reviewer.material = data;
   }
-
-  Authors: Array<IdNameSmallModel> = null;
-  SearchModel: GetReviewerRequestModel = new GetReviewerRequestModel();
 
   async GetReviewer(search?: string) {
     this.SearchModel.search = search;
@@ -132,7 +195,7 @@ export default class NewMaterialDetailed extends Vue {
     let mas: Array<IdNameModel> = [];
     for (let i = 0; i < res.data.items.length; i++) {
       let item = res.data.items[i];
-      let fio = item.firstName + " " + item.lastName + " " + item.sureName;
+      let fio = item.lastName + " " + item.firstName + " " + item.sureName;
       mas.push({
         Id: item.id,
         Name: fio,
@@ -143,14 +206,39 @@ export default class NewMaterialDetailed extends Vue {
   clickBack() {
     this.$router.push({ name: NEWMATERIALADMIN });
   }
-  async Save() {
+  async SaveReviewer() {
+    if (this.Reviewer != null) {
+      await this.$api.PublicationService.Update({
+        udc: this.publication.udc,
+        name: this.publication.name,
+        tags: this.publication.tags,
+        type: this.publication.type,
+        userId: this.publication.userId,
+        publicationId: this.publication.id,
+        reviewerId: this.Reviewer,
+      });
+    }
+  }
+  async SaveReviewerDoc() {
+    if (this.reviewer.material.length > 0) {
+      for (let i = 0; i < this.reviewer.material.length; i++) {
+        let el = this.reviewer.material[i];
+        console.log("el", el);
+        await this.$api.FileService.UploadFileForPublication({
+          name: el.fileName,
+          fileBase64: this.$store.state.getBase64Only(el.fileBody),
+          isVisibleForReviewers: true,
+          fileType: this.publication.type,
+          publicationId: this.publication.id,
+        });
+      }
+    }
+  }
+  async SaveStatus() {
     let res = await this.$api.PublicationService.SetStatus({
       id: this.publication.id,
       status: this.publicationStatus,
     });
-    if(this.Reviewer!=null){
-
-    }
   }
 }
 </script>
