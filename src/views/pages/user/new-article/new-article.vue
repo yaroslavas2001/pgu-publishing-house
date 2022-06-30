@@ -20,8 +20,8 @@
       class="mt-2 mb-8"
     />
     <label-input
-      nameLabel="Название статьи"
-      placeholder="Введите название статьи"
+      nameLabel="Название"
+      placeholder="Введите название"
       v-model="newMaterial.nameArticle"
     />
     <label-input
@@ -83,6 +83,7 @@ export default class NewArticle extends Vue {
         take: 6,
       },
     };
+    this.newMaterial = new NewMaterialModel();
   }
   onChangeArticle(data: Array<FileInput>) {
     this.newMaterial.material = data;
@@ -134,44 +135,44 @@ export default class NewArticle extends Vue {
           authorId: el.id,
         });
       }
-      for (let i = 0; i < this.newMaterial.material.length; i++) {
-        let el = this.newMaterial.material[i];
-        resDoc = await this.$api.FileService.UploadFileForPublication({
-          name: el.fileName,
-          fileBase64:this.$store.state.getBase64Only(el.fileBody),
-          isVisibleForReviewers: false,
-          fileType: this.newMaterial.type,
-          publicationId: submit.data,
-        });
-      }
       for (let i = 0; i < this.newMaterial.antiPlagiarism.length; i++) {
-        let el = this.newMaterial.material[i];
+        let ela = this.newMaterial.antiPlagiarism[i];
         await this.$api.FileService.UploadFileForPublication({
-          name: el.fileName,
-          fileBase64: this.$store.state.getBase64Only(el.fileBody),
+          name: ela.fileName,
+          fileBase64: this.$store.state.getBase64Only(ela.fileBody),
           isVisibleForReviewers: false,
           fileType: FileType.AntiPlagiarism,
           publicationId: submit.data,
         });
       }
       for (let i = 0; i < this.newMaterial.excerpt.length; i++) {
-        let el = this.newMaterial.material[i];
+        let ele = this.newMaterial.excerpt[i];
         await this.$api.FileService.UploadFileForPublication({
-          name: el.fileName, //el.path,
-          fileBase64: this.$store.state.getBase64Only(el.fileBody),
+          name: ele.fileName, //el.path,
+          fileBase64: this.$store.state.getBase64Only(ele.fileBody),
           isVisibleForReviewers: false,
           fileType: FileType.Extract,
           publicationId: submit.data,
         });
       }
-      if (resDoc.isSuccess && resAvtor.isSuccess)
+      for (let i = 0; i < this.newMaterial.material.length; i++) {
+        let elm = this.newMaterial.material[i];
+        await this.$api.FileService.UploadFileForPublication({
+          name: elm.fileName,
+          fileBase64: this.$store.state.getBase64Only(elm.fileBody),
+          isVisibleForReviewers: false,
+          fileType: this.newMaterial.type,
+          publicationId: submit.data,
+        });
+      }
+
+      if ( resAvtor.isSuccess)
         this.$router.push({ name: ALLUSERMATERIALS });
       else {
         //todo ошибка
       }
     }
   }
- 
 }
 </script>
 <style scoped >

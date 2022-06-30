@@ -24,7 +24,7 @@
           {{ $store.state.getType(data.type) }}
         </ui-table-body-item>
         <ui-table-body-item>
-          {{  $store.state.getStatus(data.status) }}
+          {{  getStatus(data.status) }}
         </ui-table-body-item>
         <ui-table-body-item class="pointer" @click="toAddress(data.id)">
           <info />
@@ -38,6 +38,7 @@ import { Options, Vue } from "vue-property-decorator";
 import { DETAILEDUSER } from "@/router/routerNames";
 import GetPublicationRequestModel from "@/api/plugins/models/Publication/GetPublicationRequestModel";
 import FilterModel from "@/models/Filter/FilterModel";
+import PublicationStatus from "@/common/PublicationStatus";
 
 @Options({})
 export default class UserMaterials extends Vue {
@@ -62,6 +63,10 @@ export default class UserMaterials extends Vue {
       name: DETAILEDUSER,
       params: { id: id },
     });
+  }
+    getStatus(id: number): string {
+    if (id!=undefined && id!=null)
+      return PublicationStatus.find((el) => el.Id == id).Name;
   }
 }
 </script>

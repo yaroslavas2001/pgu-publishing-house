@@ -8,10 +8,7 @@
       title="Тип издания"
       :description="$store.state.getType(material.type)"
     />
-    <info-block
-      title="Статус"
-      :description="$store.state.getStatus(material.status)"
-    />
+    <info-block title="Статус" :description="getStatus(material.status)" />
 
     <info-block title="Авторы">
       <div v-for="(item, index) in AuthorsText" :key="index">
@@ -52,6 +49,7 @@ import FileGetResponseModel from "@/api/plugins/models/File/FileGetResponseModel
 import AllAuthorModelSecondName from "@/models/author/AllAuthorModelSecondName";
 import GetReviewResponseModel from "@/api/plugins/models/Review/GetReviewResponseModel";
 import FileType from "@/Enum/FileType";
+import PublicationStatus from "@/common/PublicationStatus";
 
 export default class UserMaterialDetailed extends Vue {
   id: number = null;
@@ -84,7 +82,7 @@ export default class UserMaterialDetailed extends Vue {
       this.AuthorsText.push(this.$store.state.getAvtor(autor.data.items[0]));
     }
     this.getDocument();
-   this.getRevie()
+    this.getRevie();
     // сделать запрос на получение комментария и документа
   }
   onChangeArticle(data: Array<FileInput>) {
@@ -96,8 +94,7 @@ export default class UserMaterialDetailed extends Vue {
         publicationId: this.material.id,
       });
     this.answer = res.data[0];
-    this.comment = res.data[0].comment;
-    console.log("comment", this.comment);
+    if (res.data[0]) this.comment = res.data[0].comment;
   }
   async getDocument() {
     let res: HttpResponseResult<Array<FileGetResponseModel>> =
@@ -119,6 +116,11 @@ export default class UserMaterialDetailed extends Vue {
   }
   clickBack() {
     this.$router.push({ name: USERMATERIALS });
+  }
+  getStatus(id: number): string {
+    if (id!=undefined && id!=null)
+    return PublicationStatus.find((el) => el.Id == id).Name;
+    else return ""
   }
 }
 </script>
