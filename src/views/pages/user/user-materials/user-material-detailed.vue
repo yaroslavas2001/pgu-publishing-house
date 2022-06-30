@@ -29,7 +29,7 @@
     <div v-if="material.status == 0"></div>
 
     <div v-if="answer">
-      <info-block title="Ответ рецензиата" :description="answer.comment" />
+      <info-block title="Ответ рецензента" :description="comment" />
     </div>
     <div v-if="material.status == 1">
       <file-input @onChange="onChangeArticle($event)">
@@ -60,11 +60,11 @@ export default class UserMaterialDetailed extends Vue {
   files: Array<FileGetResponseModel> = [];
   answer: GetReviewResponseModel = new GetReviewResponseModel();
   dopFile: Array<FileInput> = [];
-
+  comment: string = "";
   async created() {
     this.id = Number(this.$route.params.id);
     this.material = new GetPublicationResponseModel();
-    this.answer = new GetReviewResponseModel()
+    this.answer = new GetReviewResponseModel();
     let res: HttpResponseResult<
       GeneralModel<Array<GetPublicationResponseModel>>
     > = await this.$api.PublicationService.Get({
@@ -84,19 +84,20 @@ export default class UserMaterialDetailed extends Vue {
       this.AuthorsText.push(this.$store.state.getAvtor(autor.data.items[0]));
     }
     this.getDocument();
-    this.getRevie()
-
+   this.getRevie()
     // сделать запрос на получение комментария и документа
   }
   onChangeArticle(data: Array<FileInput>) {
     this.dopFile = data;
   }
   async getRevie() {
-    let res: HttpResponseResult<GetReviewResponseModel> =
+    let res: HttpResponseResult<Array<GetReviewResponseModel>> =
       await this.$api.ReviewService.Get({
         publicationId: this.material.id,
       });
-    this.answer = res.data;
+    this.answer = res.data[0];
+    this.comment = res.data[0].comment;
+    console.log("comment", this.comment);
   }
   async getDocument() {
     let res: HttpResponseResult<Array<FileGetResponseModel>> =

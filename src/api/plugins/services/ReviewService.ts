@@ -8,14 +8,14 @@ import BaseRequestService from "./baseRequestService";
 
 export default class ReviewService extends BaseRequestService{
     constructor(api: WebApiService) {
-        super(api, "Reviewer");
+        super(api, "Review");
     }
     
     public async Add(request: AddReviewRequestModel): Promise<HttpResponseResult<any>> {
         let res = await this.createRequestPromise<any>('/Add', 'POST', request);
         return res;
     }
-    public async Get(request: GetReviewRequestModel): Promise<HttpResponseResult<GetReviewResponseModel>> {
+    public async Get(request: GetReviewRequestModel): Promise<HttpResponseResult<Array<GetReviewResponseModel>>> {
         let res = await this.createRequestPromise<any>('/Get', 'GET', request,false);
         return res;
     }

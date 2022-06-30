@@ -20,7 +20,9 @@
         <a :href="item.url" :download="item.name" class="link">Скачать</a>
       </div>
     </div>
-  
+    <div v-if="answer">
+      <info-block title="Ответ рецензента" :description="comment" />
+    </div>
     <div for="Type" class="mt-10">Выберите статус материала</div>
     <select-autocomplete
       keyField="Id"
@@ -31,7 +33,7 @@
       id="Type"
       class="mt-2 mb-8"
     />
-    <!-- Добавить документ для ревьювера -->
+
     <btn
       isSmall
       isActive
@@ -58,6 +60,7 @@ import AllAuthorModelSecondName from "@/models/author/AllAuthorModelSecondName";
 import IdNameSmallModel from "@/models/general/IdNameSmallModel";
 import GetReviewerRequestModel from "@/api/plugins/models/Reviewer/GetReviewerRequestModel";
 import GetReviewerResponseModel from "@/api/plugins/models/Reviewer/GetReviewerResponseModel";
+import GetReviewResponseModel from "@/api/plugins/models/Review/GetReviewResponseModel";
 @Options({})
 export default class MaterialDetailed extends Vue {
   id: number = null;
@@ -73,6 +76,8 @@ export default class MaterialDetailed extends Vue {
   ReviewerDocument: Array<FileGetResponseModel> = [];
   Authors: Array<IdNameSmallModel> = null;
   SearchModel: GetReviewerRequestModel = new GetReviewerRequestModel();
+  answer: GetReviewResponseModel = new GetReviewResponseModel();
+  comment: string = "";
   async created() {
     this.SearchModel = {
       search: "",
@@ -82,6 +87,8 @@ export default class MaterialDetailed extends Vue {
       },
     };
     this.id = Number(this.$route.params.id);
+    this.answer = new GetReviewResponseModel();
+
     if (this.id) {
       let publication: HttpResponseResult<
         GeneralModel<Array<GetPublicationResponseModel>>
@@ -90,12 +97,13 @@ export default class MaterialDetailed extends Vue {
       });
       this.publication = publication.data.items.find((el) => el.id == this.id);
       if (this.publication) {
-        this.publicationStatus=this.publication.status
+        this.publicationStatus = this.publication.status;
         this.additionalMethods();
         if (this.publication.reviewerId != null) this.getReviewer();
         this.checkReviewerDocument();
       }
     }
+    this.getRevie()
   }
   async checkReviewerDocument() {
     let res: HttpResponseResult<Array<FileGetResponseModel>> =
@@ -105,6 +113,14 @@ export default class MaterialDetailed extends Vue {
       });
     this.ReviewerDocument = res.data;
     console.log("checkReviewerDocument", res.data);
+  }
+  async getRevie() {
+    let res: HttpResponseResult<Array<GetReviewResponseModel>> =
+      await this.$api.ReviewService.Get({
+        publicationId: this.publication.id,
+      });
+    this.answer = res.data[0];
+    this.comment = res.data[0].comment;
   }
   // получить фио рецензента
   async getReviewer() {
@@ -141,7 +157,7 @@ export default class MaterialDetailed extends Vue {
       });
       this.AuthorsText.push(this.$store.state.getAvtor(autor.data.items[0]));
     }
-        this.getDocument();
+    this.getDocument();
   }
   async getDocument() {
     let res = await this.$api.FileService.Get({
@@ -153,7 +169,6 @@ export default class MaterialDetailed extends Vue {
   clickBack() {
     this.$router.push({ name: ADMINMATERIALS });
   }
-
 
   async SaveStatus() {
     let res = await this.$api.PublicationService.SetStatus({
