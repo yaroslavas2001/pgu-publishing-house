@@ -18,4 +18,6 @@ export default class AppComponent extends Vue {
 <style>
 @import "./assets/styles/reset.css";
 @import "./assets/styles/styles.css";
+/* @import "./assets/styles/main.less"; */
+
 </style>

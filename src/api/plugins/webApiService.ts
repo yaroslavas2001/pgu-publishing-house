@@ -1,4 +1,4 @@
-import AuthService from "./services/authService";
+import AuthService from "./services/AuthService";
 import Cookies from "js-cookie";
 import HttpResponseResult from "./models/httpResponseResult";
 

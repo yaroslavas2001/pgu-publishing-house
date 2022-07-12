@@ -13,7 +13,7 @@ import Reviewer from "@views/pages/reviewer/reviewer.vue"
 import MainPage from "@/views/pages/general/main-page.vue"
 import Calculation from "@/views/pages/calculation/calculation.vue"
 import {
-  DEFAULT, LOGIN, FORGOTPESSWORD, REGISTRATION,CALCULATION,
+  DEFAULT, LOGIN, FORGOTPESSWORD, REGISTRATION, CALCULATION,
   REVIEWER, ACTIVATEACCOUNT, ACTIVATEACCOUNTINFO, INDEX, PUBLICATION, ReviewerGratitude
 } from "./routerNames";
 
@@ -22,13 +22,8 @@ import UserRouter from "./model/UserRouter"
 
 const routes: Array<RouteRecordRaw> = [
   {
-    name: DEFAULT,
-    path: "/",
-    redirect: INDEX
-  },
-  {
     name: INDEX,
-    path: "/index",
+    path: "/",
     component: MainPage,
     meta: {
       title: "Издательство ПГУ",

@@ -35,7 +35,8 @@
     "vue3-click-away": "^1.2.1",
     "vue3-quill": "^0.2.5",
     "vue3-tabs": "^0.1.9",
-    "vuex": "^4.0.1"
+    "vuex": "^4.0.1",
+    "less": "^3.0.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

@@ -20,7 +20,6 @@ import { Options, Vue } from "vue-property-decorator";
 import { UserSidebarItems } from "./UserSidebarItems";
 import SidebarItem from "@/models/sidebar/sidebarItem";
 @Options({
-  components: {},
   name: "LayoutSidebar",
 })
 export default class LayoutSidebar extends Vue {
@@ -31,23 +30,20 @@ export default class LayoutSidebar extends Vue {
 }
 </script>
 <style lang="less">
-@LayoutSidebar: #eaebe5;
-@ColorText: #ba8931;
-@ColorTextHover: #d8b87c;
-@RouterLinkActive: #e9eadd;
+@import "../../../assets/less/main.less";
 
 .layout-sidebar {
   min-height: 100%;
   width: 200px;
   min-width: 200px;
-  background-color: @LayoutSidebar;
+  background-color: @BcLayoutSidebar;
   .layout-sidebar-menu {
     height: auto;
     display: flex;
     flex-direction: column;
     margin-top: 30px;
     .layout-sidebar-item {
-      color: @ColorText;
+      color: @CLayoutSidebarText;
       text-decoration: none;
       outline: none;
       padding: 10px;
@@ -56,26 +52,14 @@ export default class LayoutSidebar extends Vue {
       display: flex;
       text-align: center;
       &:hover {
-        color: @ColorTextHover;
+        color: @CLayoutSidebarTextHover;
         transition: 0.3s;
       }
     }
   }
 }
 .active {
-  color: @RouterLinkActive !important;
-  background-color: #bfa892;
+  color: @CRouterLinkActive !important;
+  background-color: @BcRouterLinkActive;
 }
-// .router-link-active {
-//   color: @RouterLinkActive !important;
-//   background-color: #062634
-// }
-// .exact-active-class {
-//   color: @RouterLinkActive !important;
-//   background-color: #062634
-// }
-// .router-link-exact-active{
-//    color: @RouterLinkActive !important;
-//   background-color: #062634
-// }
 </style>

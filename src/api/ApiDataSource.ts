@@ -1,5 +1,5 @@
 import { WebApiService } from './plugins/webApiService';
-import AuthService from './plugins/services/authService';
+import AuthService from './plugins/services/AuthService';
 //модельки
 
 import AuthorService from './plugins/services/AuthorService';

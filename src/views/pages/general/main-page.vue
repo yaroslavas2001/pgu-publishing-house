@@ -3,9 +3,11 @@
     <div class="main-page-block">
       <div class="main-page-text">Издательство ПГУ им. Т.Г. Шевченко</div>
       <div class="main-page-sub-text">
-        Будущая книга проходит все стадии издательской обработки: редактирование, корректуру, внесение оператором правки, создание предварительного и окончательного макета и т. д.
+        Будущая книга проходит все стадии издательской обработки:
+        редактирование, корректуру, внесение оператором правки, создание
+        предварительного и окончательного макета и т. д.
       </div>
-      <btn title="Калькуляция" @click="goToCal" class="btn-cal"/>
+      <btn title="Калькуляция" @click="goToCal" class="btn-cal" />
       <btn title="Вход" @click="goToLogin" />
     </div>
   </div>
@@ -24,9 +26,9 @@ export default class MainPage extends Vue {
 }
 </script>
 <style scoped lang="less" >
+@import "../../../assets/less/main.less";
 .main-page {
-  background: url("./../../../assets/img/close-up-hands-holding-open-book-small.jpg")
-    center no-repeat;
+  background: @ImageMainPage center no-repeat;
   background-size: 100% 100vh;
   height: 100vh;
   position: relative;
@@ -47,7 +49,7 @@ export default class MainPage extends Vue {
     }
   }
 }
-.btn-cal{
+.btn-cal {
   margin-bottom: 10px;
 }
 </style>

@@ -27,20 +27,21 @@ import LayoutSidebar from "./layout-sidebar.vue";
 export default class UserLayout extends Vue {}
 </script>
 <style lang="less">
+@import "../../../assets/less/main.less";
+
 .layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   .container-custom {
     flex-grow: 1;
-    background: #ffffff;
+    background: @BcContainer;
     display: flex;
     overflow-x: auto;
     .content {
       flex-grow: 1;
       margin: 29px 28px;
-          background: #eff0e8;
-
+      background: @BcContent;
     }
   }
 }

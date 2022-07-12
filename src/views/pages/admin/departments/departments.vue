@@ -120,6 +120,7 @@ export default class Departments extends Vue {
 }
 </script>
 <style scoped lang="less">
+@import "../../../../assets/less/main.less";
 .faculty {
   display: flex;
   flex-direction: column;

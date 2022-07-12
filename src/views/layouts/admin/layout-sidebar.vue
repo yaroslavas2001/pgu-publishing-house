@@ -31,22 +31,20 @@ export default class LayoutSidebar extends Vue {
 }
 </script>
 <style lang="less">
-@LayoutSidebar: #eaebe5;
-@ColorText: #ba8931;
-@ColorTextHover: #d8b87c;
-@RouterLinkActive: #e9eadd;
+@import "../../../assets/less/main.less";
 
 .layout-sidebar {
   min-height: 100%;
   width: 200px;
-  background-color: @LayoutSidebar;
+  min-width: 200px;
+  background-color: @BcLayoutSidebar;
   .layout-sidebar-menu {
     height: auto;
     display: flex;
     flex-direction: column;
     margin-top: 30px;
     .layout-sidebar-item {
-      color: @ColorText;
+      color: @CLayoutSidebarText;
       text-decoration: none;
       outline: none;
       padding: 10px;
@@ -55,14 +53,14 @@ export default class LayoutSidebar extends Vue {
       display: flex;
       text-align: center;
       &:hover {
-        color: @ColorTextHover;
+        color: @CLayoutSidebarTextHover;
         transition: 0.3s;
       }
     }
   }
 }
 .active {
-  color: @RouterLinkActive !important;
-  background-color: #bfa892;
+  color: @CRouterLinkActive !important;
+  background-color: @BcRouterLinkActive;
 }
 </style>

@@ -8,6 +8,5 @@ export const AdminSidebarItems: Array<SidebarItem> = [
     { name: 'Авторы', routeName: AUTHORS, icon: 'icon-users' },
     { name: 'Рецензенты', routeName: REVIEWER, icon: 'icon-users' },
     { name: 'Кафедры и факультеты', routeName: DEPARTMENTS, icon: 'icon-users' },
-
 ];
 

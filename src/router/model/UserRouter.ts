@@ -5,12 +5,11 @@ const UserLayout = () => import("@views/layouts/user/user-layout.vue");
 
 import NewArticlePage from "@/views/pages/user/new-material/new-material.vue"
 import UserMaterials from "@/views/pages/user/user-materials/user-materials.vue"
-import ReviewersResponse from "@/views/pages/user/user-materials/reviewers-response.vue"
 import ArticleArchive from "@/views/pages/user/material-archive/material-archive.vue"
 import AddAuthor from "@/views/pages/user/add-author/add-author.vue"
 import UserMaterialDetailed from "@views/pages/user/user-materials/user-material-detailed.vue"
 import {
-  USER, ARTICLEARCHIVE, REVIEWERSRESPONSE, ADDAUTHOR, USERMATERIALS, ALLUSERMATERIALS,
+  USER, ARTICLEARCHIVE, ADDAUTHOR, USERMATERIALS, ALLUSERMATERIALS,
   DETAILEDUSER, NEWMATERIALADD, NEWMATERIAL,
 } from "../routerNames";
 
@@ -44,12 +43,6 @@ const UserRouter: Array<RouteRecordRaw> = [
                 component: UserMaterialDetailed,
                 meta: { title: "Детальная" }
               },
-              {
-                name: REVIEWERSRESPONSE,
-                path: REVIEWERSRESPONSE,
-                component: ReviewersResponse,
-                meta: { title: "Ответ проверяющего" }
-              },
             ]
           },
 
@@ -75,7 +68,7 @@ const UserRouter: Array<RouteRecordRaw> = [
             component: ArticleArchive,
             meta: { title: "Архив статей" }
           },
-       
+
           {
             name: ADDAUTHOR,
             path: ADDAUTHOR,

@@ -12,7 +12,7 @@ import MaterialDetailed from "@views/pages/admin/materials/material-detailed.vue
 import NewMaterials from "@views/pages/admin/new-materials/new-materials.vue"
 import NewMaterialDetailed from "@views/pages/admin/new-materials/new-material-detailed.vue"
 import Departments from "@views/pages/admin/departments/departments.vue"
-import { ADMIN, AUTHORS, DETAILEDADMIN, ADMINMATERIALS, ALLADMINMATERIALS, NEWMATERIALADMIN, ALLNEWMATERIALADMIN, DETAILEDNEWMATERIALADMIN, REVIEWER, ALLREVIEWER, REVIEWERDETAILED, AUTHOR, AUTHORSGROUP, DEPARTMENTS } from "../routerNames";
+import { ADMIN, AUTHORS, DETAILEDADMIN, ADMINMATERIALS, ALLADMINMATERIALS, NEWMATERIALADMIN, ALLNEWMATERIALADMIN, DETAILEDNEWMATERIALADMIN, REVIEWER, REVIEWERS, REVIEWERDETAILED, AUTHOR, AUTHORSGROUP, DEPARTMENTS } from "../routerNames";
 
 //#endregion
 const AdminRouter: Array<RouteRecordRaw> = [
@@ -52,11 +52,11 @@ const AdminRouter: Array<RouteRecordRaw> = [
             name: REVIEWER,
             path: REVIEWER,
             component: BaseTemplate,
-            redirect: { name: ALLREVIEWER },
+            redirect: { name: REVIEWERS },
             children: [
               {
-                name: ALLREVIEWER,
-                path: ALLREVIEWER,
+                name: REVIEWERS,
+                path: REVIEWERS,
                 component: Reviewer,
                 meta: { title: "Рецензент" }
               },

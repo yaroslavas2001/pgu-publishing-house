@@ -5,7 +5,7 @@
 import { Options, Vue } from "vue-property-decorator";
 import { FORGOTPESSWORD, LOGIN, ADMIN,USER } from "@/router/routerNames";
 import Cookies from "js-cookie";
-import AuthService from "@/api/plugins/services/authService";
+import AuthService from "@/api/plugins/services/AuthService";
 import UserRole from "@/Enum/UserRole";
 
 @Options({})

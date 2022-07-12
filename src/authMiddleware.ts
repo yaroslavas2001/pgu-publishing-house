@@ -3,7 +3,7 @@ import { Router } from "vue-router";
 import Vuex, { Store } from 'vuex'
 
 import Cookies from "js-cookie";
-import AuthService from "./api/plugins/services/authService";
+import AuthService from "./api/plugins/services/AuthService";
 import { LOGIN, ADMIN, USER, INDEX, CALCULATION, REGISTRATION, ACTIVATEACCOUNTINFO, ACTIVATEACCOUNT } from "./router/routerNames";
 
 import UserRole from "./Enum/UserRole"

@@ -13,19 +13,25 @@ export default class AuthService extends BaseRequestService {
     }
     public static AdminAuthTokenName: string = 'AdminAuthToken'
     public static Role: string = 'UserRole'
-
+    public static FirstName: string = 'FirstName'
+    public static LastName: string = 'LastName'
 
     public async login(request: LoginRequest): Promise<HttpResponseResult<LoginResponse>> {
         let res = await this.createRequestPromise<LoginResponse>('/Login', 'POST', request);
         if (res.isSuccess) {
             Cookies.set(AuthService.AdminAuthTokenName, res.data.token);
             Cookies.set(AuthService.Role, res.data.role);
+            Cookies.set(AuthService.FirstName, res.data.firstName);
+            Cookies.set(AuthService.LastName, res.data.sureName);
+
         }
         return res;
     }
     public logout() {
         Cookies.set(AuthService.AdminAuthTokenName, '');
         Cookies.set(AuthService.Role, '');
+        Cookies.set(AuthService.FirstName, '');
+        Cookies.set(AuthService.LastName, '');
 
     }
     public createUser(requestBody: AuthRegister): Promise<HttpResponseResult<any>> {

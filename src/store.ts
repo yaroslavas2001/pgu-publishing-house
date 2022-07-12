@@ -22,8 +22,7 @@ export class StateModel {
   KioskСondition: Array<Model> = []
   SettlementType: Array<Model> = []
   CurrentUser: string
-  FirstName: string = ""
-  SureName: string = ""
+
   UserRole: number = null
   UserId: number = 1
   Parse(data: Object): Object {
