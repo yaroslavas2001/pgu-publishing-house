@@ -36,10 +36,6 @@ export default class Reviewer extends Vue {
   filter: GetReviewerRequestModel = new GetReviewerRequestModel();
   created() {
     this.filter = new GetReviewerRequestModel();
-    this.filter.page = {
-      skip: 0,
-      take: 10,
-    };
   }
   async getUsersAsync(filter: FilterModel<any>) {
     this.filter.page = filter.page;

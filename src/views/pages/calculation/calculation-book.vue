@@ -49,10 +49,7 @@
     >
       Макетирование
     </ui-checkbox>
-    <ui-checkbox
-      v-model="model.IsColor"
-      class="mb-5"
-    >
+    <ui-checkbox v-model="model.IsColor" class="mb-5">
       Цветная печать - рекомендована если есть картинки
     </ui-checkbox>
     <div class="sum">Цена экземпляра : {{ one.toFixed(2) }}</div>
@@ -62,31 +59,24 @@
 <script lang="ts">
 import { Options, Vue } from "vue-property-decorator";
 import CalculationСhangeModel from "@models/calculation/book/CalculationСhangeModel";
-// @Options({
-//   emits: ["goToAdmin"],
-// })
 export default class CalculationBook extends Vue {
   model: CalculationСhangeModel = new CalculationСhangeModel();
   get one(): number {
-    // console.log(this.model.one === NaN || this.model.one===Infinity? 0:this.model.one );
-    return isNaN(this.model.one) ||
-      this.model.one == Infinity ||
-      this.model.Volume < 0 ||
-      this.model.Circulation < 0
-      ? 0
-      : this.model.one;
+    return this.isNan(this.model.one);
   }
   get sum(): number {
-    // console.log(this.model.one === NaN || this.model.one===Infinity? 0:this.model.one );
-    return isNaN(this.model.all) ||
-      this.model.all == Infinity ||
-      this.model.Volume < 0 ||
-      this.model.Circulation < 0
-      ? 0
-      : this.model.all;
+    return this.isNan(this.model.all);
   }
   created() {
     this.model = new CalculationСhangeModel();
+  }
+  isNan(num: any) {
+    return isNaN(num) ||
+      num == Infinity ||
+      this.model.Volume < 0 ||
+      this.model.Circulation < 0
+      ? 0
+      : num;
   }
 }
 </script>

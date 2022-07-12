@@ -3,10 +3,10 @@ import { RouteRecordRaw } from "vue-router";
 const BaseTemplate = () => import("@/views/layouts/base-layout.vue");
 const UserLayout = () => import("@views/layouts/user/user-layout.vue");
 
-import NewArticlePage from "@/views/pages/user/new-article/new-article.vue"
+import NewArticlePage from "@/views/pages/user/new-material/new-material.vue"
 import UserMaterials from "@/views/pages/user/user-materials/user-materials.vue"
-import ReviewersResponse from "@/views/pages/user/reviewers-response/reviewers-response.vue"
-import ArticleArchive from "@/views/pages/user/article-archive/article-archive.vue"
+import ReviewersResponse from "@/views/pages/user/user-materials/reviewers-response.vue"
+import ArticleArchive from "@/views/pages/user/material-archive/material-archive.vue"
 import AddAuthor from "@/views/pages/user/add-author/add-author.vue"
 import UserMaterialDetailed from "@views/pages/user/user-materials/user-material-detailed.vue"
 import {
@@ -44,6 +44,12 @@ const UserRouter: Array<RouteRecordRaw> = [
                 component: UserMaterialDetailed,
                 meta: { title: "Детальная" }
               },
+              {
+                name: REVIEWERSRESPONSE,
+                path: REVIEWERSRESPONSE,
+                component: ReviewersResponse,
+                meta: { title: "Ответ проверяющего" }
+              },
             ]
           },
 
@@ -69,12 +75,7 @@ const UserRouter: Array<RouteRecordRaw> = [
             component: ArticleArchive,
             meta: { title: "Архив статей" }
           },
-          {
-            name: REVIEWERSRESPONSE,
-            path: REVIEWERSRESPONSE,
-            component: ReviewersResponse,
-            meta: { title: "Ответ проверяющего" }
-          },
+       
           {
             name: ADDAUTHOR,
             path: ADDAUTHOR,

@@ -86,6 +86,9 @@
   margin-top: 1px;
 }
 
+.row {
+  display: flex;
+}
 .btn-text {
   background: transparent;
   border: 0px;
