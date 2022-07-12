@@ -1,4 +1,4 @@
 export default class PageModel{
-    skip: number
-    take: number
+    skip: number =0
+    take: number=10
 }
